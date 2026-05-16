@@ -3,7 +3,7 @@
     "title": "MFA Documentary Film Scoring Model",
     "version": "23.0-decision-visual",
     "purpose": "Evidence-weighted documentary MFA fit and sustainability analysis.",
-    "last_updated": "2026-05-14",
+    "last_updated": "2026-05-16",
     "notes": [
       "Pamunkey documentary is tagged exploratory/non-core and should not drive portfolio fit scoring.",
       "Static HTML cannot autonomously scrape the live web. Web-linked updating requires API/serverless/Sheets/backend integration.",
@@ -1030,14 +1030,18 @@
           "confidence": 0.4,
           "status": "active_seeded",
           "notes": "Seeded from production/thesis structure.",
-          "evidence": []
+          "evidence": [
+            "Linked Up directory connects students with affirming Winston-Salem community businesses."
+          ]
         },
         "ethical_fieldwork": {
           "score": 0.901,
           "confidence": 0.4,
           "status": "active_seeded",
           "notes": "Seeded from production/thesis structure.",
-          "evidence": []
+          "evidence": [
+            "DOC 728 frames documentary as a persuasive tool for social and political change."
+          ]
         },
         "political_deterioration": {
           "score": 0.748,
@@ -1054,21 +1058,21 @@
           "evidence": []
         },
         "trans_healthcare_continuity": {
-          "score": 0.766,
+          "score": 0.35,
           "confidence": 0.5,
           "status": "active_seeded",
           "notes": "Seeded from politics, HRC MEI where available, and city data.",
           "evidence": []
         },
         "personal_safety": {
-          "score": 0.766,
+          "score": 0.35,
           "confidence": 0.5,
           "status": "active_seeded",
           "notes": "Seeded from politics, HRC MEI where available, and city data.",
           "evidence": []
         },
         "surveillance_perception": {
-          "score": 0.766,
+          "score": 0.35,
           "confidence": 0.5,
           "status": "active_seeded",
           "notes": "Seeded from politics, HRC MEI where available, and city data.",
@@ -1079,21 +1083,28 @@
           "confidence": 0.35,
           "status": "active_seeded",
           "notes": "Neutral prior; needs direct evidence.",
-          "evidence": []
+          "evidence": [
+            "“the LGBTQ Center can’t be the only safe space on campus” — campus-wide integration philosophy.",
+            "DEAC ally training and affirming-business infrastructure strengthen embedded community support."
+          ]
         },
         "friendship_formation": {
           "score": 0.818,
           "confidence": 0.45,
           "status": "active_seeded",
           "notes": "Seeded from support, livability, identity context, and dependency risk.",
-          "evidence": []
+          "evidence": [
+            "Small-cohort relational density and mentorship accessibility reduce social fragmentation risk."
+          ]
         },
         "relationship_sustainability": {
           "score": 0.782,
           "confidence": 0.35,
           "status": "active_seeded",
           "notes": "Neutral prior; needs direct evidence.",
-          "evidence": []
+          "evidence": [
+            "Lower-friction Winston-Salem environment, healthcare continuity, and relational program culture support couple/life sustainability."
+          ]
         },
         "isolation_risk": {
           "score": 0.818,
@@ -3146,7 +3157,9 @@
           "confidence": 0.4,
           "status": "active_seeded",
           "notes": "Seeded from production/thesis structure.",
-          "evidence": []
+          "evidence": [
+            "Critique sessions, peer feedback, office hours, and faculty brainstorming indicate collaboration-centered artistic development."
+          ]
         },
         "crew_ecosystem": {
           "score": 0.771,
@@ -3191,21 +3204,21 @@
           "evidence": []
         },
         "trans_healthcare_continuity": {
-          "score": 0.904,
+          "score": 0.9,
           "confidence": 0.5,
           "status": "active_seeded",
           "notes": "Seeded from politics, HRC MEI where available, and city data.",
           "evidence": []
         },
         "personal_safety": {
-          "score": 0.904,
+          "score": 0.9,
           "confidence": 0.5,
           "status": "active_seeded",
           "notes": "Seeded from politics, HRC MEI where available, and city data.",
           "evidence": []
         },
         "surveillance_perception": {
-          "score": 0.904,
+          "score": 0.9,
           "confidence": 0.5,
           "status": "active_seeded",
           "notes": "Seeded from politics, HRC MEI where available, and city data.",
@@ -3216,7 +3229,9 @@
           "confidence": 0.35,
           "status": "active_seeded",
           "notes": "Neutral prior; needs direct evidence.",
-          "evidence": []
+          "evidence": [
+            "Students describe critique-centered collaboration and long walks with faculty mentors."
+          ]
         },
         "friendship_formation": {
           "score": 0.76,
@@ -5106,7 +5121,9 @@
           "confidence": 0.4,
           "status": "active_seeded",
           "notes": "Seeded from production/thesis structure.",
-          "evidence": []
+          "evidence": [
+            "Program structurally integrates documentary, narrative, and interactive work."
+          ]
         },
         "crew_ecosystem": {
           "score": 0.774,
@@ -5127,7 +5144,9 @@
           "confidence": 0.4,
           "status": "active_seeded",
           "notes": "Seeded from production/thesis structure.",
-          "evidence": []
+          "evidence": [
+            "Mandatory internship/apprenticeship requirement reinforces collaborative professional development and external partnership."
+          ]
         },
         "ethical_fieldwork": {
           "score": 0.774,
@@ -5151,21 +5170,21 @@
           "evidence": []
         },
         "trans_healthcare_continuity": {
-          "score": 0.904,
+          "score": 0.8,
           "confidence": 0.5,
           "status": "active_seeded",
           "notes": "Seeded from politics, HRC MEI where available, and city data.",
           "evidence": []
         },
         "personal_safety": {
-          "score": 0.904,
+          "score": 0.8,
           "confidence": 0.5,
           "status": "active_seeded",
           "notes": "Seeded from politics, HRC MEI where available, and city data.",
           "evidence": []
         },
         "surveillance_perception": {
-          "score": 0.904,
+          "score": 0.8,
           "confidence": 0.5,
           "status": "active_seeded",
           "notes": "Seeded from politics, HRC MEI where available, and city data.",
@@ -7113,7 +7132,9 @@
           "confidence": 0.4,
           "status": "active_seeded",
           "notes": "Seeded from production/thesis structure.",
-          "evidence": []
+          "evidence": [
+            "Fenell Doremus introduces Kartemquin and PBS/Frontline nonfiction lineage; evidence remains partly adjunct-dependent."
+          ]
         },
         "political_deterioration": {
           "score": 0.702,
@@ -7130,21 +7151,21 @@
           "evidence": []
         },
         "trans_healthcare_continuity": {
-          "score": 0.801,
+          "score": 0.8,
           "confidence": 0.5,
           "status": "active_seeded",
           "notes": "Seeded from politics, HRC MEI where available, and city data.",
           "evidence": []
         },
         "personal_safety": {
-          "score": 0.801,
+          "score": 0.8,
           "confidence": 0.5,
           "status": "active_seeded",
           "notes": "Seeded from politics, HRC MEI where available, and city data.",
           "evidence": []
         },
         "surveillance_perception": {
-          "score": 0.801,
+          "score": 0.8,
           "confidence": 0.5,
           "status": "active_seeded",
           "notes": "Seeded from politics, HRC MEI where available, and city data.",
@@ -9121,21 +9142,21 @@
           "evidence": []
         },
         "trans_healthcare_continuity": {
-          "score": 0.866,
+          "score": 0.7,
           "confidence": 0.5,
           "status": "active_seeded",
           "notes": "Seeded from politics, HRC MEI where available, and city data.",
           "evidence": []
         },
         "personal_safety": {
-          "score": 0.866,
+          "score": 0.7,
           "confidence": 0.5,
           "status": "active_seeded",
           "notes": "Seeded from politics, HRC MEI where available, and city data.",
           "evidence": []
         },
         "surveillance_perception": {
-          "score": 0.866,
+          "score": 0.7,
           "confidence": 0.5,
           "status": "active_seeded",
           "notes": "Seeded from politics, HRC MEI where available, and city data.",
@@ -11039,14 +11060,19 @@
           "confidence": 0.4,
           "status": "active_seeded",
           "notes": "Seeded from production/thesis structure.",
-          "evidence": []
+          "evidence": [
+            "Scribe Video Center provides community documentary and grant infrastructure."
+          ]
         },
         "ethical_fieldwork": {
           "score": 0.711,
           "confidence": 0.4,
           "status": "active_seeded",
           "notes": "Seeded from production/thesis structure.",
-          "evidence": []
+          "evidence": [
+            "Temple emphasizes works arising from both artistic and social consciousness.",
+            "Todd Chandler’s WITNESS background supports advocacy-oriented documentary ethics; treated as mentor-specific evidence, not institution-wide proof."
+          ]
         },
         "political_deterioration": {
           "score": 0.772,
@@ -11063,21 +11089,21 @@
           "evidence": []
         },
         "trans_healthcare_continuity": {
-          "score": 0.863,
+          "score": 0.6,
           "confidence": 0.5,
           "status": "active_seeded",
           "notes": "Seeded from politics, HRC MEI where available, and city data.",
           "evidence": []
         },
         "personal_safety": {
-          "score": 0.863,
+          "score": 0.6,
           "confidence": 0.5,
           "status": "active_seeded",
           "notes": "Seeded from politics, HRC MEI where available, and city data.",
           "evidence": []
         },
         "surveillance_perception": {
-          "score": 0.863,
+          "score": 0.6,
           "confidence": 0.5,
           "status": "active_seeded",
           "notes": "Seeded from politics, HRC MEI where available, and city data.",
@@ -11088,7 +11114,9 @@
           "confidence": 0.35,
           "status": "active_seeded",
           "notes": "Neutral prior; needs direct evidence.",
-          "evidence": []
+          "evidence": [
+            "Philadelphia documentary/community infrastructure and politically engaged media culture strengthen institutional-community permeability."
+          ]
         },
         "friendship_formation": {
           "score": 0.761,
@@ -12976,14 +13004,18 @@
           "confidence": 0.4,
           "status": "active_seeded",
           "notes": "Seeded from production/thesis structure.",
-          "evidence": []
+          "evidence": [
+            "WOUB Public Media co-promotes student screenings and social-impact production."
+          ]
         },
         "ethical_fieldwork": {
           "score": 0.725,
           "confidence": 0.4,
           "status": "active_seeded",
           "notes": "Seeded from production/thesis structure.",
-          "evidence": []
+          "evidence": [
+            "Ohio frames filmmaking as a vehicle for social change."
+          ]
         },
         "political_deterioration": {
           "score": 0.592,
@@ -13000,21 +13032,21 @@
           "evidence": []
         },
         "trans_healthcare_continuity": {
-          "score": 0.487,
+          "score": 0.2,
           "confidence": 0.5,
           "status": "active_seeded",
           "notes": "Seeded from politics, HRC MEI where available, and city data.",
           "evidence": []
         },
         "personal_safety": {
-          "score": 0.487,
+          "score": 0.2,
           "confidence": 0.5,
           "status": "active_seeded",
           "notes": "Seeded from politics, HRC MEI where available, and city data.",
           "evidence": []
         },
         "surveillance_perception": {
-          "score": 0.487,
+          "score": 0.2,
           "confidence": 0.5,
           "status": "active_seeded",
           "notes": "Seeded from politics, HRC MEI where available, and city data.",
@@ -14889,7 +14921,8 @@
           "status": "active_seeded",
           "notes": "Seeded from production/thesis structure.",
           "evidence": [
-            "Updated from alumni/current-student outcomes v8."
+            "Updated from alumni/current-student outcomes v8.",
+            "SocDoc emphasizes community-based inquiry and collaborative public-facing work."
           ]
         },
         "ethical_fieldwork": {
@@ -14916,21 +14949,21 @@
           "evidence": []
         },
         "trans_healthcare_continuity": {
-          "score": 0.845,
+          "score": 0.95,
           "confidence": 0.5,
           "status": "active_seeded",
           "notes": "Seeded from politics, HRC MEI where available, and city data.",
           "evidence": []
         },
         "personal_safety": {
-          "score": 0.845,
+          "score": 0.95,
           "confidence": 0.5,
           "status": "active_seeded",
           "notes": "Seeded from politics, HRC MEI where available, and city data.",
           "evidence": []
         },
         "surveillance_perception": {
-          "score": 0.845,
+          "score": 0.95,
           "confidence": 0.5,
           "status": "active_seeded",
           "notes": "Seeded from politics, HRC MEI where available, and city data.",
@@ -16807,7 +16840,9 @@
           "confidence": 0.4,
           "status": "active_seeded",
           "notes": "Seeded from production/thesis structure.",
-          "evidence": []
+          "evidence": [
+            "Mentor-specific ecological/community documentary pathways strengthen public-facing practice without implying institution-wide documentary centrality."
+          ]
         },
         "ethical_fieldwork": {
           "score": 0.567,
@@ -16831,21 +16866,21 @@
           "evidence": []
         },
         "trans_healthcare_continuity": {
-          "score": 0.873,
+          "score": 0.7,
           "confidence": 0.5,
           "status": "active_seeded",
           "notes": "Seeded from politics, HRC MEI where available, and city data.",
           "evidence": []
         },
         "personal_safety": {
-          "score": 0.873,
+          "score": 0.7,
           "confidence": 0.5,
           "status": "active_seeded",
           "notes": "Seeded from politics, HRC MEI where available, and city data.",
           "evidence": []
         },
         "surveillance_perception": {
-          "score": 0.873,
+          "score": 0.7,
           "confidence": 0.5,
           "status": "active_seeded",
           "notes": "Seeded from politics, HRC MEI where available, and city data.",
