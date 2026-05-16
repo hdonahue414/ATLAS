@@ -20,7 +20,12 @@
       document.head.appendChild(style);
     }
 
-    document.querySelectorAll('#splashGreeting,.splashGreeting,.splashSubtitle,.atlasSubtitle').forEach(el=>el.remove());
+    function removeSplashSubtitles(){
+      document.getElementById('atlasSplashSubtitleStyles')?.remove();
+      document.querySelectorAll('#splashGreeting,.splashGreeting,.splashSubtitle,.atlasSubtitle').forEach(el=>el.remove());
+    }
+
+    removeSplashSubtitles();
 
     function normalizePracticeSelector(){
       let shell=document.querySelector('.practiceShell'),body=document.querySelector('.practiceHeroBody');
@@ -63,7 +68,7 @@
         }
       },true);
     }
-    let tries=0,watch=setInterval(()=>{tries++;document.querySelectorAll('#splashGreeting,.splashGreeting,.splashSubtitle,.atlasSubtitle').forEach(el=>el.remove());normalizePracticeSelector();if(tries>80)clearInterval(watch)},75);
+    let tries=0,watch=setInterval(()=>{tries++;removeSplashSubtitles();normalizePracticeSelector();if(tries>80)clearInterval(watch)},75);
   }
 
   let core=document.createElement('script');
