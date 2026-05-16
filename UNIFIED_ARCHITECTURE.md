@@ -1,0 +1,1 @@
+ATLAS v19 unified architecture: one module registry, one navigation system, one render dispatcher, unified dark UI, embedded fallback data, password gate retained, all major prior modules surfaced.
