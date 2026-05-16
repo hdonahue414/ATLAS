@@ -20,12 +20,18 @@
       document.head.appendChild(style);
     }
 
+    function prioritizeFinalStyles(){
+      let style=document.getElementById('atlasFinalBlockingFixes');
+      if(style)document.head.appendChild(style);
+    }
+
     function removeSplashSubtitles(){
       document.getElementById('atlasSplashSubtitleStyles')?.remove();
       document.querySelectorAll('#splashGreeting,.splashGreeting,.splashSubtitle,.atlasSubtitle').forEach(el=>el.remove());
     }
 
     removeSplashSubtitles();
+    prioritizeFinalStyles();
 
     function normalizePracticeSelector(){
       let shell=document.querySelector('.practiceShell'),body=document.querySelector('.practiceHeroBody');
@@ -38,6 +44,7 @@
         if(anchor)anchor.insertAdjacentElement('afterend',pick);else body.appendChild(pick);
       }
       shell.querySelectorAll(':scope > .practicePick').forEach(x=>x.remove());
+      prioritizeFinalStyles();
     }
 
     normalizePracticeSelector();
@@ -68,7 +75,7 @@
         }
       },true);
     }
-    let tries=0,watch=setInterval(()=>{tries++;removeSplashSubtitles();normalizePracticeSelector();if(tries>80)clearInterval(watch)},75);
+    let tries=0,watch=setInterval(()=>{tries++;removeSplashSubtitles();normalizePracticeSelector();prioritizeFinalStyles();if(tries>80)clearInterval(watch)},75);
   }
 
   let core=document.createElement('script');
