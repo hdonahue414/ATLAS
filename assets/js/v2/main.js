@@ -6,6 +6,27 @@ import { renderScoreCategory } from './components/score-card.js';
 
 const root = document.getElementById('atlas-v2-root');
 
+const CATEGORY_TITLES = {
+  mentorship: 'Mentorship',
+  documentary: 'Documentary Infrastructure',
+  teaching: 'Teaching / Academic Prep',
+  funding: 'Funding / Financial Sustainability',
+  livability: 'Livability',
+  politics: 'Politics / Legal Environment',
+  philosophy: 'Philosophical / Artistic Alignment'
+};
+
+function renderScoreCategories(school) {
+  const scores = school?.scores || {};
+
+  return Object.entries(scores)
+    .map(([categoryKey, category]) => renderScoreCategory(categoryKey, category, {
+      title: CATEGORY_TITLES[categoryKey] || categoryKey,
+      escapeHtml
+    }))
+    .join('');
+}
+
 function render() {
   const selectedSchool = state.schools[state.selectedIndex];
 
@@ -50,14 +71,9 @@ function render() {
               </p>
             </div>
 
-            ${renderScoreCategory(
-              'livability',
-              selectedSchool.scores?.livability,
-              {
-                title: 'Livability',
-                escapeHtml
-              }
-            )}
+            <div class="v2-score-stack">
+              ${renderScoreCategories(selectedSchool)}
+            </div>
           ` : '<p>No schools loaded.</p>'}
         </section>
       </div>
