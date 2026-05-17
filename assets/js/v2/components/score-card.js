@@ -12,9 +12,9 @@ function subvariableLabel(subvariable) {
 function confidenceLabel(value) {
   if (typeof value !== 'number' || Number.isNaN(value)) return null;
 
-  if (value >= 0.85) return 'high confidence';
-  if (value >= 0.65) return 'moderate confidence';
-  return 'tentative read';
+  if (value >= 0.85) return 'high';
+  if (value >= 0.65) return 'moderate';
+  return 'tentative';
 }
 
 export function renderScoreCategory(categoryKey, category, options = {}) {
@@ -41,23 +41,22 @@ export function renderScoreCategory(categoryKey, category, options = {}) {
         ${subvariables.map(subvariable => {
           const value = formatPercent(subvariable.value);
           const confidence = confidenceLabel(subvariable.confidence);
+          const meter = Math.max(0, Math.min(100, Math.round((subvariable.value || 0) * 100)));
 
           return `
             <section class="v2-subvariable">
               <div class="v2-subvariable-main">
                 <div class="v2-subvariable-copy">
                   <h4>${escapeHtml(subvariableLabel(subvariable))}</h4>
-
                   <div class="v2-subvariable-meta">
-                    ${value ? `<span>${escapeHtml(value)} read</span>` : ''}
+                    ${value ? `<span>${escapeHtml(value)}</span>` : ''}
                     ${confidence ? `<span>${escapeHtml(confidence)}</span>` : ''}
                     ${subvariable.pending ? '<span class="v2-pending">pending</span>' : ''}
                   </div>
                 </div>
-              </div>
-
-              <div class="v2-bar" aria-hidden="true">
-                <span style="width:${Math.max(0, Math.min(100, Math.round((subvariable.value || 0) * 100)))}%"></span>
+                <div class="v2-mini-meter" aria-hidden="true">
+                  <span style="--v2-meter:${meter}%"></span>
+                </div>
               </div>
 
               ${renderEvidenceBlock(subvariable.evidence, {
