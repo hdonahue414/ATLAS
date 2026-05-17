@@ -2,13 +2,9 @@ import { loadAtlasData } from './core/data.js';
 import { state } from './core/state.js';
 import { setSelectedSchool } from './core/router.js';
 import { escapeHtml } from './core/utils.js';
-import { renderEvidenceBlock } from './components/evidence-block.js';
+import { renderScoreCategory } from './components/score-card.js';
 
 const root = document.getElementById('atlas-v2-root');
-
-function getLivabilityEvidence(school) {
-  return school?.scores?.livability?.subvariables?.[1]?.evidence || null;
-}
 
 function render() {
   const selectedSchool = state.schools[state.selectedIndex];
@@ -52,15 +48,16 @@ function render() {
               <p>
                 ${escapeHtml(selectedSchool.location?.energy_profile || 'No energy profile available.')}
               </p>
-
-              ${renderEvidenceBlock(
-                getLivabilityEvidence(selectedSchool),
-                {
-                  label: 'Livability evidence',
-                  escapeHtml
-                }
-              )}
             </div>
+
+            ${renderScoreCategory(
+              'livability',
+              selectedSchool.scores?.livability,
+              {
+                title: 'Livability',
+                escapeHtml
+              }
+            )}
           ` : '<p>No schools loaded.</p>'}
         </section>
       </div>
