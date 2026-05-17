@@ -25,7 +25,7 @@ function placeNote(place) {
 
 function placeWebsite(place) {
   if (!place || typeof place === 'string') return '';
-  return asText(place.website || place.url || place.link || '');
+  return asText(place.website || place.website_url || place.url || place.link || '');
 }
 
 function placeInstagram(place) {
@@ -40,8 +40,12 @@ function placeImage(place) {
 
 function placeTags(place) {
   if (!place || typeof place === 'string') return [];
-  const tags = place.tags || place.sensory_tags || place.social_tags || [];
-  return Array.isArray(tags) ? tags.map(asText).filter(Boolean) : [];
+  const tags = [
+    ...(Array.isArray(place.tags) ? place.tags : []),
+    ...(Array.isArray(place.sensory_tags) ? place.sensory_tags : []),
+    ...(Array.isArray(place.social_tags) ? place.social_tags : [])
+  ];
+  return tags.map(asText).filter(Boolean);
 }
 
 function detailRow(label, value, escapeHtml) {
