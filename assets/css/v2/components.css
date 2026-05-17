@@ -25,6 +25,25 @@
 .v2-muted {
   color: var(--atlas-muted);
 }
+.v2-hero-card {
+  display: grid;
+  gap: 16px;
+}
+.v2-hero-card h2 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 0.95;
+}
+.v2-hero-card p {
+  margin: 0;
+}
+.v2-hero-energy {
+  margin-top: 8px;
+}
+.v2-score-stack {
+  display: grid;
+  gap: 24px;
+}
 .v2-score-card {
   display: grid;
   gap: 18px;
