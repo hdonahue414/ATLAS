@@ -4,6 +4,7 @@ import { setSelectedSchool } from './core/router.js';
 import { escapeHtml } from './core/utils.js';
 import { renderScoreCategory } from './components/score-card.js';
 import { renderSchoolPicker, bindSchoolPicker } from './components/school-picker.js';
+import { renderHeroCard } from './components/hero-card.js';
 
 const root = document.getElementById('atlas-v2-root');
 
@@ -51,19 +52,9 @@ function render() {
 
         <section class="v2-panel">
           ${selectedSchool ? `
-            <div class="v2-muted">Selected school</div>
-            <h2>${escapeHtml(selectedSchool.name)}</h2>
-            <p class="v2-muted">
-              ${escapeHtml(selectedSchool.location?.city || '')}
-              ${selectedSchool.location?.state ? ', ' + escapeHtml(selectedSchool.location.state) : ''}
-            </p>
-
-            <div class="v2-panel">
-              <div class="v2-muted">Energy profile</div>
-              <p>
-                ${escapeHtml(selectedSchool.location?.energy_profile || 'No energy profile available.')}
-              </p>
-            </div>
+            ${renderHeroCard(selectedSchool, {
+              escapeHtml
+            })}
 
             <div class="v2-score-stack">
               ${renderScoreCategories(selectedSchool)}
