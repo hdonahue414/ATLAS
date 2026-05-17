@@ -14,7 +14,7 @@ export function renderNav(activeView, options = {}) {
   if (variant === 'sidebar') {
     return `
       <nav class="v2-rail-nav" aria-label="ATLAS primary navigation">
-        <button class="v2-rail-menu" type="button" aria-label="ATLAS menu">☰</button>
+        <button class="v2-rail-menu" data-view="dashboard" type="button" aria-label="Home" title="Home">☰</button>
         <div class="v2-rail-group">
           ${items.map(item => `
             <button
@@ -27,10 +27,6 @@ export function renderNav(activeView, options = {}) {
               <span aria-hidden="true">${item.icon}</span>
             </button>
           `).join('')}
-        </div>
-        <div class="v2-rail-group v2-rail-group--utility">
-          <button class="v2-rail-button" type="button" aria-label="Search" title="Search"><span aria-hidden="true">⌕</span></button>
-          <button class="v2-rail-button" type="button" aria-label="JSON workspace" title="JSON workspace"><span aria-hidden="true">{ }</span></button>
         </div>
       </nav>
     `;
