@@ -58,14 +58,31 @@ function collectScoreEvidence(school) {
   return items;
 }
 
-function renderTraceGroup(title, items, escapeHtml) {
+function renderTraceColumn(title, items, escapeHtml) {
   const normalized = asArray(items).map(readableResearchText).filter(Boolean);
 
-  return renderSectionGroup(
-    title,
-    renderTextNotes(normalized, { escapeHtml }),
-    { escapeHtml, kicker: 'Evidence trace' }
-  );
+  return `
+    <article class="v2-trace-column">
+      <span>${escapeHtml(title)}</span>
+      <div class="v2-trace-pills">
+        ${normalized.length ? normalized.map(item => `<p>${escapeHtml(item)}</p>`).join('') : '<p class="v2-empty-note">No entries recorded.</p>'}
+      </div>
+    </article>
+  `;
+}
+
+function renderSourceTrace(sourceTrace, escapeHtml) {
+  return `
+    <section class="v2-production-card v2-source-trace-card">
+      <h3>Source trace</h3>
+      <div class="v2-trace-grid">
+        ${renderTraceColumn('verified', sourceTrace.verified, escapeHtml)}
+        ${renderTraceColumn('inferred', sourceTrace.inferred, escapeHtml)}
+        ${renderTraceColumn('speculative', sourceTrace.speculative, escapeHtml)}
+        ${renderTraceColumn('unresolved', sourceTrace.unresolved, escapeHtml)}
+      </div>
+    </section>
+  `;
 }
 
 function renderRelationshipTracker(school, escapeHtml) {
@@ -84,7 +101,7 @@ function renderRelationshipTracker(school, escapeHtml) {
 
 function renderScoreEvidenceSummary(school, escapeHtml) {
   const evidenceItems = collectScoreEvidence(school);
-  const content = evidenceItems.map(item => renderFieldNote(
+  const content = evidenceItems.slice(0, 12).map(item => renderFieldNote(
     item.label,
     readableResearchText(item.evidence),
     { escapeHtml, meta: item.categoryKey }
@@ -98,6 +115,7 @@ function renderScoreEvidenceSummary(school, escapeHtml) {
 
 export function renderResearchView(school, options = {}) {
   const escapeHtml = options.escapeHtml;
+  const schoolPicker = options.schoolPicker || '';
 
   if (!school) {
     return '<p>No school loaded.</p>';
@@ -106,25 +124,37 @@ export function renderResearchView(school, options = {}) {
   const sourceTrace = school.source_trace || {};
 
   return `
-    <div class="v2-research-view">
+    <div class="v2-research-view v2-production-view">
       ${renderModeHeader('research', school, {
         escapeHtml,
         eyebrow: 'Research dossier',
-        description: 'Evidence, uncertainty, relationship signals, and score-level provenance.'
+        description: 'Evidence, uncertainty, relationship signals, and score-level provenance.',
+        schoolPicker
       })}
 
-      <div class="v2-research-stack">
-        ${renderTraceGroup('Verified traces', sourceTrace.verified, escapeHtml)}
-        ${renderTraceGroup('Inferred reads', sourceTrace.inferred, escapeHtml)}
-        ${renderTraceGroup('Speculative threads', sourceTrace.speculative, escapeHtml)}
-        ${renderTraceGroup('Unresolved questions', sourceTrace.unresolved, escapeHtml)}
-        ${renderTraceGroup('Contradictions / tensions', school.contradictions, escapeHtml)}
-        ${renderRelationshipTracker(school, escapeHtml)}
-        ${renderScoreEvidenceSummary(school, escapeHtml)}
-        ${renderEvidenceBlock(school.public_testimony?.map(item => item.summary), {
-          label: 'Public testimony summaries',
-          escapeHtml
-        })}
+      <div class="v2-production-stack">
+        ${renderSourceTrace(sourceTrace, escapeHtml)}
+
+        <div class="v2-production-two-up">
+          <section class="v2-production-card">
+            ${renderSectionGroup('Contradictions / tensions', renderTextNotes(asArray(school.contradictions).map(readableResearchText), { escapeHtml }), { escapeHtml, kicker: 'Adversarial read' })}
+          </section>
+
+          <section class="v2-production-card">
+            ${renderRelationshipTracker(school, escapeHtml)}
+          </section>
+        </div>
+
+        <section class="v2-production-card">
+          ${renderScoreEvidenceSummary(school, escapeHtml)}
+        </section>
+
+        <section class="v2-production-card">
+          ${renderEvidenceBlock(school.public_testimony?.map(item => item.summary), {
+            label: 'Public testimony summaries',
+            escapeHtml
+          })}
+        </section>
       </div>
     </div>
   `;
