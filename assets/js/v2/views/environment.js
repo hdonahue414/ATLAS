@@ -1,5 +1,5 @@
+import { renderHeroCard } from '../components/hero-card.js';
 import { renderFieldNote, renderSectionGroup, renderTextNotes } from '../components/section-group.js';
-import { renderModeHeader } from '../components/mode-header.js';
 
 function asArray(value) {
   if (!value) return [];
@@ -76,6 +76,7 @@ function renderLocationProfile(location, escapeHtml) {
 
 export function renderEnvironmentView(school, options = {}) {
   const escapeHtml = options.escapeHtml;
+  const schoolPicker = options.schoolPicker || '';
 
   if (!school) {
     return '<p>No school loaded.</p>';
@@ -85,28 +86,24 @@ export function renderEnvironmentView(school, options = {}) {
   const locationIntel = school.location_intelligence || {};
   const cityLife = school.city_life || {};
   const anchors = collectCityLifeAnchors(school);
-  const place = [location.city, location.state].filter(Boolean).join(', ');
-  const energyProfile = location.energy_profile || '';
 
   return `
-    <div class="v2-environment-view">
-      ${renderModeHeader('environment', school, {
-        escapeHtml,
-        eyebrow: 'Environment',
-        meta: place,
-        description: energyProfile
-      })}
+    <div class="v2-environment-view v2-production-view">
+      ${renderHeroCard(school, { escapeHtml, schoolPicker })}
 
-      <div class="v2-environment-stack">
-        ${renderLocationProfile(location, escapeHtml)}
-        ${renderTextList('Environmental conditions', cityLife.sensory_social_tags || locationIntel.sensory_social_tags, escapeHtml)}
-        ${renderTextList('Livability notes', cityLife.livability_notes || locationIntel.livability_notes || locationIntel.notes, escapeHtml)}
-        ${renderTextList('Relationship / life-fit notes', cityLife.relationship_life_fit_notes || locationIntel.relationship_life_fit_notes, escapeHtml)}
-        ${renderAnchorGroup('Neighborhood anchors', anchors.neighborhoods, escapeHtml)}
-        ${renderAnchorGroup('Third-place anchors', anchors.thirdPlaces, escapeHtml)}
-        ${renderAnchorGroup('Queer / community anchors', anchors.queerCommunity, escapeHtml)}
-        ${renderAnchorGroup('Arts / culture / documentary-world anchors', anchors.artsCulture, escapeHtml)}
-        ${renderAnchorGroup('User environmental anchors', anchors.environmentalAnchors, escapeHtml)}
+      <div class="v2-production-stack">
+        <section class="v2-production-card">
+          ${renderLocationProfile(location, escapeHtml)}
+        </section>
+        <section class="v2-production-card">
+          ${renderTextList('Livability notes', cityLife.livability_notes || locationIntel.livability_notes || locationIntel.notes, escapeHtml)}
+        </section>
+        <div class="v2-production-grid">
+          ${renderAnchorGroup('Neighborhood anchors', anchors.neighborhoods, escapeHtml)}
+          ${renderAnchorGroup('Third-place anchors', anchors.thirdPlaces, escapeHtml)}
+          ${renderAnchorGroup('Queer / community anchors', anchors.queerCommunity, escapeHtml)}
+          ${renderAnchorGroup('Arts / culture / documentary-world anchors', anchors.artsCulture, escapeHtml)}
+        </div>
       </div>
     </div>
   `;
