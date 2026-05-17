@@ -1,4 +1,5 @@
 import { renderHeroCard } from '../components/hero-card.js';
+import { renderPlaceCardGroup } from '../components/place-card.js';
 import { renderFieldNote, renderSectionGroup, renderTextNotes } from '../components/section-group.js';
 
 function asArray(value) {
@@ -95,12 +96,15 @@ export function renderEnvironmentView(school, options = {}) {
         <section class="v2-production-card">
           ${renderLocationProfile(location, escapeHtml)}
         </section>
+
         <section class="v2-production-card">
           ${renderTextList('Livability notes', cityLife.livability_notes || locationIntel.livability_notes || locationIntel.notes, escapeHtml)}
         </section>
+
+        ${renderPlaceCardGroup('Third-place anchors', anchors.thirdPlaces, { escapeHtml })}
+
         <div class="v2-production-grid">
           ${renderAnchorGroup('Neighborhood anchors', anchors.neighborhoods, escapeHtml)}
-          ${renderAnchorGroup('Third-place anchors', anchors.thirdPlaces, escapeHtml)}
           ${renderAnchorGroup('Queer / community anchors', anchors.queerCommunity, escapeHtml)}
           ${renderAnchorGroup('Arts / culture / documentary-world anchors', anchors.artsCulture, escapeHtml)}
         </div>
