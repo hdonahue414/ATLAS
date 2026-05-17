@@ -6,6 +6,37 @@ function asArray(value) {
   return [value];
 }
 
+function readableResearchText(item) {
+  if (!item) return '';
+  if (typeof item === 'string') return item;
+
+  if (typeof item === 'object') {
+    if (item.signal_a || item.signal_b || item.interpretation) {
+      return [
+        item.signal_a && `Signal A: ${item.signal_a}`,
+        item.signal_b && `Signal B: ${item.signal_b}`,
+        item.interpretation && `Interpretation: ${item.interpretation}`,
+        typeof item.severity === 'number' && `Severity: ${Math.round(item.severity * 100)}%`
+      ].filter(Boolean).join(' / ');
+    }
+
+    return [
+      item.summary,
+      item.notes,
+      item.note,
+      item.finding,
+      item.description,
+      item.text,
+      item.claim,
+      item.question,
+      item.tension,
+      item.outcome_pattern
+    ].filter(Boolean).join(' / ');
+  }
+
+  return String(item);
+}
+
 function collectScoreEvidence(school) {
   const scores = school?.scores || {};
   const items = [];
@@ -26,7 +57,7 @@ function collectScoreEvidence(school) {
 }
 
 function renderTraceGroup(title, items, escapeHtml) {
-  const normalized = asArray(items);
+  const normalized = asArray(items).map(readableResearchText).filter(Boolean);
 
   if (!normalized.length) return '';
 
@@ -34,7 +65,7 @@ function renderTraceGroup(title, items, escapeHtml) {
     <section class="v2-research-group">
       <h3>${escapeHtml(title)}</h3>
       <div class="v2-research-list">
-        ${normalized.map(item => `<p>${escapeHtml(typeof item === 'string' ? item : JSON.stringify(item))}</p>`).join('')}
+        ${normalized.map(item => `<p>${escapeHtml(item)}</p>`).join('')}
       </div>
     </section>
   `;
@@ -74,7 +105,7 @@ function renderScoreEvidenceSummary(school, escapeHtml) {
           <article class="v2-research-item">
             <strong>${escapeHtml(item.label)}</strong>
             <span>${escapeHtml(item.categoryKey)}</span>
-            <p>${escapeHtml(item.evidence)}</p>
+            <p>${escapeHtml(readableResearchText(item.evidence))}</p>
           </article>
         `).join('')}
       </div>
