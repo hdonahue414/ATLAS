@@ -16,42 +16,36 @@ const VIEW_TITLES = {
   environment: 'Environment'
 };
 
+function renderInlineSchoolPicker() {
+  return `
+    <div class="v2-inline-school-picker">
+      ${renderSchoolPicker(state.schools, state.selectedIndex, { escapeHtml })}
+    </div>
+  `;
+}
+
 function renderActiveView(selectedSchool) {
+  const picker = renderInlineSchoolPicker();
+
   switch (state.activeView) {
     case 'environment':
       return `
-        <div class="v2-grid">
-          <aside class="v2-panel">
-            <h2>Schools</h2>
-            ${renderSchoolPicker(state.schools, state.selectedIndex, {
-              escapeHtml
-            })}
-          </aside>
-
-          <section class="v2-panel">
-            ${renderEnvironmentView(selectedSchool, {
-              escapeHtml
-            })}
-          </section>
-        </div>
+        <section class="v2-view-shell v2-view-shell--environment">
+          ${renderEnvironmentView(selectedSchool, {
+            escapeHtml,
+            schoolPicker: picker
+          })}
+        </section>
       `;
 
     case 'research':
       return `
-        <div class="v2-grid">
-          <aside class="v2-panel">
-            <h2>Schools</h2>
-            ${renderSchoolPicker(state.schools, state.selectedIndex, {
-              escapeHtml
-            })}
-          </aside>
-
-          <section class="v2-panel">
-            ${renderResearchView(selectedSchool, {
-              escapeHtml
-            })}
-          </section>
-        </div>
+        <section class="v2-view-shell v2-view-shell--research">
+          ${renderResearchView(selectedSchool, {
+            escapeHtml,
+            schoolPicker: picker
+          })}
+        </section>
       `;
 
     case 'programs':
