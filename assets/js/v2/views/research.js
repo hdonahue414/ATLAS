@@ -1,6 +1,6 @@
 import { renderEvidenceBlock } from '../components/evidence-block.js';
+import { renderHeroCard } from '../components/hero-card.js';
 import { renderFieldNote, renderSectionGroup, renderTextNotes } from '../components/section-group.js';
-import { renderModeHeader } from '../components/mode-header.js';
 
 function asArray(value) {
   if (!value) return [];
@@ -13,15 +13,6 @@ function readableResearchText(item) {
   if (typeof item === 'string') return item;
 
   if (typeof item === 'object') {
-    if (item.signal_a || item.signal_b || item.interpretation) {
-      return [
-        item.signal_a && `Signal A: ${item.signal_a}`,
-        item.signal_b && `Signal B: ${item.signal_b}`,
-        item.interpretation && `Interpretation: ${item.interpretation}`,
-        typeof item.severity === 'number' && `Severity: ${Math.round(item.severity * 100)}%`
-      ].filter(Boolean).join(' / ');
-    }
-
     return [
       item.summary,
       item.notes,
@@ -32,7 +23,8 @@ function readableResearchText(item) {
       item.claim,
       item.question,
       item.tension,
-      item.outcome_pattern
+      item.outcome_pattern,
+      item.interpretation
     ].filter(Boolean).join(' / ');
   }
 
@@ -125,12 +117,7 @@ export function renderResearchView(school, options = {}) {
 
   return `
     <div class="v2-research-view v2-production-view">
-      ${renderModeHeader('research', school, {
-        escapeHtml,
-        eyebrow: 'Research dossier',
-        description: 'Evidence, uncertainty, relationship signals, and score-level provenance.',
-        schoolPicker
-      })}
+      ${renderHeroCard(school, { escapeHtml, schoolPicker })}
 
       <div class="v2-production-stack">
         ${renderSourceTrace(sourceTrace, escapeHtml)}
