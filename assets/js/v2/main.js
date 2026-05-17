@@ -14,20 +14,38 @@ function renderActiveView(selectedSchool) {
   switch (state.activeView) {
     case 'environment':
       return `
-        <section class="v2-panel">
-          ${renderEnvironmentView(selectedSchool, {
-            escapeHtml
-          })}
-        </section>
+        <div class="v2-grid">
+          <aside class="v2-panel">
+            <h2>Schools</h2>
+            ${renderSchoolPicker(state.schools, state.selectedIndex, {
+              escapeHtml
+            })}
+          </aside>
+
+          <section class="v2-panel">
+            ${renderEnvironmentView(selectedSchool, {
+              escapeHtml
+            })}
+          </section>
+        </div>
       `;
 
     case 'research':
       return `
-        <section class="v2-panel">
-          ${renderResearchView(selectedSchool, {
-            escapeHtml
-          })}
-        </section>
+        <div class="v2-grid">
+          <aside class="v2-panel">
+            <h2>Schools</h2>
+            ${renderSchoolPicker(state.schools, state.selectedIndex, {
+              escapeHtml
+            })}
+          </aside>
+
+          <section class="v2-panel">
+            ${renderResearchView(selectedSchool, {
+              escapeHtml
+            })}
+          </section>
+        </div>
       `;
 
     case 'programs':
@@ -35,7 +53,9 @@ function renderActiveView(selectedSchool) {
       return `
         <section class="v2-panel">
           ${renderProgramsView(selectedSchool, {
-            escapeHtml
+            escapeHtml,
+            schools: state.schools,
+            selectedIndex: state.selectedIndex
           })}
         </section>
       `;
@@ -57,16 +77,7 @@ function render() {
         ${renderNav(state.activeView)}
       </div>
 
-      <div class="v2-grid">
-        <aside class="v2-panel">
-          <h2>Schools</h2>
-          ${renderSchoolPicker(state.schools, state.selectedIndex, {
-            escapeHtml
-          })}
-        </aside>
-
-        ${renderActiveView(selectedSchool)}
-      </div>
+      ${renderActiveView(selectedSchool)}
     </div>
   `;
 
