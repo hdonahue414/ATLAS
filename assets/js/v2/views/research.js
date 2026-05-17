@@ -31,18 +31,35 @@ function readableResearchText(item) {
   return String(item);
 }
 
+function percent(value) {
+  if (typeof value !== 'number' || Number.isNaN(value)) return '';
+  return `${Math.round(value * 100)}%`;
+}
+
+function confidenceLabel(value) {
+  if (typeof value !== 'number' || Number.isNaN(value)) return '';
+  if (value >= 0.85) return 'high confidence';
+  if (value >= 0.65) return 'moderate confidence';
+  return 'tentative read';
+}
+
 function collectScoreEvidence(school) {
   const scores = school?.scores || {};
   const items = [];
 
   Object.entries(scores).forEach(([categoryKey, category]) => {
     asArray(category?.subvariables).forEach(subvariable => {
-      asArray(subvariable?.evidence).forEach(evidence => {
-        items.push({
-          categoryKey,
-          label: subvariable?.label || subvariable?.name || subvariable?.title || 'Subvariable',
-          evidence
-        });
+      const evidence = asArray(subvariable?.evidence).map(readableResearchText).filter(Boolean);
+
+      if (!evidence.length) return;
+
+      items.push({
+        categoryKey,
+        label: subvariable?.label || subvariable?.name || subvariable?.title || 'Subvariable',
+        value: subvariable?.value,
+        confidence: subvariable?.confidence,
+        pending: Boolean(subvariable?.pending),
+        evidence
       });
     });
   });
@@ -91,18 +108,51 @@ function renderRelationshipTracker(school, escapeHtml) {
   });
 }
 
-function renderScoreEvidenceSummary(school, escapeHtml) {
-  const evidenceItems = collectScoreEvidence(school);
-  const content = evidenceItems.slice(0, 12).map(item => renderFieldNote(
-    item.label,
-    readableResearchText(item.evidence),
-    { escapeHtml, meta: item.categoryKey }
-  )).join('');
+function renderScoreEvidenceCard(item, escapeHtml) {
+  const score = percent(item.value);
+  const confidence = confidenceLabel(item.confidence);
+  const primaryEvidence = item.evidence[0] || '';
+  const extraEvidence = item.evidence.slice(1);
 
-  return renderSectionGroup('Score evidence', content, {
-    escapeHtml,
-    kicker: 'Score provenance'
-  });
+  return `
+    <article class="v2-provenance-card">
+      <div class="v2-provenance-card-topline">
+        <span>${escapeHtml(item.categoryKey)}</span>
+        ${score ? `<strong>${escapeHtml(score)}</strong>` : ''}
+      </div>
+      <h4>${escapeHtml(item.label)}</h4>
+      <p>${escapeHtml(primaryEvidence)}</p>
+      <div class="v2-provenance-meta">
+        ${confidence ? `<span>${escapeHtml(confidence)}</span>` : ''}
+        ${item.pending ? '<span>pending</span>' : ''}
+      </div>
+      ${extraEvidence.length ? `
+        <details class="v2-provenance-more">
+          <summary>More evidence</summary>
+          <div>
+            ${extraEvidence.map(evidence => `<p>${escapeHtml(evidence)}</p>`).join('')}
+          </div>
+        </details>
+      ` : ''}
+    </article>
+  `;
+}
+
+function renderScoreEvidenceSummary(school, escapeHtml) {
+  const evidenceItems = collectScoreEvidence(school).slice(0, 16);
+
+  return `
+    <section class="v2-score-provenance">
+      <div class="v2-section-kicker">Score provenance</div>
+      <div class="v2-score-provenance-header">
+        <h3>Score evidence</h3>
+        <p>Subvariable evidence compressed into readable support cards.</p>
+      </div>
+      <div class="v2-provenance-grid">
+        ${evidenceItems.map(item => renderScoreEvidenceCard(item, escapeHtml)).join('')}
+      </div>
+    </section>
+  `;
 }
 
 export function renderResearchView(school, options = {}) {
