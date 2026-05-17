@@ -27,20 +27,45 @@ function collectDashboardAnchors(school) {
     .slice(0, 4);
 }
 
+function normalizePercent(value) {
+  if (typeof value !== 'number' || Number.isNaN(value)) return null;
+  if (value <= 1) return Math.round(value * 100);
+  if (value > 100) return Math.round(value / 10);
+  return Math.round(value);
+}
+
+function weightedScoreFromCategories(school) {
+  const categories = school?.scores || {};
+  const categoryScores = Object.values(categories)
+    .map(category => {
+      const subvariables = asArray(category?.subvariables)
+        .map(item => item?.value)
+        .filter(value => typeof value === 'number' && !Number.isNaN(value));
+
+      if (!subvariables.length) return null;
+      return subvariables.reduce((sum, value) => sum + value, 0) / subvariables.length;
+    })
+    .filter(value => typeof value === 'number' && !Number.isNaN(value));
+
+  if (!categoryScores.length) return null;
+  return Math.round((categoryScores.reduce((sum, value) => sum + value, 0) / categoryScores.length) * 100);
+}
+
 function scoreForSchool(school) {
-  const candidates = [
-    school.fit_score,
-    school.composite_score,
-    school.overall_score,
-    school.dashboard_score
-  ];
+  const history = asArray(school?.score_history).filter(value => typeof value === 'number' && !Number.isNaN(value));
+  const latestHistory = history.length ? normalizePercent(history[history.length - 1]) : null;
 
-  const numeric = candidates.find(value => typeof value === 'number' && !Number.isNaN(value));
+  const directCandidates = [
+    school?.fit_score,
+    school?.composite_score,
+    school?.overall_score,
+    school?.dashboard_score
+  ].map(normalizePercent).filter(value => value !== null);
 
-  if (!numeric) return 75;
-  if (numeric <= 1) return Math.round(numeric * 100);
+  const categoryScore = weightedScoreFromCategories(school);
+  const score = latestHistory ?? directCandidates[0] ?? categoryScore ?? 75;
 
-  return Math.round(numeric);
+  return Math.max(0, Math.min(100, score));
 }
 
 export function renderDashboardView(schools, options = {}) {
@@ -73,15 +98,17 @@ export function renderDashboardView(schools, options = {}) {
               </div>
 
               <div class="v2-dashboard-content">
-                <h2>${escapeHtml(school.name)}</h2>
-                <p class="v2-dashboard-location">${escapeHtml(location)}</p>
+                <div class="v2-dashboard-copy">
+                  <h2>${escapeHtml(school.name)}</h2>
+                  <p class="v2-dashboard-location">${escapeHtml(location)}</p>
 
-                <p class="v2-dashboard-summary">
-                  ${escapeHtml(school.location?.energy_profile || 'No environmental summary recorded.')}
-                </p>
+                  <p class="v2-dashboard-summary">
+                    ${escapeHtml(school.location?.energy_profile || 'No environmental summary recorded.')}
+                  </p>
 
-                <div class="v2-dashboard-chips">
-                  ${chips}
+                  <div class="v2-dashboard-chips">
+                    ${chips}
+                  </div>
                 </div>
 
                 <button class="v2-dashboard-button" data-view-trigger="environment" data-school-index="${index}" type="button">
