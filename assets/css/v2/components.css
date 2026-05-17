@@ -25,6 +25,65 @@
 .v2-muted {
   color: var(--atlas-muted);
 }
+.v2-score-card {
+  display: grid;
+  gap: 18px;
+}
+.v2-score-card-header h3,
+.v2-subvariable h4 {
+  margin: 0;
+}
+.v2-score-note {
+  margin: 0;
+  color: var(--atlas-muted);
+  line-height: 1.6;
+}
+.v2-subvariable-list {
+  display: grid;
+  gap: 18px;
+}
+.v2-subvariable {
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 14px;
+  background: rgba(255,255,255,0.02);
+  padding: 16px;
+}
+.v2-subvariable-main {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+.v2-subvariable-values {
+  display: grid;
+  justify-items: end;
+  gap: 4px;
+  font-size: 0.82rem;
+  color: var(--atlas-muted);
+}
+.v2-subvariable-values strong {
+  color: var(--atlas-text);
+  font-size: 1rem;
+}
+.v2-pending {
+  display: inline-block;
+  margin-top: 6px;
+  color: var(--atlas-accent);
+  font-size: 0.74rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.v2-bar {
+  height: 8px;
+  margin-top: 14px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.06);
+}
+.v2-bar span {
+  display: block;
+  height: 100%;
+  background: var(--atlas-accent);
+}
 .v2-evidence-block {
   margin-top: 18px;
   border-top: 1px solid var(--atlas-border);
