@@ -1,3 +1,5 @@
+import { renderFieldNote, renderSectionGroup, renderTextNotes } from '../components/section-group.js';
+
 function asArray(value) {
   if (!value) return [];
   if (Array.isArray(value)) return value.filter(Boolean);
@@ -7,53 +9,41 @@ function asArray(value) {
 function renderTextList(title, items, escapeHtml) {
   const normalized = asArray(items).map(String).map(item => item.trim()).filter(Boolean);
 
-  if (!normalized.length) return '';
-
-  return `
-    <section class="v2-environment-group">
-      <h3>${escapeHtml(title)}</h3>
-      <div class="v2-environment-list">
-        ${normalized.map(item => `<p>${escapeHtml(item)}</p>`).join('')}
-      </div>
-    </section>
-  `;
+  return renderSectionGroup(
+    title,
+    renderTextNotes(normalized, { escapeHtml }),
+    { escapeHtml, kicker: 'Environmental read' }
+  );
 }
 
-function renderAnchor(title, anchor, escapeHtml) {
+function renderAnchor(anchor, escapeHtml) {
   if (!anchor) return '';
 
   if (typeof anchor === 'string') {
-    return `<article class="v2-environment-anchor"><strong>${escapeHtml(anchor)}</strong></article>`;
+    return renderFieldNote(anchor, '', { escapeHtml });
   }
 
   const name = anchor.name || anchor.label || anchor.title || 'Unnamed anchor';
   const type = anchor.type || anchor.anchor_type || anchor.category || '';
   const note = anchor.relevance_note || anchor.note || anchor.description || anchor.summary || '';
   const district = anchor.district || anchor.neighborhood || anchor.area || '';
+  const body = [district, note].filter(Boolean).join(' / ');
 
-  return `
-    <article class="v2-environment-anchor">
-      <strong>${escapeHtml(name)}</strong>
-      ${type ? `<span>${escapeHtml(String(type).replaceAll('_', ' '))}</span>` : ''}
-      ${district ? `<p>${escapeHtml(district)}</p>` : ''}
-      ${note ? `<p>${escapeHtml(note)}</p>` : ''}
-    </article>
-  `;
+  return renderFieldNote(name, body, {
+    escapeHtml,
+    meta: type ? String(type).replaceAll('_', ' ') : ''
+  });
 }
 
 function renderAnchorGroup(title, anchors, escapeHtml) {
-  const normalized = asArray(anchors);
+  const content = asArray(anchors)
+    .map(anchor => renderAnchor(anchor, escapeHtml))
+    .join('');
 
-  if (!normalized.length) return '';
-
-  return `
-    <section class="v2-environment-group">
-      <h3>${escapeHtml(title)}</h3>
-      <div class="v2-environment-anchor-grid">
-        ${normalized.map(anchor => renderAnchor(title, anchor, escapeHtml)).join('')}
-      </div>
-    </section>
-  `;
+  return renderSectionGroup(title, content, {
+    escapeHtml,
+    kicker: 'Place anchors'
+  });
 }
 
 function collectCityLifeAnchors(school) {
@@ -67,6 +57,20 @@ function collectCityLifeAnchors(school) {
     artsCulture: asArray(cityLife.arts_community_infrastructure || cityLife.documentary_world_nodes || school?.documentary_ecosystem),
     environmentalAnchors: asArray(cityLife.environmental_anchors)
   };
+}
+
+function renderLocationProfile(location, escapeHtml) {
+  const notes = [
+    location.setting && `Setting: ${location.setting}`,
+    location.region && `Region: ${location.region}`,
+    location.energy_profile && `Energy profile: ${location.energy_profile}`
+  ].filter(Boolean);
+
+  return renderSectionGroup(
+    'Location profile',
+    renderTextNotes(notes, { escapeHtml }),
+    { escapeHtml, kicker: 'Environmental frame' }
+  );
 }
 
 export function renderEnvironmentView(school, options = {}) {
@@ -90,16 +94,8 @@ export function renderEnvironmentView(school, options = {}) {
         ${place ? `<p class="v2-muted">${escapeHtml(place)}</p>` : ''}
       </header>
 
-      <section class="v2-environment-summary">
-        <article class="v2-environment-group">
-          <h3>Location profile</h3>
-          ${location.setting ? `<p><strong>Setting:</strong> ${escapeHtml(location.setting)}</p>` : ''}
-          ${location.region ? `<p><strong>Region:</strong> ${escapeHtml(location.region)}</p>` : ''}
-          ${location.energy_profile ? `<p><strong>Energy profile:</strong> ${escapeHtml(location.energy_profile)}</p>` : ''}
-        </article>
-      </section>
-
       <div class="v2-environment-stack">
+        ${renderLocationProfile(location, escapeHtml)}
         ${renderTextList('Environmental conditions', cityLife.sensory_social_tags || locationIntel.sensory_social_tags, escapeHtml)}
         ${renderTextList('Livability notes', cityLife.livability_notes || locationIntel.livability_notes || locationIntel.notes, escapeHtml)}
         ${renderTextList('Relationship / life-fit notes', cityLife.relationship_life_fit_notes || locationIntel.relationship_life_fit_notes, escapeHtml)}
