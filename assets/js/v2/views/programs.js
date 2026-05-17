@@ -1,5 +1,6 @@
 import { renderHeroCard } from '../components/hero-card.js';
 import { renderScoreCategory } from '../components/score-card.js';
+import { renderSchoolPicker } from '../components/school-picker.js';
 
 const CATEGORY_TITLES = {
   mentorship: 'Mentorship',
@@ -25,6 +26,8 @@ function renderScoreCategories(school, options = {}) {
 
 export function renderProgramsView(school, options = {}) {
   const escapeHtml = options.escapeHtml;
+  const schools = options.schools || [];
+  const selectedIndex = options.selectedIndex || 0;
 
   if (!school) {
     return '<p>No school loaded.</p>';
@@ -32,7 +35,12 @@ export function renderProgramsView(school, options = {}) {
 
   return `
     <div class="v2-programs-view">
-      ${renderHeroCard(school, { escapeHtml })}
+      ${renderHeroCard(school, {
+        escapeHtml,
+        schoolPicker: renderSchoolPicker(schools, selectedIndex, {
+          escapeHtml
+        })
+      })}
 
       <div class="v2-score-stack">
         ${renderScoreCategories(school, { escapeHtml })}
