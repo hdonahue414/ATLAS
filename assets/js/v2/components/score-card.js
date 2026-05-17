@@ -38,6 +38,24 @@ function categorySummary(subvariables) {
   };
 }
 
+function normalizeEvidence(evidence) {
+  if (!evidence) return [];
+  if (Array.isArray(evidence)) return evidence.map(String).map(item => item.trim()).filter(Boolean);
+  if (typeof evidence === 'string' && evidence.trim()) return [evidence.trim()];
+  return [];
+}
+
+function renderEvidencePreview(evidence, escapeHtml) {
+  const first = normalizeEvidence(evidence)[0];
+  if (!first) return '';
+
+  return `
+    <p class="v2-subvariable-evidence-preview">
+      ${escapeHtml(first)}
+    </p>
+  `;
+}
+
 export function renderScoreCategory(categoryKey, category, options = {}) {
   const escapeHtml = options.escapeHtml;
   const title = options.title || category?.label || categoryKey;
@@ -84,6 +102,7 @@ export function renderScoreCategory(categoryKey, category, options = {}) {
                     ${confidence ? `<span>${escapeHtml(confidence)}</span>` : ''}
                     ${subvariable.pending ? '<span class="v2-pending">pending</span>' : ''}
                   </div>
+                  ${renderEvidencePreview(subvariable.evidence, escapeHtml)}
                 </div>
                 <div class="v2-mini-meter" aria-hidden="true">
                   <span style="--v2-meter:${meter}%"></span>
@@ -91,7 +110,7 @@ export function renderScoreCategory(categoryKey, category, options = {}) {
               </div>
 
               ${renderEvidenceBlock(subvariable.evidence, {
-                label: 'Field notes',
+                label: 'More field notes',
                 escapeHtml
               })}
             </section>
