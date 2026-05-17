@@ -1,4 +1,5 @@
 import { renderFieldNote, renderSectionGroup, renderTextNotes } from '../components/section-group.js';
+import { renderModeHeader } from '../components/mode-header.js';
 
 function asArray(value) {
   if (!value) return [];
@@ -85,14 +86,16 @@ export function renderEnvironmentView(school, options = {}) {
   const cityLife = school.city_life || {};
   const anchors = collectCityLifeAnchors(school);
   const place = [location.city, location.state].filter(Boolean).join(', ');
+  const energyProfile = location.energy_profile || '';
 
   return `
     <div class="v2-environment-view">
-      <header class="v2-environment-header">
-        <div class="v2-muted">Environment</div>
-        <h2>${escapeHtml(school.name)}</h2>
-        ${place ? `<p class="v2-muted">${escapeHtml(place)}</p>` : ''}
-      </header>
+      ${renderModeHeader('environment', school, {
+        escapeHtml,
+        eyebrow: 'Environment',
+        meta: place,
+        description: energyProfile
+      })}
 
       <div class="v2-environment-stack">
         ${renderLocationProfile(location, escapeHtml)}
