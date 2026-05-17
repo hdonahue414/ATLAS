@@ -2,32 +2,10 @@ import { loadAtlasData } from './core/data.js';
 import { state } from './core/state.js';
 import { setSelectedSchool } from './core/router.js';
 import { escapeHtml } from './core/utils.js';
-import { renderScoreCategory } from './components/score-card.js';
 import { renderSchoolPicker, bindSchoolPicker } from './components/school-picker.js';
-import { renderHeroCard } from './components/hero-card.js';
+import { renderProgramsView } from './views/programs.js';
 
 const root = document.getElementById('atlas-v2-root');
-
-const CATEGORY_TITLES = {
-  mentorship: 'Mentorship',
-  documentary: 'Documentary Infrastructure',
-  teaching: 'Teaching / Academic Prep',
-  funding: 'Funding / Financial Sustainability',
-  livability: 'Livability',
-  politics: 'Politics / Legal Environment',
-  philosophy: 'Philosophical / Artistic Alignment'
-};
-
-function renderScoreCategories(school) {
-  const scores = school?.scores || {};
-
-  return Object.entries(scores)
-    .map(([categoryKey, category]) => renderScoreCategory(categoryKey, category, {
-      title: CATEGORY_TITLES[categoryKey] || categoryKey,
-      escapeHtml
-    }))
-    .join('');
-}
 
 function render() {
   const selectedSchool = state.schools[state.selectedIndex];
@@ -51,15 +29,9 @@ function render() {
         </aside>
 
         <section class="v2-panel">
-          ${selectedSchool ? `
-            ${renderHeroCard(selectedSchool, {
-              escapeHtml
-            })}
-
-            <div class="v2-score-stack">
-              ${renderScoreCategories(selectedSchool)}
-            </div>
-          ` : '<p>No schools loaded.</p>'}
+          ${renderProgramsView(selectedSchool, {
+            escapeHtml
+          })}
         </section>
       </div>
     </div>
