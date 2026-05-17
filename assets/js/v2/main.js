@@ -3,6 +3,7 @@ import { state } from './core/state.js';
 import { setSelectedSchool } from './core/router.js';
 import { escapeHtml } from './core/utils.js';
 import { renderScoreCategory } from './components/score-card.js';
+import { renderSchoolPicker, bindSchoolPicker } from './components/school-picker.js';
 
 const root = document.getElementById('atlas-v2-root');
 
@@ -43,16 +44,9 @@ function render() {
       <div class="v2-grid">
         <aside class="v2-panel">
           <h2>Schools</h2>
-          <div class="v2-school-list">
-            ${state.schools.map((school, index) => `
-              <button
-                class="v2-school-button ${index === state.selectedIndex ? 'active' : ''}"
-                data-school-index="${index}"
-              >
-                ${escapeHtml(school.name)}
-              </button>
-            `).join('')}
-          </div>
+          ${renderSchoolPicker(state.schools, state.selectedIndex, {
+            escapeHtml
+          })}
         </aside>
 
         <section class="v2-panel">
@@ -80,11 +74,9 @@ function render() {
     </div>
   `;
 
-  root.querySelectorAll('[data-school-index]').forEach(button => {
-    button.addEventListener('click', () => {
-      setSelectedSchool(state, Number(button.dataset.schoolIndex));
-      render();
-    });
+  bindSchoolPicker(root, (index) => {
+    setSelectedSchool(state, index);
+    render();
   });
 }
 
