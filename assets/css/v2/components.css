@@ -25,3 +25,24 @@
 .v2-muted {
   color: var(--atlas-muted);
 }
+.v2-evidence-block {
+  margin-top: 18px;
+  border-top: 1px solid var(--atlas-border);
+  padding-top: 12px;
+}
+.v2-evidence-block summary {
+  cursor: pointer;
+  color: var(--atlas-accent);
+  font-size: 0.84rem;
+  letter-spacing: 0.04em;
+}
+.v2-evidence-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+.v2-evidence-list p {
+  margin: 0;
+  color: var(--atlas-muted);
+  line-height: 1.5;
+}
