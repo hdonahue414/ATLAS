@@ -1,0 +1,167 @@
+/* Final v2 overrides for current runtime regressions. Loaded last. */
+
+.v2-dashboard-content {
+  position: absolute !important;
+  inset: auto 22px 22px !important;
+  display: grid !important;
+  grid-template-rows: minmax(0, 1fr) auto !important;
+  gap: 14px !important;
+  width: calc(100% - 44px) !important;
+  max-width: calc(100% - 44px) !important;
+}
+
+.v2-dashboard-copy {
+  max-width: calc(100% - 118px) !important;
+  min-width: 0 !important;
+}
+
+.v2-dashboard-content h2 {
+  max-width: 100% !important;
+  overflow-wrap: normal !important;
+  word-break: normal !important;
+  hyphens: none !important;
+  font-size: clamp(1.75rem, 3.1vw, 2.25rem) !important;
+  line-height: 0.95 !important;
+}
+
+.v2-dashboard-chips {
+  max-width: 100% !important;
+}
+
+.v2-dashboard-chips span {
+  max-width: 100% !important;
+}
+
+.v2-dashboard-button {
+  align-self: end !important;
+  width: 100% !important;
+  text-align: center !important;
+}
+
+.v2-score-provenance {
+  display: grid !important;
+  gap: 22px !important;
+}
+
+.v2-score-provenance-header {
+  display: grid !important;
+  gap: 8px !important;
+}
+
+.v2-score-provenance-header h3 {
+  margin: 0 !important;
+  font-size: clamp(2rem, 4vw, 3rem) !important;
+  letter-spacing: -0.055em !important;
+  line-height: 0.98 !important;
+}
+
+.v2-score-provenance-header p {
+  margin: 0 !important;
+  max-width: 760px !important;
+  color: rgba(237,244,255,0.62) !important;
+  line-height: 1.6 !important;
+}
+
+.v2-provenance-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)) !important;
+  gap: 16px !important;
+}
+
+.v2-provenance-card {
+  display: grid !important;
+  gap: 12px !important;
+  min-width: 0 !important;
+  border: 1px solid rgba(255,255,255,0.065) !important;
+  border-radius: 22px !important;
+  background: radial-gradient(circle at top left, rgba(157,231,215,0.04), transparent 34%), linear-gradient(180deg, rgba(10,15,27,0.88), rgba(6,10,18,0.96)) !important;
+  padding: 18px !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.025) !important;
+}
+
+.v2-provenance-card-topline {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 10px !important;
+}
+
+.v2-provenance-card-topline span,
+.v2-provenance-card-topline strong {
+  display: inline-flex !important;
+  align-items: center !important;
+  border: 1px solid rgba(255,255,255,0.075) !important;
+  border-radius: 999px !important;
+  background: rgba(255,255,255,0.035) !important;
+  padding: 4px 8px !important;
+  color: rgba(157,231,215,0.82) !important;
+  font-size: 0.68rem !important;
+  letter-spacing: 0.09em !important;
+  text-transform: uppercase !important;
+  line-height: 1 !important;
+}
+
+.v2-provenance-card h4 {
+  margin: 0 !important;
+  font-size: 1.03rem !important;
+  line-height: 1.25 !important;
+  letter-spacing: -0.02em !important;
+}
+
+.v2-provenance-card p {
+  margin: 0 !important;
+  color: rgba(237,244,255,0.7) !important;
+  line-height: 1.5 !important;
+  font-size: 0.92rem !important;
+}
+
+.v2-provenance-meta {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+}
+
+.v2-provenance-meta span {
+  border: 1px solid rgba(255,255,255,0.07) !important;
+  border-radius: 999px !important;
+  background: rgba(255,255,255,0.035) !important;
+  color: rgba(237,244,255,0.62) !important;
+  font-size: 0.68rem !important;
+  letter-spacing: 0.08em !important;
+  padding: 4px 8px !important;
+  text-transform: uppercase !important;
+}
+
+.v2-provenance-more {
+  padding-top: 10px !important;
+  border-top: 1px solid rgba(255,255,255,0.045) !important;
+}
+
+.v2-provenance-more summary {
+  cursor: pointer !important;
+  color: rgba(157,231,215,0.76) !important;
+  font-size: 0.7rem !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+}
+
+.v2-provenance-more div {
+  display: grid !important;
+  gap: 10px !important;
+  margin-top: 12px !important;
+}
+
+@media (max-width: 760px) {
+  .v2-dashboard-copy {
+    max-width: 100% !important;
+    padding-right: 82px !important;
+  }
+
+  .v2-dashboard-content h2 {
+    font-size: clamp(1.95rem, 8vw, 2.7rem) !important;
+  }
+
+  .v2-provenance-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
