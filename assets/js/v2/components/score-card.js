@@ -56,6 +56,16 @@ function renderEvidencePreview(evidence, escapeHtml) {
   `;
 }
 
+function renderAdditionalEvidence(evidence, escapeHtml) {
+  const additional = normalizeEvidence(evidence).slice(1);
+  if (!additional.length) return '';
+
+  return renderEvidenceBlock(additional, {
+    label: 'More field notes',
+    escapeHtml
+  });
+}
+
 export function renderScoreCategory(categoryKey, category, options = {}) {
   const escapeHtml = options.escapeHtml;
   const title = options.title || category?.label || categoryKey;
@@ -109,10 +119,7 @@ export function renderScoreCategory(categoryKey, category, options = {}) {
                 </div>
               </div>
 
-              ${renderEvidenceBlock(subvariable.evidence, {
-                label: 'More field notes',
-                escapeHtml
-              })}
+              ${renderAdditionalEvidence(subvariable.evidence, escapeHtml)}
             </section>
           `;
         }).join('')}
