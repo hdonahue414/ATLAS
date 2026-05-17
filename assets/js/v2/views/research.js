@@ -1,4 +1,5 @@
 import { renderEvidenceBlock } from '../components/evidence-block.js';
+import { renderFieldNote, renderSectionGroup, renderTextNotes } from '../components/section-group.js';
 
 function asArray(value) {
   if (!value) return [];
@@ -59,58 +60,39 @@ function collectScoreEvidence(school) {
 function renderTraceGroup(title, items, escapeHtml) {
   const normalized = asArray(items).map(readableResearchText).filter(Boolean);
 
-  if (!normalized.length) return '';
-
-  return `
-    <section class="v2-research-group">
-      <h3>${escapeHtml(title)}</h3>
-      <div class="v2-research-list">
-        ${normalized.map(item => `<p>${escapeHtml(item)}</p>`).join('')}
-      </div>
-    </section>
-  `;
+  return renderSectionGroup(
+    title,
+    renderTextNotes(normalized, { escapeHtml }),
+    { escapeHtml, kicker: 'Evidence trace' }
+  );
 }
 
 function renderRelationshipTracker(school, escapeHtml) {
   const records = asArray(school?.relationship_tracker);
+  const content = records.map(record => renderFieldNote(
+    record.person || 'Unknown contact',
+    [record.tone, record.residue].filter(Boolean).join(' / '),
+    { escapeHtml, meta: record.role || '' }
+  )).join('');
 
-  if (!records.length) return '';
-
-  return `
-    <section class="v2-research-group">
-      <h3>Relationship signals</h3>
-      <div class="v2-research-list">
-        ${records.map(record => `
-          <article class="v2-research-item">
-            <strong>${escapeHtml(record.person || 'Unknown contact')}</strong>
-            <span>${escapeHtml(record.role || '')}</span>
-            <p>${escapeHtml([record.tone, record.residue].filter(Boolean).join(' / '))}</p>
-          </article>
-        `).join('')}
-      </div>
-    </section>
-  `;
+  return renderSectionGroup('Relationship signals', content, {
+    escapeHtml,
+    kicker: 'Direct contact'
+  });
 }
 
 function renderScoreEvidenceSummary(school, escapeHtml) {
   const evidenceItems = collectScoreEvidence(school);
+  const content = evidenceItems.map(item => renderFieldNote(
+    item.label,
+    readableResearchText(item.evidence),
+    { escapeHtml, meta: item.categoryKey }
+  )).join('');
 
-  if (!evidenceItems.length) return '';
-
-  return `
-    <section class="v2-research-group">
-      <h3>Score evidence</h3>
-      <div class="v2-research-list">
-        ${evidenceItems.map(item => `
-          <article class="v2-research-item">
-            <strong>${escapeHtml(item.label)}</strong>
-            <span>${escapeHtml(item.categoryKey)}</span>
-            <p>${escapeHtml(readableResearchText(item.evidence))}</p>
-          </article>
-        `).join('')}
-      </div>
-    </section>
-  `;
+  return renderSectionGroup('Score evidence', content, {
+    escapeHtml,
+    kicker: 'Score provenance'
+  });
 }
 
 export function renderResearchView(school, options = {}) {
