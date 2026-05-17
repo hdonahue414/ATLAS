@@ -112,6 +112,22 @@ function enrichAnchors(anchors) {
   return asArray(anchors).map(enrichAnchor);
 }
 
+function normalizeAnchorType(anchor) {
+  if (!anchor || typeof anchor === 'string') return '';
+
+  return String(anchor.anchor_type || anchor.type || anchor.category || '')
+    .toLowerCase()
+    .replaceAll('-', '_')
+    .trim();
+}
+
+function anchorsByType(anchors, matchers = []) {
+  return anchors.filter(anchor => {
+    const type = normalizeAnchorType(anchor);
+    return matchers.some(matcher => type.includes(matcher));
+  });
+}
+
 function renderTextList(title, items, escapeHtml) {
   const normalized = asArray(items).map(String).map(item => item.trim()).filter(Boolean);
 
@@ -126,12 +142,34 @@ function collectCityLifeAnchors(school) {
   const cityLife = school?.city_life || {};
   const locationIntel = school?.location_intelligence || {};
 
+  const environmentalAnchors = enrichAnchors(cityLife.environmental_anchors);
+
+  const neighborhoods = [
+    ...anchorsByType(environmentalAnchors, ['neighborhood']),
+    ...enrichAnchors(cityLife.neighborhoods || locationIntel.neighborhoods)
+  ];
+
+  const thirdPlaces = [
+    ...anchorsByType(environmentalAnchors, ['third_place', 'participatory_culture']),
+    ...enrichAnchors(cityLife.third_places || cityLife.points_of_interest || locationIntel.points_of_interest)
+  ];
+
+  const queerCommunity = [
+    ...anchorsByType(environmentalAnchors, ['queer', 'lgbt']),
+    ...enrichAnchors(cityLife.queer_community_infrastructure || locationIntel.lgbtq_resources)
+  ];
+
+  const artsCulture = [
+    ...anchorsByType(environmentalAnchors, ['arts_culture', 'documentary_world']),
+    ...enrichAnchors(cityLife.arts_community_infrastructure || cityLife.documentary_world_nodes || school?.documentary_ecosystem)
+  ];
+
   return {
-    neighborhoods: enrichAnchors(cityLife.neighborhoods || locationIntel.neighborhoods),
-    thirdPlaces: enrichAnchors(cityLife.third_places || cityLife.points_of_interest || locationIntel.points_of_interest),
-    queerCommunity: enrichAnchors(cityLife.queer_community_infrastructure || locationIntel.lgbtq_resources),
-    artsCulture: enrichAnchors(cityLife.arts_community_infrastructure || cityLife.documentary_world_nodes || school?.documentary_ecosystem),
-    environmentalAnchors: enrichAnchors(cityLife.environmental_anchors)
+    neighborhoods,
+    thirdPlaces,
+    queerCommunity,
+    artsCulture,
+    environmentalAnchors
   };
 }
 
