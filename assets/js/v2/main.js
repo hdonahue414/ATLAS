@@ -7,19 +7,17 @@ import { renderSchoolPicker, bindSchoolPicker } from './components/school-picker
 import { renderProgramsView } from './views/programs.js';
 import { renderResearchView } from './views/research.js';
 import { renderEnvironmentView } from './views/environment.js';
+import { renderDashboardView } from './views/dashboard.js';
 
 const root = document.getElementById('atlas-v2-root');
 
 const VIEW_TITLES = {
+  dashboard: 'Home',
   programs: 'Programs',
   research: 'Research',
-  environment: 'Environment'
-};
-
-const VIEW_DESCRIPTIONS = {
-  programs: 'Program fit, structure, and interpretive scoring.',
-  research: 'Evidence provenance, contradictions, and source confidence.',
-  environment: 'Lived-place intelligence, city rhythm, and daily-life anchors.'
+  environment: 'Environment',
+  practice: 'Practice',
+  curriculum: 'Curriculum'
 };
 
 function renderInlineSchoolPicker() {
@@ -34,6 +32,9 @@ function renderActiveView(selectedSchool) {
   const picker = renderInlineSchoolPicker();
 
   switch (state.activeView) {
+    case 'dashboard':
+      return renderDashboardView(state.schools, { escapeHtml });
+
     case 'environment':
       return `
         <section class="v2-view-shell v2-view-shell--environment">
@@ -68,21 +69,10 @@ function renderActiveView(selectedSchool) {
   }
 }
 
-function renderSidebar(selectedSchool) {
+function renderSidebar() {
   return `
     <aside class="v2-sidebar" aria-label="ATLAS navigation">
-      <div class="v2-sidebar-brand">
-        <span>ATLAS</span>
-        <small>Documentary Futures</small>
-      </div>
-
       ${renderNav(state.activeView, { variant: 'sidebar' })}
-
-      <section class="v2-sidebar-selector" aria-label="School selector">
-        <div class="v2-sidebar-label">Active dossier</div>
-        <strong>${selectedSchool ? escapeHtml(selectedSchool.name) : 'No school'}</strong>
-        ${renderSchoolPicker(state.schools, state.selectedIndex, { escapeHtml })}
-      </section>
     </aside>
   `;
 }
@@ -90,17 +80,15 @@ function renderSidebar(selectedSchool) {
 function render() {
   const selectedSchool = state.schools[state.selectedIndex];
   const title = VIEW_TITLES[state.activeView] || 'ATLAS';
-  const description = VIEW_DESCRIPTIONS[state.activeView] || '';
 
   root.innerHTML = `
     <div class="v2-app-shell">
-      ${renderSidebar(selectedSchool)}
+      ${renderSidebar()}
 
       <main class="v2-main-stage">
         <header class="v2-page-header">
           <div>
             <h1>${escapeHtml(title)}</h1>
-            ${description ? `<p>${escapeHtml(description)}</p>` : ''}
           </div>
         </header>
 
