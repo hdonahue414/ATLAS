@@ -2,6 +2,7 @@ import { loadAtlasData } from './core/data.js';
 import { state } from './core/state.js';
 import { setSelectedSchool, setView } from './core/router.js';
 import { escapeHtml } from './core/utils.js';
+import { renderNav, bindNav } from './components/nav.js';
 import { renderSchoolPicker, bindSchoolPicker } from './components/school-picker.js';
 import { renderProgramsView } from './views/programs.js';
 import { renderResearchView } from './views/research.js';
@@ -43,23 +44,7 @@ function render() {
           Isolated rebuild runtime. Current app behavior remains untouched.
         </p>
 
-        <nav class="v2-topnav">
-          <button
-            class="v2-nav-button ${state.activeView === 'programs' ? 'active' : ''}"
-            data-view="programs"
-            type="button"
-          >
-            Programs
-          </button>
-
-          <button
-            class="v2-nav-button ${state.activeView === 'research' ? 'active' : ''}"
-            data-view="research"
-            type="button"
-          >
-            Research
-          </button>
-        </nav>
+        ${renderNav(state.activeView)}
       </div>
 
       <div class="v2-grid">
@@ -80,11 +65,9 @@ function render() {
     render();
   });
 
-  root.querySelectorAll('[data-view]').forEach(button => {
-    button.addEventListener('click', () => {
-      setView(state, button.dataset.view);
-      render();
-    });
+  bindNav(root, (viewName) => {
+    setView(state, viewName);
+    render();
   });
 }
 
