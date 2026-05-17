@@ -5,6 +5,23 @@
   box-shadow: var(--atlas-shadow);
   padding: 20px;
 }
+.v2-topnav {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+}
+.v2-nav-button {
+  border: 1px solid var(--atlas-border);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.02);
+  color: var(--atlas-muted);
+  padding: 10px 16px;
+  cursor: pointer;
+}
+.v2-nav-button.active {
+  border-color: var(--atlas-accent);
+  color: var(--atlas-text);
+}
 .v2-school-list {
   display: grid;
   gap: 10px;
