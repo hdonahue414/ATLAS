@@ -103,15 +103,19 @@ export function renderResearchView(school, options = {}) {
   }
 
   const sourceTrace = school.source_trace || {};
+  const image = school.visual_identity?.photo_local || '';
 
   return `
     <div class="v2-research-view">
-      <header class="v2-research-header">
-        <div class="v2-muted">Research dossier</div>
-        <h2>${escapeHtml(school.name)}</h2>
-        <p class="v2-muted">
-          Evidence, uncertainty, relationship signals, and score-level provenance.
-        </p>
+      <header class="v2-research-header v2-mode-plate">
+        ${image ? `<img src="${escapeHtml(image)}" alt="" loading="lazy">` : ''}
+        <div class="v2-mode-plate-content">
+          <div class="v2-muted">Research dossier</div>
+          <h2>${escapeHtml(school.name)}</h2>
+          <p class="v2-muted">
+            Evidence, uncertainty, relationship signals, and score-level provenance.
+          </p>
+        </div>
       </header>
 
       <div class="v2-research-stack">
