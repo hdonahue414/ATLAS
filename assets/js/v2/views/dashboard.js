@@ -36,7 +36,11 @@ function scoreForSchool(school) {
   ];
 
   const numeric = candidates.find(value => typeof value === 'number' && !Number.isNaN(value));
-  return numeric || 75;
+
+  if (!numeric) return 75;
+  if (numeric <= 1) return Math.round(numeric * 100);
+
+  return Math.round(numeric);
 }
 
 export function renderDashboardView(schools, options = {}) {
@@ -80,7 +84,7 @@ export function renderDashboardView(schools, options = {}) {
                   ${chips}
                 </div>
 
-                <button class="v2-dashboard-button" type="button">
+                <button class="v2-dashboard-button" data-view-trigger="environment" data-school-index="${index}" type="button">
                   Environmental context
                 </button>
               </div>
