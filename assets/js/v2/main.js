@@ -16,6 +16,12 @@ const VIEW_TITLES = {
   environment: 'Environment'
 };
 
+const VIEW_DESCRIPTIONS = {
+  programs: 'Program fit, structure, and interpretive scoring.',
+  research: 'Evidence provenance, contradictions, and source confidence.',
+  environment: 'Lived-place intelligence, city rhythm, and daily-life anchors.'
+};
+
 function renderInlineSchoolPicker() {
   return `
     <div class="v2-inline-school-picker">
@@ -62,17 +68,44 @@ function renderActiveView(selectedSchool) {
   }
 }
 
+function renderSidebar(selectedSchool) {
+  return `
+    <aside class="v2-sidebar" aria-label="ATLAS navigation">
+      <div class="v2-sidebar-brand">
+        <span>ATLAS</span>
+        <small>Documentary Futures</small>
+      </div>
+
+      ${renderNav(state.activeView, { variant: 'sidebar' })}
+
+      <section class="v2-sidebar-selector" aria-label="School selector">
+        <div class="v2-sidebar-label">Active dossier</div>
+        <strong>${selectedSchool ? escapeHtml(selectedSchool.name) : 'No school'}</strong>
+        ${renderSchoolPicker(state.schools, state.selectedIndex, { escapeHtml })}
+      </section>
+    </aside>
+  `;
+}
+
 function render() {
   const selectedSchool = state.schools[state.selectedIndex];
+  const title = VIEW_TITLES[state.activeView] || 'ATLAS';
+  const description = VIEW_DESCRIPTIONS[state.activeView] || '';
 
   root.innerHTML = `
-    <div class="v2-shell">
-      <header class="v2-page-header">
-        <h1>${escapeHtml(VIEW_TITLES[state.activeView] || 'ATLAS')}</h1>
-        ${renderNav(state.activeView)}
-      </header>
+    <div class="v2-app-shell">
+      ${renderSidebar(selectedSchool)}
 
-      ${renderActiveView(selectedSchool)}
+      <main class="v2-main-stage">
+        <header class="v2-page-header">
+          <div>
+            <h1>${escapeHtml(title)}</h1>
+            ${description ? `<p>${escapeHtml(description)}</p>` : ''}
+          </div>
+        </header>
+
+        ${renderActiveView(selectedSchool)}
+      </main>
     </div>
   `;
 
