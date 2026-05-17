@@ -1,6 +1,6 @@
 import { renderHeroCard } from '../components/hero-card.js';
 import { renderPlaceCardGroup } from '../components/place-card.js';
-import { renderFieldNote, renderSectionGroup, renderTextNotes } from '../components/section-group.js';
+import { renderSectionGroup, renderTextNotes } from '../components/section-group.js';
 
 function asArray(value) {
   if (!value) return [];
@@ -16,36 +16,6 @@ function renderTextList(title, items, escapeHtml) {
     renderTextNotes(normalized, { escapeHtml }),
     { escapeHtml, kicker: 'Environmental read' }
   );
-}
-
-function renderAnchor(anchor, escapeHtml) {
-  if (!anchor) return '';
-
-  if (typeof anchor === 'string') {
-    return renderFieldNote(anchor, '', { escapeHtml });
-  }
-
-  const name = anchor.name || anchor.label || anchor.title || 'Unnamed anchor';
-  const type = anchor.type || anchor.anchor_type || anchor.category || '';
-  const note = anchor.relevance_note || anchor.note || anchor.description || anchor.summary || '';
-  const district = anchor.district || anchor.neighborhood || anchor.area || '';
-  const body = [district, note].filter(Boolean).join(' / ');
-
-  return renderFieldNote(name, body, {
-    escapeHtml,
-    meta: type ? String(type).replaceAll('_', ' ') : ''
-  });
-}
-
-function renderAnchorGroup(title, anchors, escapeHtml) {
-  const content = asArray(anchors)
-    .map(anchor => renderAnchor(anchor, escapeHtml))
-    .join('');
-
-  return renderSectionGroup(title, content, {
-    escapeHtml,
-    kicker: 'Place anchors'
-  });
 }
 
 function collectCityLifeAnchors(school) {
@@ -101,12 +71,11 @@ export function renderEnvironmentView(school, options = {}) {
           ${renderTextList('Livability notes', cityLife.livability_notes || locationIntel.livability_notes || locationIntel.notes, escapeHtml)}
         </section>
 
-        ${renderPlaceCardGroup('Third-place anchors', anchors.thirdPlaces, { escapeHtml })}
-
         <div class="v2-production-grid">
-          ${renderAnchorGroup('Neighborhood anchors', anchors.neighborhoods, escapeHtml)}
-          ${renderAnchorGroup('Queer / community anchors', anchors.queerCommunity, escapeHtml)}
-          ${renderAnchorGroup('Arts / culture / documentary-world anchors', anchors.artsCulture, escapeHtml)}
+          ${renderPlaceCardGroup('Neighborhood anchors', anchors.neighborhoods, { escapeHtml })}
+          ${renderPlaceCardGroup('Third-place anchors', anchors.thirdPlaces, { escapeHtml })}
+          ${renderPlaceCardGroup('Queer / community anchors', anchors.queerCommunity, { escapeHtml })}
+          ${renderPlaceCardGroup('Arts / culture / documentary-world anchors', anchors.artsCulture, { escapeHtml })}
         </div>
       </div>
     </div>
