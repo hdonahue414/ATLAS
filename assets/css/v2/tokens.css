@@ -1,0 +1,11 @@
+:root {
+  --atlas-bg: #050914;
+  --atlas-surface: #0b1220;
+  --atlas-border: rgba(255,255,255,0.08);
+  --atlas-text: #edf4ff;
+  --atlas-muted: rgba(237,244,255,0.68);
+  --atlas-accent: #9de7d7;
+  --atlas-radius: 18px;
+  --atlas-shadow: 0 20px 60px rgba(0,0,0,0.32);
+  --atlas-max-width: 1440px;
+}
