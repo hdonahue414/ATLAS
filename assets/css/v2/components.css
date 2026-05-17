@@ -16,9 +16,7 @@
   border: 1px solid rgba(255,255,255,0.05);
   border-radius: 28px;
   background: linear-gradient(180deg, rgba(16,22,36,0.92), rgba(9,13,22,0.96));
-  box-shadow:
-    0 30px 80px rgba(0,0,0,0.45),
-    inset 0 1px 0 rgba(255,255,255,0.03);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.03);
   padding: 28px;
   backdrop-filter: blur(18px);
 }
@@ -70,6 +68,52 @@
 }
 .v2-muted {
   color: rgba(237,244,255,0.58);
+}
+.v2-section-group {
+  display: grid;
+  gap: 18px;
+  padding: 26px 0;
+  border-top: 1px solid rgba(255,255,255,0.05);
+}
+.v2-section-group:first-child {
+  border-top: none;
+  padding-top: 0;
+}
+.v2-section-kicker {
+  color: rgba(157,231,215,0.72);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.v2-section-group h3 {
+  margin: 0;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  letter-spacing: -0.04em;
+}
+.v2-section-content {
+  display: grid;
+  gap: 18px;
+}
+.v2-field-note {
+  display: grid;
+  gap: 10px;
+}
+.v2-field-note strong {
+  font-size: 1.18rem;
+  letter-spacing: -0.02em;
+}
+.v2-field-note span {
+  color: rgba(157,231,215,0.82);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.v2-field-note p,
+.v2-text-note {
+  margin: 0;
+  max-width: 860px;
+  color: rgba(237,244,255,0.7);
+  line-height: 1.8;
 }
 .v2-hero-card {
   position: relative;
@@ -136,21 +180,11 @@
 .v2-hero-picker-wrap {
   margin-top: 12px;
 }
-.v2-research-header p,
-.v2-environment-header p {
-  margin: 0;
-}
 .v2-score-stack,
 .v2-research-stack,
 .v2-environment-stack {
   display: grid;
   gap: 20px;
-}
-.v2-score-card,
-.v2-research-group,
-.v2-environment-group {
-  display: grid;
-  gap: 18px;
 }
 .v2-score-card {
   padding: 6px 0 28px;
@@ -172,16 +206,6 @@
   border-radius: 22px;
   background: rgba(255,255,255,0.02);
   padding: 22px;
-}
-.v2-score-card-header h3,
-.v2-subvariable h4,
-.v2-research-group h3,
-.v2-environment-group h3 {
-  margin: 0;
-}
-.v2-score-card-header h3 {
-  font-size: clamp(1.8rem, 3vw, 2.5rem);
-  letter-spacing: -0.04em;
 }
 .v2-score-note {
   margin: 0;
@@ -224,6 +248,7 @@
 .v2-subvariable h4 {
   font-size: 1.2rem;
   letter-spacing: -0.02em;
+  margin: 0;
 }
 .v2-subvariable-meta {
   display: flex;
