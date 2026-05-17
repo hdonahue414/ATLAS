@@ -17,6 +17,27 @@ function confidenceLabel(value) {
   return 'tentative';
 }
 
+function average(values) {
+  const valid = values.filter(value => typeof value === 'number' && !Number.isNaN(value));
+  if (!valid.length) return null;
+  return valid.reduce((sum, value) => sum + value, 0) / valid.length;
+}
+
+function categorySummary(subvariables) {
+  const score = average(subvariables.map(subvariable => subvariable.value));
+  const confidence = average(subvariables.map(subvariable => subvariable.confidence));
+  const pendingCount = subvariables.filter(subvariable => subvariable.pending).length;
+
+  return {
+    score,
+    confidence,
+    pendingCount,
+    scoreLabel: formatPercent(score),
+    confidenceLabel: confidenceLabel(confidence),
+    meter: score == null ? 0 : Math.max(0, Math.min(100, Math.round(score * 100)))
+  };
+}
+
 export function renderScoreCategory(categoryKey, category, options = {}) {
   const escapeHtml = options.escapeHtml;
   const title = options.title || category?.label || categoryKey;
@@ -24,18 +45,28 @@ export function renderScoreCategory(categoryKey, category, options = {}) {
 
   if (!category || !subvariables.length) return '';
 
+  const summary = categorySummary(subvariables);
+
   return `
     <article class="v2-score-card">
       <header class="v2-score-card-header">
-        <div>
+        <div class="v2-score-card-heading">
           <div class="v2-score-kicker">Interpretive layer</div>
           <h3>${escapeHtml(title)}</h3>
+          ${category.notes ? `<p class="v2-score-note">${escapeHtml(category.notes)}</p>` : ''}
         </div>
-      </header>
 
-      ${category.notes ? `
-        <p class="v2-score-note">${escapeHtml(category.notes)}</p>
-      ` : ''}
+        <aside class="v2-score-radar" aria-label="Category summary">
+          <div class="v2-score-ring" style="--v2-ring:${summary.meter}%">
+            <span>${summary.scoreLabel ? escapeHtml(summary.scoreLabel) : '—'}</span>
+          </div>
+          <div class="v2-score-radar-meta">
+            ${summary.confidenceLabel ? `<span>${escapeHtml(summary.confidenceLabel)} confidence</span>` : ''}
+            <span>${subvariables.length} signals</span>
+            ${summary.pendingCount ? `<span>${summary.pendingCount} pending</span>` : ''}
+          </div>
+        </aside>
+      </header>
 
       <div class="v2-subvariable-list">
         ${subvariables.map(subvariable => {
