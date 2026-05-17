@@ -1,6 +1,7 @@
 export const V2_NAV_ITEMS = [
   { id: 'programs', label: 'Programs' },
-  { id: 'research', label: 'Research' }
+  { id: 'research', label: 'Research' },
+  { id: 'environment', label: 'Environment' }
 ];
 
 export function renderNav(activeView, options = {}) {
