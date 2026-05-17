@@ -187,11 +187,27 @@
   gap: 20px;
 }
 .v2-score-card {
-  padding: 6px 0 28px;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.055);
+  border-radius: 26px;
+  background:
+    radial-gradient(circle at top left, rgba(157,231,215,0.045), transparent 36%),
+    linear-gradient(180deg, rgba(12,18,31,0.82), rgba(7,11,20,0.92));
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.025);
+  padding: 24px;
 }
 .v2-score-card:last-child {
-  border-bottom: none;
+  border-bottom: 1px solid rgba(255,255,255,0.055);
+}
+.v2-score-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+}
+.v2-score-card-header h3 {
+  margin: 0;
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
+  letter-spacing: -0.035em;
 }
 .v2-score-kicker {
   color: rgba(157,231,215,0.72);
@@ -208,13 +224,18 @@
   padding: 22px;
 }
 .v2-score-note {
-  margin: 0;
+  margin: 14px 0 0;
   max-width: 820px;
-  color: rgba(237,244,255,0.72);
-  line-height: 1.8;
-  font-size: 1.02rem;
+  color: rgba(237,244,255,0.68);
+  line-height: 1.65;
+  font-size: 0.98rem;
 }
-.v2-subvariable-list,
+.v2-subvariable-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 22px;
+}
 .v2-research-list,
 .v2-environment-list,
 .v2-environment-anchor-grid {
@@ -222,12 +243,15 @@
   gap: 18px;
 }
 .v2-subvariable {
-  padding: 20px 0;
-  border-top: 1px solid rgba(255,255,255,0.04);
+  min-width: 0;
+  border: 1px solid rgba(255,255,255,0.065);
+  border-radius: 18px;
+  background: rgba(6,10,18,0.52);
+  padding: 15px;
 }
 .v2-subvariable:first-child {
-  border-top: none;
-  padding-top: 0;
+  border-top: 1px solid rgba(255,255,255,0.065);
+  padding-top: 15px;
 }
 .v2-research-item,
 .v2-environment-anchor {
@@ -237,29 +261,47 @@
   padding: 18px;
 }
 .v2-subvariable-main {
-  display: flex;
-  justify-content: space-between;
-  gap: 18px;
+  display: grid;
+  gap: 14px;
 }
 .v2-subvariable-copy {
   display: grid;
   gap: 10px;
 }
 .v2-subvariable h4 {
-  font-size: 1.2rem;
+  min-height: 2.4em;
+  font-size: 0.98rem;
+  line-height: 1.2;
   letter-spacing: -0.02em;
   margin: 0;
 }
 .v2-subvariable-meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 7px;
 }
 .v2-subvariable-meta span {
-  color: rgba(237,244,255,0.5);
-  font-size: 0.78rem;
+  border: 1px solid rgba(255,255,255,0.075);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.035);
+  color: rgba(237,244,255,0.58);
+  font-size: 0.68rem;
   letter-spacing: 0.08em;
+  padding: 4px 7px;
   text-transform: uppercase;
+}
+.v2-mini-meter {
+  height: 3px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255,255,255,0.055);
+}
+.v2-mini-meter span {
+  display: block;
+  width: var(--v2-meter);
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(157,231,215,0.34), rgba(157,231,215,0.88));
 }
 .v2-environment-anchor span,
 .v2-research-item span {
@@ -292,42 +334,44 @@
   background: linear-gradient(90deg, rgba(157,231,215,0.4), rgba(157,231,215,0.88));
 }
 .v2-evidence-block {
-  margin-top: 18px;
-  padding-top: 14px;
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255,255,255,0.045);
 }
 .v2-evidence-block summary {
   cursor: pointer;
-  color: rgba(157,231,215,0.82);
-  font-size: 0.74rem;
+  color: rgba(157,231,215,0.78);
+  font-size: 0.68rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
 .v2-evidence-list {
   display: grid;
-  gap: 12px;
-  margin-top: 14px;
+  gap: 8px;
+  margin-top: 10px;
 }
 .v2-evidence-list p {
   margin: 0;
   max-width: 820px;
-  color: rgba(237,244,255,0.64);
-  line-height: 1.8;
+  color: rgba(237,244,255,0.62);
+  font-size: 0.86rem;
+  line-height: 1.45;
 }
 .v2-programs-view {
   display: grid;
   gap: 42px;
 }
 .v2-programs-view .v2-score-stack {
-  gap: 48px;
+  gap: 22px;
 }
 .v2-programs-view .v2-score-card {
-  padding-bottom: 40px;
+  padding-bottom: 24px;
 }
 .v2-programs-view .v2-score-card-header {
   max-width: 900px;
 }
 .v2-programs-view .v2-subvariable {
-  padding: 28px 0;
+  padding: 15px;
 }
 .v2-research-view {
   display: grid;
@@ -384,6 +428,11 @@
   background: linear-gradient(90deg, rgba(157,231,215,0.4), transparent);
   margin-bottom: 6px;
 }
+@media (max-width: 1200px) {
+  .v2-subvariable-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
 @media (max-width: 900px) {
   .v2-hero-card {
     min-height: 420px;
@@ -397,7 +446,12 @@
     font-size: clamp(3rem, 12vw, 4.5rem);
   }
 
-  .v2-subvariable-main {
-    flex-direction: column;
+  .v2-subvariable-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 640px) {
+  .v2-subvariable-list {
+    grid-template-columns: 1fr;
   }
 }
