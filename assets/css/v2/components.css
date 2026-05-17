@@ -46,27 +46,38 @@
   display: grid;
   gap: 16px;
 }
-.v2-hero-card h2 {
+.v2-hero-card h2,
+.v2-research-header h2 {
   margin: 0;
   font-size: clamp(2rem, 4vw, 3.4rem);
   line-height: 0.95;
 }
-.v2-hero-card p {
+.v2-hero-card p,
+.v2-research-header p {
   margin: 0;
 }
 .v2-hero-energy {
   margin-top: 8px;
 }
-.v2-score-stack {
+.v2-score-stack,
+.v2-research-stack {
   display: grid;
   gap: 24px;
 }
-.v2-score-card {
+.v2-score-card,
+.v2-research-group {
   display: grid;
   gap: 18px;
 }
+.v2-research-group {
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 18px;
+  background: rgba(255,255,255,0.02);
+  padding: 18px;
+}
 .v2-score-card-header h3,
-.v2-subvariable h4 {
+.v2-subvariable h4,
+.v2-research-group h3 {
   margin: 0;
 }
 .v2-score-note {
@@ -74,15 +85,32 @@
   color: var(--atlas-muted);
   line-height: 1.6;
 }
-.v2-subvariable-list {
+.v2-subvariable-list,
+.v2-research-list {
   display: grid;
   gap: 18px;
 }
-.v2-subvariable {
+.v2-subvariable,
+.v2-research-item {
   border: 1px solid rgba(255,255,255,0.06);
   border-radius: 14px;
   background: rgba(255,255,255,0.02);
   padding: 16px;
+}
+.v2-research-item strong,
+.v2-research-item span,
+.v2-research-item p {
+  display: block;
+}
+.v2-research-item span {
+  margin-top: 4px;
+  color: var(--atlas-accent);
+  font-size: 0.8rem;
+}
+.v2-research-item p {
+  margin: 10px 0 0;
+  color: var(--atlas-muted);
+  line-height: 1.5;
 }
 .v2-subvariable-main {
   display: flex;
