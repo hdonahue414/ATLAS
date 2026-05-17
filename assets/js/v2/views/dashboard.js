@@ -1,3 +1,44 @@
+function asArray(value) {
+  if (!value) return [];
+  return Array.isArray(value) ? value.filter(Boolean) : [value];
+}
+
+function anchorName(anchor) {
+  if (typeof anchor === 'string') return anchor;
+  return anchor?.name || anchor?.label || anchor?.title || '';
+}
+
+function collectDashboardAnchors(school) {
+  const cityLife = school?.city_life || {};
+  const locationIntel = school?.location_intelligence || {};
+
+  return [
+    ...asArray(cityLife.environmental_anchors),
+    ...asArray(cityLife.neighborhoods),
+    ...asArray(cityLife.third_places),
+    ...asArray(cityLife.points_of_interest),
+    ...asArray(locationIntel.points_of_interest),
+    ...asArray(locationIntel.neighborhoods),
+    ...asArray(school?.documentary_ecosystem)
+  ]
+    .map(anchorName)
+    .filter(Boolean)
+    .filter((value, index, array) => array.indexOf(value) === index)
+    .slice(0, 4);
+}
+
+function scoreForSchool(school) {
+  const candidates = [
+    school.fit_score,
+    school.composite_score,
+    school.overall_score,
+    school.dashboard_score
+  ];
+
+  const numeric = candidates.find(value => typeof value === 'number' && !Number.isNaN(value));
+  return numeric || 75;
+}
+
 export function renderDashboardView(schools, options = {}) {
   const escapeHtml = options.escapeHtml;
 
@@ -8,12 +49,11 @@ export function renderDashboardView(schools, options = {}) {
           const city = school.location?.city || '';
           const state = school.location?.state || '';
           const location = [city, state].filter(Boolean).join(', ');
-          const score = school.fit_score || school.composite_score || 75;
+          const score = scoreForSchool(school);
           const image = school.visual_identity?.environment_image || school.visual_identity?.photo_local || '';
           const accent = school.brand_colors?.accent || '#9de7d7';
-          const chips = (school.environment?.anchors || [])
-            .slice(0, 4)
-            .map(anchor => `<span>${escapeHtml(anchor.name || anchor)}</span>`)
+          const chips = collectDashboardAnchors(school)
+            .map(anchor => `<span>${escapeHtml(anchor)}</span>`)
             .join('');
 
           return `
