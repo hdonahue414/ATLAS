@@ -4,6 +4,7 @@ import { setSelectedSchool, setView } from './core/router.js';
 import { escapeHtml } from './core/utils.js';
 import { renderSchoolPicker, bindSchoolPicker } from './components/school-picker.js';
 import { renderProgramsView } from './views/programs.js';
+import { renderResearchView } from './views/research.js';
 
 const root = document.getElementById('atlas-v2-root');
 
@@ -12,11 +13,9 @@ function renderActiveView(selectedSchool) {
     case 'research':
       return `
         <section class="v2-panel">
-          <div class="v2-muted">Research</div>
-          <h2>Research view placeholder</h2>
-          <p class="v2-muted">
-            Research/Evidence migration has not started yet.
-          </p>
+          ${renderResearchView(selectedSchool, {
+            escapeHtml
+          })}
         </section>
       `;
 
