@@ -1,7 +1,10 @@
 export const V2_NAV_ITEMS = [
+  { id: 'dashboard', label: 'Dashboard' },
   { id: 'programs', label: 'Programs' },
+  { id: 'curriculum', label: 'Curriculum' },
   { id: 'research', label: 'Research' },
-  { id: 'environment', label: 'Environment' }
+  { id: 'environment', label: 'Environment' },
+  { id: 'practice', label: 'Practice' }
 ];
 
 export function renderNav(activeView, options = {}) {
