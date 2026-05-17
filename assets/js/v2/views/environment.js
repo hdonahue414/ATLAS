@@ -1,5 +1,5 @@
 import { renderHeroCard } from '../components/hero-card.js';
-import { renderSectionGroup, renderTextNotes } from '../components/section-group.js';
+import { renderFieldNote, renderSectionGroup, renderTextNotes } from '../components/section-group.js';
 
 function asArray(value) {
   if (!value) return [];
@@ -17,94 +17,34 @@ function renderTextList(title, items, escapeHtml) {
   );
 }
 
-function readableType(anchor) {
-  const type = anchor?.type || anchor?.anchor_type || anchor?.category || '';
-  return type ? String(type).replaceAll('_', ' ') : '';
-}
+function renderAnchor(anchor, escapeHtml) {
+  if (!anchor) return '';
 
-function anchorName(anchor) {
-  if (typeof anchor === 'string') return anchor;
-  return anchor?.name || anchor?.label || anchor?.title || 'Unnamed anchor';
-}
-
-function anchorNote(anchor) {
-  if (!anchor || typeof anchor === 'string') return '';
-  return anchor.relevance_note || anchor.note || anchor.description || anchor.summary || '';
-}
-
-function anchorArea(anchor) {
-  if (!anchor || typeof anchor === 'string') return '';
-  return anchor.district || anchor.neighborhood || anchor.area || '';
-}
-
-function anchorWebsite(anchor) {
-  if (!anchor || typeof anchor === 'string') return '';
-  return anchor.website || anchor.url || anchor.link || '';
-}
-
-function anchorInstagram(anchor) {
-  if (!anchor || typeof anchor === 'string') return '';
-  return anchor.instagram || anchor.instagram_url || anchor.ig || '';
-}
-
-function anchorImage(anchor) {
-  if (!anchor || typeof anchor === 'string') return '';
-  return anchor.photo || anchor.image || anchor.image_url || anchor.photo_url || '';
-}
-
-function renderPlaceChip(anchor, escapeHtml) {
-  const name = anchorName(anchor);
-  const type = readableType(anchor);
-  const area = anchorArea(anchor);
-  const note = anchorNote(anchor);
-  const website = anchorWebsite(anchor);
-  const instagram = anchorInstagram(anchor);
-  const image = anchorImage(anchor);
-  const hasDetails = Boolean(area || note || website || instagram || image);
-
-  if (!hasDetails) {
-    return `
-      <span class="v2-place-chip v2-place-chip-static">
-        <span class="v2-place-name">${escapeHtml(name)}</span>
-        ${type ? `<span class="v2-place-type">${escapeHtml(type)}</span>` : ''}
-      </span>
-    `;
+  if (typeof anchor === 'string') {
+    return renderFieldNote(anchor, '', { escapeHtml });
   }
 
-  return `
-    <details class="v2-place-chip">
-      <summary>
-        <span class="v2-place-name">${escapeHtml(name)}</span>
-        ${type ? `<span class="v2-place-type">${escapeHtml(type)}</span>` : ''}
-      </summary>
-      <div class="v2-place-details">
-        ${image ? `<img src="${escapeHtml(image)}" alt="" loading="lazy">` : ''}
-        ${area ? `<p><strong>Area</strong>${escapeHtml(area)}</p>` : ''}
-        ${note ? `<p><strong>Why it matters</strong>${escapeHtml(note)}</p>` : ''}
-        ${(website || instagram) ? `
-          <div class="v2-place-links">
-            ${website ? `<a href="${escapeHtml(website)}" target="_blank" rel="noreferrer">Website</a>` : ''}
-            ${instagram ? `<a href="${escapeHtml(instagram)}" target="_blank" rel="noreferrer">Instagram</a>` : ''}
-          </div>
-        ` : ''}
-      </div>
-    </details>
-  `;
+  const name = anchor.name || anchor.label || anchor.title || 'Unnamed anchor';
+  const type = anchor.type || anchor.anchor_type || anchor.category || '';
+  const note = anchor.relevance_note || anchor.note || anchor.description || anchor.summary || '';
+  const district = anchor.district || anchor.neighborhood || anchor.area || '';
+  const body = [district, note].filter(Boolean).join(' / ');
+
+  return renderFieldNote(name, body, {
+    escapeHtml,
+    meta: type ? String(type).replaceAll('_', ' ') : ''
+  });
 }
 
 function renderAnchorGroup(title, anchors, escapeHtml) {
-  const items = asArray(anchors);
-  const content = items.length
-    ? `<div class="v2-place-chip-grid">${items.map(anchor => renderPlaceChip(anchor, escapeHtml)).join('')}</div>`
-    : '<p class="v2-empty-note">No anchors recorded.</p>';
+  const content = asArray(anchors)
+    .map(anchor => renderAnchor(anchor, escapeHtml))
+    .join('');
 
-  return `
-    <section class="v2-place-group">
-      <div class="v2-section-kicker">Place anchors</div>
-      <h3>${escapeHtml(title)}</h3>
-      ${content}
-    </section>
-  `;
+  return renderSectionGroup(title, content, {
+    escapeHtml,
+    kicker: 'Place anchors'
+  });
 }
 
 function collectCityLifeAnchors(school) {
@@ -158,7 +98,7 @@ export function renderEnvironmentView(school, options = {}) {
         <section class="v2-production-card">
           ${renderTextList('Livability notes', cityLife.livability_notes || locationIntel.livability_notes || locationIntel.notes, escapeHtml)}
         </section>
-        <div class="v2-production-grid v2-place-grid">
+        <div class="v2-production-grid">
           ${renderAnchorGroup('Neighborhood anchors', anchors.neighborhoods, escapeHtml)}
           ${renderAnchorGroup('Third-place anchors', anchors.thirdPlaces, escapeHtml)}
           ${renderAnchorGroup('Queer / community anchors', anchors.queerCommunity, escapeHtml)}
