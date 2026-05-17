@@ -6,11 +6,21 @@ import { renderNav, bindNav } from './components/nav.js';
 import { renderSchoolPicker, bindSchoolPicker } from './components/school-picker.js';
 import { renderProgramsView } from './views/programs.js';
 import { renderResearchView } from './views/research.js';
+import { renderEnvironmentView } from './views/environment.js';
 
 const root = document.getElementById('atlas-v2-root');
 
 function renderActiveView(selectedSchool) {
   switch (state.activeView) {
+    case 'environment':
+      return `
+        <section class="v2-panel">
+          ${renderEnvironmentView(selectedSchool, {
+            escapeHtml
+          })}
+        </section>
+      `;
+
     case 'research':
       return `
         <section class="v2-panel">
