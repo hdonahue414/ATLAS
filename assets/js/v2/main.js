@@ -10,6 +10,12 @@ import { renderEnvironmentView } from './views/environment.js';
 
 const root = document.getElementById('atlas-v2-root');
 
+const VIEW_TITLES = {
+  programs: 'Programs',
+  research: 'Research',
+  environment: 'Environment'
+};
+
 function renderActiveView(selectedSchool) {
   switch (state.activeView) {
     case 'environment':
@@ -51,7 +57,7 @@ function renderActiveView(selectedSchool) {
     case 'programs':
     default:
       return `
-        <section class="v2-panel">
+        <section class="v2-programs-shell">
           ${renderProgramsView(selectedSchool, {
             escapeHtml,
             schools: state.schools,
@@ -67,15 +73,10 @@ function render() {
 
   root.innerHTML = `
     <div class="v2-shell">
-      <div class="v2-panel">
-        <div class="v2-muted">ATLAS V2 Runtime</div>
-        <h1>Documentary Futures Atlas</h1>
-        <p class="v2-muted">
-          Isolated rebuild runtime. Current app behavior remains untouched.
-        </p>
-
+      <header class="v2-page-header">
+        <h1>${escapeHtml(VIEW_TITLES[state.activeView] || 'ATLAS')}</h1>
         ${renderNav(state.activeView)}
-      </div>
+      </header>
 
       ${renderActiveView(selectedSchool)}
     </div>
