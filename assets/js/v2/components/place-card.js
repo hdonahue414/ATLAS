@@ -35,13 +35,18 @@ function placeInstagram(place) {
 
 function placeImage(place) {
   if (!place || typeof place === 'string') return '';
-  return asText(place.photo || place.image || place.image_url || place.photo_url || '');
+  return asText(place.photo || place.image || place.image_url || place.photo_url || place.image_local || '');
 }
 
 function placeTags(place) {
   if (!place || typeof place === 'string') return [];
   const tags = place.tags || place.sensory_tags || place.social_tags || [];
   return Array.isArray(tags) ? tags.map(asText).filter(Boolean) : [];
+}
+
+function detailRow(label, value, escapeHtml) {
+  if (!value) return '';
+  return `<p><span>${escapeHtml(label)}</span>${escapeHtml(value)}</p>`;
 }
 
 export function renderPlaceCard(place, options = {}) {
@@ -56,16 +61,20 @@ export function renderPlaceCard(place, options = {}) {
   const tags = placeTags(place);
   const hasDetails = Boolean(note || website || instagram || image || tags.length);
 
+  const main = `
+    <div class="v2-place-card-main">
+      <strong>${escapeHtml(name)}</strong>
+      <div class="v2-place-card-meta">
+        ${category ? `<span>${escapeHtml(category)}</span>` : ''}
+        ${area ? `<span>${escapeHtml(area)}</span>` : ''}
+      </div>
+    </div>
+  `;
+
   if (!hasDetails) {
     return `
       <article class="v2-place-card v2-place-card--static">
-        <div class="v2-place-card-main">
-          <strong>${escapeHtml(name)}</strong>
-          <div class="v2-place-card-meta">
-            ${category ? `<span>${escapeHtml(category)}</span>` : ''}
-            ${area ? `<span>${escapeHtml(area)}</span>` : ''}
-          </div>
-        </div>
+        ${main}
       </article>
     `;
   }
@@ -73,26 +82,20 @@ export function renderPlaceCard(place, options = {}) {
   return `
     <details class="v2-place-card">
       <summary>
-        <div class="v2-place-card-main">
-          <strong>${escapeHtml(name)}</strong>
-          <div class="v2-place-card-meta">
-            ${category ? `<span>${escapeHtml(category)}</span>` : ''}
-            ${area ? `<span>${escapeHtml(area)}</span>` : ''}
-          </div>
-        </div>
+        ${main}
         <span class="v2-place-card-affordance">Details</span>
       </summary>
 
       <div class="v2-place-card-details">
         ${image ? `<img src="${escapeHtml(image)}" alt="" loading="lazy">` : ''}
-        ${note ? `<p>${escapeHtml(note)}</p>` : ''}
-        ${tags.length ? `<div class="v2-place-card-tags">${tags.map(tag => `<span>${escapeHtml(tag)}</span>`).join('')}</div>` : ''}
+        ${detailRow('Why it matters', note, escapeHtml)}
         ${(website || instagram) ? `
           <div class="v2-place-card-links">
             ${website ? `<a href="${escapeHtml(website)}" target="_blank" rel="noreferrer">Website</a>` : ''}
             ${instagram ? `<a href="${escapeHtml(instagram)}" target="_blank" rel="noreferrer">Instagram</a>` : ''}
           </div>
         ` : ''}
+        ${tags.length ? `<div class="v2-place-card-tags">${tags.map(tag => `<span>${escapeHtml(tag)}</span>`).join('')}</div>` : ''}
       </div>
     </details>
   `;
