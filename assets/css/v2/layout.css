@@ -1,0 +1,19 @@
+#atlas-v2-root {
+  width: 100%;
+  max-width: var(--atlas-max-width);
+  margin: 0 auto;
+}
+.v2-shell {
+  display: grid;
+  gap: 24px;
+}
+.v2-grid {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 24px;
+}
+@media (max-width: 900px) {
+  .v2-grid {
+    grid-template-columns: 1fr;
+  }
+}
