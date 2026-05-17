@@ -5,14 +5,23 @@
 
 .v2-app-shell {
   display: grid;
-  grid-template-columns: 84px 1fr;
+  grid-template-columns: 84px minmax(0, 1fr);
   min-height: 100vh;
   background:
     radial-gradient(circle at top left, rgba(80,140,255,0.12), transparent 30%),
     linear-gradient(180deg, #020611 0%, #01040c 100%);
 }
 
+.v2-sidebar {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  height: 100vh;
+}
+
+.v2-main-stage,
 .v2-main-column {
+  min-width: 0;
   padding: 28px 28px 60px;
 }
 
@@ -28,8 +37,6 @@
 }
 
 .v2-rail-nav {
-  position: sticky;
-  top: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -59,6 +66,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  font: inherit;
+  cursor: pointer;
 }
 
 .v2-rail-button.active {
@@ -75,21 +84,60 @@
 
 @media (max-width: 900px) {
   .v2-app-shell {
-    grid-template-columns: 1fr;
+    grid-template-columns: 64px minmax(0, 1fr);
+  }
+
+  .v2-sidebar {
+    height: 100vh;
   }
 
   .v2-rail-nav {
-    position: relative;
-    flex-direction: row;
-    width: 100%;
-    height: auto;
+    height: 100vh;
+    padding: 12px 0;
   }
 
+  .v2-rail-menu,
+  .v2-rail-button {
+    width: 42px;
+    height: 42px;
+    border-radius: 14px;
+    font-size: 0.9rem;
+  }
+
+  .v2-main-stage,
   .v2-main-column {
-    padding: 18px;
+    padding: 18px 14px 48px;
   }
 
   .v2-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .v2-app-shell {
+    grid-template-columns: 56px minmax(0, 1fr);
+  }
+
+  .v2-rail-group {
+    gap: 10px;
+  }
+
+  .v2-rail-menu,
+  .v2-rail-button {
+    width: 38px;
+    height: 38px;
+    border-radius: 13px;
+    font-size: 0.78rem;
+  }
+
+  .v2-main-stage,
+  .v2-main-column {
+    padding: 14px 10px 42px;
+  }
+
+  .v2-dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
   }
 }
