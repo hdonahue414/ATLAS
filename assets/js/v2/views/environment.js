@@ -62,25 +62,32 @@ function renderPlaceChip(anchor, escapeHtml) {
   const image = anchorImage(anchor);
   const hasDetails = Boolean(area || note || website || instagram || image);
 
+  if (!hasDetails) {
+    return `
+      <span class="v2-place-chip v2-place-chip-static">
+        <span class="v2-place-name">${escapeHtml(name)}</span>
+        ${type ? `<span class="v2-place-type">${escapeHtml(type)}</span>` : ''}
+      </span>
+    `;
+  }
+
   return `
-    <details class="v2-place-chip" ${hasDetails ? '' : 'open'}>
+    <details class="v2-place-chip">
       <summary>
         <span class="v2-place-name">${escapeHtml(name)}</span>
         ${type ? `<span class="v2-place-type">${escapeHtml(type)}</span>` : ''}
       </summary>
-      ${hasDetails ? `
-        <div class="v2-place-details">
-          ${image ? `<img src="${escapeHtml(image)}" alt="" loading="lazy">` : ''}
-          ${area ? `<p><strong>Area</strong>${escapeHtml(area)}</p>` : ''}
-          ${note ? `<p><strong>Why it matters</strong>${escapeHtml(note)}</p>` : ''}
-          ${(website || instagram) ? `
-            <div class="v2-place-links">
-              ${website ? `<a href="${escapeHtml(website)}" target="_blank" rel="noreferrer">Website</a>` : ''}
-              ${instagram ? `<a href="${escapeHtml(instagram)}" target="_blank" rel="noreferrer">Instagram</a>` : ''}
-            </div>
-          ` : ''}
-        </div>
-      ` : ''}
+      <div class="v2-place-details">
+        ${image ? `<img src="${escapeHtml(image)}" alt="" loading="lazy">` : ''}
+        ${area ? `<p><strong>Area</strong>${escapeHtml(area)}</p>` : ''}
+        ${note ? `<p><strong>Why it matters</strong>${escapeHtml(note)}</p>` : ''}
+        ${(website || instagram) ? `
+          <div class="v2-place-links">
+            ${website ? `<a href="${escapeHtml(website)}" target="_blank" rel="noreferrer">Website</a>` : ''}
+            ${instagram ? `<a href="${escapeHtml(instagram)}" target="_blank" rel="noreferrer">Instagram</a>` : ''}
+          </div>
+        ` : ''}
+      </div>
     </details>
   `;
 }
