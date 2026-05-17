@@ -1,5 +1,6 @@
 import { renderEvidenceBlock } from '../components/evidence-block.js';
 import { renderFieldNote, renderSectionGroup, renderTextNotes } from '../components/section-group.js';
+import { renderModeHeader } from '../components/mode-header.js';
 
 function asArray(value) {
   if (!value) return [];
@@ -106,13 +107,11 @@ export function renderResearchView(school, options = {}) {
 
   return `
     <div class="v2-research-view">
-      <header class="v2-research-header">
-        <div class="v2-muted">Research dossier</div>
-        <h2>${escapeHtml(school.name)}</h2>
-        <p class="v2-muted">
-          Evidence, uncertainty, relationship signals, and score-level provenance.
-        </p>
-      </header>
+      ${renderModeHeader('research', school, {
+        escapeHtml,
+        eyebrow: 'Research dossier',
+        description: 'Evidence, uncertainty, relationship signals, and score-level provenance.'
+      })}
 
       <div class="v2-research-stack">
         ${renderTraceGroup('Verified traces', sourceTrace.verified, escapeHtml)}
