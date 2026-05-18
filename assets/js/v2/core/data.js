@@ -1,3 +1,5 @@
+import { normalizeAtlasCurriculum } from './curriculum-model.js';
+
 export async function loadAtlasData() {
   const response = await fetch('./data.json');
 
@@ -5,5 +7,6 @@ export async function loadAtlasData() {
     throw new Error(`Failed to load data.json (${response.status})`);
   }
 
-  return response.json();
+  const rawData = await response.json();
+  return normalizeAtlasCurriculum(rawData);
 }
