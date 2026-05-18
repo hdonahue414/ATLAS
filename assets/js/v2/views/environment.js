@@ -108,8 +108,18 @@ function enrichAnchor(anchor) {
   return { ...metadata, ...anchor, name };
 }
 
+function uniqueAnchors(anchors) {
+  const seen = new Set();
+  return asArray(anchors).filter(anchor => {
+    const name = anchorName(anchor).toLowerCase().trim();
+    if (!name || seen.has(name)) return false;
+    seen.add(name);
+    return true;
+  });
+}
+
 function enrichAnchors(anchors) {
-  return asArray(anchors).map(enrichAnchor);
+  return uniqueAnchors(asArray(anchors).map(enrichAnchor));
 }
 
 function normalizeAnchorType(anchor) {
@@ -122,10 +132,10 @@ function normalizeAnchorType(anchor) {
 }
 
 function anchorsByType(anchors, matchers = []) {
-  return anchors.filter(anchor => {
+  return uniqueAnchors(anchors.filter(anchor => {
     const type = normalizeAnchorType(anchor);
     return matchers.some(matcher => type.includes(matcher));
-  });
+  }));
 }
 
 function renderTextList(title, items, escapeHtml) {
@@ -144,25 +154,25 @@ function collectCityLifeAnchors(school) {
 
   const environmentalAnchors = enrichAnchors(cityLife.environmental_anchors);
 
-  const neighborhoods = [
+  const neighborhoods = enrichAnchors([
     ...anchorsByType(environmentalAnchors, ['neighborhood']),
-    ...enrichAnchors(cityLife.neighborhoods || locationIntel.neighborhoods)
-  ];
+    ...asArray(cityLife.neighborhoods || locationIntel.neighborhoods)
+  ]);
 
-  const thirdPlaces = [
+  const thirdPlaces = enrichAnchors([
     ...anchorsByType(environmentalAnchors, ['third_place', 'participatory_culture']),
-    ...enrichAnchors(cityLife.third_places || cityLife.points_of_interest || locationIntel.points_of_interest)
-  ];
+    ...asArray(cityLife.third_places || cityLife.points_of_interest || locationIntel.points_of_interest)
+  ]);
 
-  const queerCommunity = [
+  const queerCommunity = enrichAnchors([
     ...anchorsByType(environmentalAnchors, ['queer', 'lgbt']),
-    ...enrichAnchors(cityLife.queer_community_infrastructure || locationIntel.lgbtq_resources)
-  ];
+    ...asArray(cityLife.queer_community_infrastructure || locationIntel.lgbtq_resources)
+  ]);
 
-  const artsCulture = [
+  const artsCulture = enrichAnchors([
     ...anchorsByType(environmentalAnchors, ['arts_culture', 'documentary_world']),
-    ...enrichAnchors(cityLife.arts_community_infrastructure || cityLife.documentary_world_nodes || school?.documentary_ecosystem)
-  ];
+    ...asArray(cityLife.arts_community_infrastructure || cityLife.documentary_world_nodes || school?.documentary_ecosystem)
+  ]);
 
   return {
     neighborhoods,
@@ -203,6 +213,12 @@ export function renderEnvironmentView(school, options = {}) {
   return `
     <div class="v2-environment-view v2-production-view">
       ${renderHeroCard(school, { escapeHtml, schoolPicker })}
+
+      <section class="v2-environment-lede">
+        <p class="v2-section-kicker">Lived geography</p>
+        <h2>Can ordinary life hold the work?</h2>
+        <p>Environment is treated as a working ecology: repeatable routines, queer/community infrastructure, third places, transit friction, and documentary-world access.</p>
+      </section>
 
       <div class="v2-production-stack">
         <section class="v2-production-card">
