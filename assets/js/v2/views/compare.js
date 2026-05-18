@@ -148,61 +148,88 @@ function renderSchoolSummary(school, escapeHtml) {
   `;
 }
 
-export function renderCompareView(schools, options = {}) {
-  const escapeHtml = options.escapeHtml;
-  const selectedSchools = asArray(schools).slice(0, 6);
-
-  if (!selectedSchools.length) return '<p>No schools loaded.</p>';
-
+function renderCompareTable(title, kicker, schools, rows, escapeHtml) {
   return `
-    <div class="v2-compare-view">
-      <section class="v2-compare-lede">
-        <p class="v2-section-kicker">Decision matrix</p>
-        <h2>Compare programs as environments, not rankings</h2>
-        <p>Compare compresses the same evidence system into a cross-school read: fit signals, pressure points, curriculum behavior, and practical survivability.</p>
-      </section>
+    <section class="v2-compare-table-card">
+      <div class="v2-compare-section-head">
+        <p class="v2-section-kicker">${escapeHtml(kicker)}</p>
+        <h3>${escapeHtml(title)}</h3>
+      </div>
+      <div class="v2-compare-table" style="--v2-compare-columns:${schools.length};">
+        <div class="v2-compare-row v2-compare-header-row">
+          <div></div>
+          ${schools.map(school => `<div>${escapeHtml(school.name)}</div>`).join('')}
+        </div>
+        ${rows.map(row => renderMetricRow(row, schools, escapeHtml)).join('')}
+      </div>
+    </section>
+  `;
+}
 
-      <section class="v2-compare-school-grid">
+function renderFocusedPair(selectedSchools, escapeHtml) {
+  return `
+    <section class="v2-compare-focused">
+      <div class="v2-compare-focused-head">
+        <p class="v2-section-kicker">Focused comparison</p>
+        <h2>${escapeHtml(selectedSchools.map(school => school.name).join(' / '))}</h2>
+      </div>
+      <div class="v2-compare-school-grid v2-compare-school-grid--focused">
         ${selectedSchools.map(school => renderSchoolSummary(school, escapeHtml)).join('')}
-      </section>
+      </div>
+    </section>
+  `;
+}
 
-      <section class="v2-compare-table-card">
-        <div class="v2-compare-section-head">
-          <p class="v2-section-kicker">Core fit dimensions</p>
-          <h3>Interpretive score comparison</h3>
-        </div>
-        <div class="v2-compare-table" style="--v2-compare-columns:${selectedSchools.length};">
-          <div class="v2-compare-row v2-compare-header-row">
-            <div></div>
-            ${selectedSchools.map(school => `<div>${escapeHtml(school.name)}</div>`).join('')}
-          </div>
-          ${categoryRows(selectedSchools).map(row => renderMetricRow(row, selectedSchools, escapeHtml)).join('')}
-        </div>
-      </section>
-
-      <section class="v2-compare-table-card">
-        <div class="v2-compare-section-head">
-          <p class="v2-section-kicker">Formation pressure</p>
-          <h3>Curriculum and thesis behavior</h3>
-        </div>
-        <div class="v2-compare-table" style="--v2-compare-columns:${selectedSchools.length};">
-          <div class="v2-compare-row v2-compare-header-row">
-            <div></div>
-            ${selectedSchools.map(school => `<div>${escapeHtml(school.name)}</div>`).join('')}
-          </div>
-          ${curriculumRows(selectedSchools).map(row => renderMetricRow(row, selectedSchools, escapeHtml)).join('')}
-        </div>
-      </section>
-
-      <section class="v2-compare-signal-grid">
-        ${selectedSchools.map(school => `
+function renderSignalGrid(schools, escapeHtml, title = 'Signal confrontation') {
+  return `
+    <section class="v2-compare-signal-section">
+      <div class="v2-compare-section-head">
+        <p class="v2-section-kicker">Evidence pressure</p>
+        <h3>${escapeHtml(title)}</h3>
+      </div>
+      <div class="v2-compare-signal-grid">
+        ${schools.map(school => `
           <article class="v2-compare-signal-card">
             <p class="v2-section-kicker">${escapeHtml(school.name)}</p>
             ${renderSignalList('Strongest signals', strongestSignals(school), escapeHtml)}
             ${renderSignalList('Pressure points', weakestSignals(school), escapeHtml)}
           </article>
         `).join('')}
+      </div>
+    </section>
+  `;
+}
+
+export function renderCompareView(schools, options = {}) {
+  const escapeHtml = options.escapeHtml;
+  const selectedSchools = asArray(schools).slice(0, 2);
+  const allSchools = asArray(options.allSchools).length ? asArray(options.allSchools) : selectedSchools;
+
+  if (!selectedSchools.length) return '<p>No schools loaded.</p>';
+
+  return `
+    <div class="v2-compare-view">
+      <section class="v2-compare-tool-intro">
+        <p class="v2-section-kicker">Decision matrix</p>
+        <p>Compare reads programs as environments, pressure systems, and future-life structures. Use the selectors for a focused confrontation; keep the all-school matrix below for orientation.</p>
       </section>
+
+      ${renderFocusedPair(selectedSchools, escapeHtml)}
+      ${renderCompareTable('Focused fit dimensions', 'Two-school matrix', selectedSchools, categoryRows(selectedSchools), escapeHtml)}
+      ${renderCompareTable('Focused curriculum pressure', 'Two-school formation', selectedSchools, curriculumRows(selectedSchools), escapeHtml)}
+      ${renderSignalGrid(selectedSchools, escapeHtml)}
+
+      <section class="v2-compare-overview">
+        <div class="v2-compare-section-head">
+          <p class="v2-section-kicker">All-school overview</p>
+          <h3>Full field comparison</h3>
+        </div>
+        <div class="v2-compare-school-grid">
+          ${allSchools.map(school => renderSchoolSummary(school, escapeHtml)).join('')}
+        </div>
+      </section>
+
+      ${renderCompareTable('All-school score comparison', 'Core fit dimensions', allSchools, categoryRows(allSchools), escapeHtml)}
     </div>
   `;
 }
