@@ -2318,6 +2318,124 @@
             ]
           }
         ]
+      },
+      "curriculum": {
+        "source_status": "generated_from_existing_model",
+        "phases": [
+          {
+            "id": "entry_foundation",
+            "phase": "Entry / Foundation",
+            "rhythm": "Orientation, technical grounding, cohort calibration, and first institutional pressure read.",
+            "interpretation": "Wake Forest begins as a calibration problem: how quickly the program asks the filmmaker to stabilize craft, language, expectations, and feedback rhythm.",
+            "pressure": 0.863875,
+            "autonomy": 0.35,
+            "recovery": 0.901,
+            "courses": [
+              {
+                "code": "DOC 728",
+                "title": "Documentary History",
+                "credits": null
+              },
+              {
+                "code": "DOC 717",
+                "title": "Fundamentals of Editing",
+                "credits": null
+              },
+              {
+                "code": "DOC 713",
+                "title": "Documentary Storytelling I",
+                "credits": null
+              }
+            ],
+            "source_status": "generated_from_existing_model"
+          },
+          {
+            "id": "first_production_arc",
+            "phase": "First Production Arc",
+            "rhythm": "Production/editing cycles begin to reveal the hidden curriculum: critique style, feedback speed, collaboration norms, and faculty availability.",
+            "interpretation": "This is where course requirements stop being catalog entries and become a lived weekly metabolism.",
+            "pressure": 0.924875,
+            "autonomy": 0.52,
+            "recovery": 0.8326666666666666,
+            "courses": [
+              {
+                "code": "DOC 715",
+                "title": "Cinematography and Sound",
+                "credits": null
+              },
+              {
+                "code": "DOC 724",
+                "title": "Advanced Story Editing",
+                "credits": null
+              },
+              {
+                "code": "DOC 722",
+                "title": "Documentary Storytelling II",
+                "credits": null
+              }
+            ],
+            "source_status": "generated_from_existing_model"
+          },
+          {
+            "id": "thesis_formation",
+            "phase": "Thesis Formation",
+            "rhythm": "The project begins to separate from assignments. Risk shifts from workload volume to conceptual endurance and advisor fit.",
+            "interpretation": "The main curriculum question becomes whether the structure catches uncertainty before it hardens into creative paralysis.",
+            "pressure": 0.9201250000000001,
+            "autonomy": 0.72,
+            "recovery": 0.901,
+            "courses": [
+              {
+                "code": "DOC 735",
+                "title": "Law and Ethics",
+                "credits": null
+              },
+              {
+                "code": "DOC 734",
+                "title": "Advanced Cinematography and Sound",
+                "credits": null
+              },
+              {
+                "code": "DOC 737",
+                "title": "Documentary Storytelling III",
+                "credits": null
+              },
+              {
+                "code": "DOC 748",
+                "title": "Creative Thesis",
+                "credits": null
+              }
+            ],
+            "source_status": "generated_from_existing_model"
+          },
+          {
+            "id": "professional_teaching_exit",
+            "phase": "Professional / Teaching Exit",
+            "rhythm": "The final arc converts the MFA into a future practice: teaching, distribution, ethics, career habits, and post-program survivability.",
+            "interpretation": "This phase matters because a good curriculum should not only produce a thesis; it should leave behind a workable documentary life.",
+            "pressure": 0.9271666666666667,
+            "autonomy": 0.86,
+            "recovery": 0.8326666666666666,
+            "courses": [
+              {
+                "code": "DOC 718",
+                "title": "Social Media & Marketing in the Creative Arts",
+                "credits": null
+              },
+              {
+                "code": "DOC 755",
+                "title": "Professional Seminar: Entrepreneurial Filmmaking",
+                "credits": null
+              },
+              {
+                "code": "DOC 751",
+                "title": "Professional Seminar: Teaching in Higher Education",
+                "credits": null
+              }
+            ],
+            "source_status": "generated_from_existing_model"
+          }
+        ]
       }
     },
     {
@@ -4286,7 +4404,56 @@
         "ITVS proximity",
         "Silicon Valley institutions"
       ],
-      "_searchIndex": 1
+      "_searchIndex": 1,
+      "curriculum": {
+        "source_status": "generated_from_existing_model",
+        "phases": [
+          {
+            "id": "entry_foundation",
+            "phase": "Entry / Foundation",
+            "rhythm": "Orientation, technical grounding, cohort calibration, and first institutional pressure read.",
+            "interpretation": "Stanford begins as a calibration problem: how quickly the program asks the filmmaker to stabilize craft, language, expectations, and feedback rhythm.",
+            "pressure": 0.78525,
+            "autonomy": 0.35,
+            "recovery": 0.771,
+            "courses": [],
+            "source_status": "generated_from_existing_model"
+          },
+          {
+            "id": "first_production_arc",
+            "phase": "First Production Arc",
+            "rhythm": "Production/editing cycles begin to reveal the hidden curriculum: critique style, feedback speed, collaboration norms, and faculty availability.",
+            "interpretation": "This is where course requirements stop being catalog entries and become a lived weekly metabolism.",
+            "pressure": 0.791125,
+            "autonomy": 0.52,
+            "recovery": 0.757,
+            "courses": [],
+            "source_status": "generated_from_existing_model"
+          },
+          {
+            "id": "thesis_formation",
+            "phase": "Thesis Formation",
+            "rhythm": "The project begins to separate from assignments. Risk shifts from workload volume to conceptual endurance and advisor fit.",
+            "interpretation": "The main curriculum question becomes whether the structure catches uncertainty before it hardens into creative paralysis.",
+            "pressure": 0.7969999999999999,
+            "autonomy": 0.72,
+            "recovery": 0.771,
+            "courses": [],
+            "source_status": "generated_from_existing_model"
+          },
+          {
+            "id": "professional_teaching_exit",
+            "phase": "Professional / Teaching Exit",
+            "rhythm": "The final arc converts the MFA into a future practice: teaching, distribution, ethics, career habits, and post-program survivability.",
+            "interpretation": "This phase matters because a good curriculum should not only produce a thesis; it should leave behind a workable documentary life.",
+            "pressure": 0.8254999999999999,
+            "autonomy": 0.86,
+            "recovery": 0.757,
+            "courses": [],
+            "source_status": "generated_from_existing_model"
+          }
+        ]
+      }
     },
     {
       "name": "Northwestern",
@@ -6242,7 +6409,56 @@
         "Doc10",
         "Lakefront campus"
       ],
-      "_searchIndex": 2
+      "_searchIndex": 2,
+      "curriculum": {
+        "source_status": "generated_from_existing_model",
+        "phases": [
+          {
+            "id": "entry_foundation",
+            "phase": "Entry / Foundation",
+            "rhythm": "Orientation, technical grounding, cohort calibration, and first institutional pressure read.",
+            "interpretation": "Northwestern begins as a calibration problem: how quickly the program asks the filmmaker to stabilize craft, language, expectations, and feedback rhythm.",
+            "pressure": 0.767625,
+            "autonomy": 0.35,
+            "recovery": 0.774,
+            "courses": [],
+            "source_status": "generated_from_existing_model"
+          },
+          {
+            "id": "first_production_arc",
+            "phase": "First Production Arc",
+            "rhythm": "Production/editing cycles begin to reveal the hidden curriculum: critique style, feedback speed, collaboration norms, and faculty availability.",
+            "interpretation": "This is where course requirements stop being catalog entries and become a lived weekly metabolism.",
+            "pressure": 0.772625,
+            "autonomy": 0.52,
+            "recovery": 0.8119999999999999,
+            "courses": [],
+            "source_status": "generated_from_existing_model"
+          },
+          {
+            "id": "thesis_formation",
+            "phase": "Thesis Formation",
+            "rhythm": "The project begins to separate from assignments. Risk shifts from workload volume to conceptual endurance and advisor fit.",
+            "interpretation": "The main curriculum question becomes whether the structure catches uncertainty before it hardens into creative paralysis.",
+            "pressure": 0.789875,
+            "autonomy": 0.72,
+            "recovery": 0.774,
+            "courses": [],
+            "source_status": "generated_from_existing_model"
+          },
+          {
+            "id": "professional_teaching_exit",
+            "phase": "Professional / Teaching Exit",
+            "rhythm": "The final arc converts the MFA into a future practice: teaching, distribution, ethics, career habits, and post-program survivability.",
+            "interpretation": "This phase matters because a good curriculum should not only produce a thesis; it should leave behind a workable documentary life.",
+            "pressure": 0.8253333333333333,
+            "autonomy": 0.86,
+            "recovery": 0.8119999999999999,
+            "courses": [],
+            "source_status": "generated_from_existing_model"
+          }
+        ]
+      }
     },
     {
       "name": "DePaul",
@@ -8245,7 +8461,56 @@
         "Chicago neighborhoods",
         "Center on Halsted"
       ],
-      "_searchIndex": 3
+      "_searchIndex": 3,
+      "curriculum": {
+        "source_status": "generated_from_existing_model",
+        "phases": [
+          {
+            "id": "entry_foundation",
+            "phase": "Entry / Foundation",
+            "rhythm": "Orientation, technical grounding, cohort calibration, and first institutional pressure read.",
+            "interpretation": "DePaul begins as a calibration problem: how quickly the program asks the filmmaker to stabilize craft, language, expectations, and feedback rhythm.",
+            "pressure": 0.734125,
+            "autonomy": 0.35,
+            "recovery": 0.711,
+            "courses": [],
+            "source_status": "generated_from_existing_model"
+          },
+          {
+            "id": "first_production_arc",
+            "phase": "First Production Arc",
+            "rhythm": "Production/editing cycles begin to reveal the hidden curriculum: critique style, feedback speed, collaboration norms, and faculty availability.",
+            "interpretation": "This is where course requirements stop being catalog entries and become a lived weekly metabolism.",
+            "pressure": 0.748625,
+            "autonomy": 0.52,
+            "recovery": 0.586,
+            "courses": [],
+            "source_status": "generated_from_existing_model"
+          },
+          {
+            "id": "thesis_formation",
+            "phase": "Thesis Formation",
+            "rhythm": "The project begins to separate from assignments. Risk shifts from workload volume to conceptual endurance and advisor fit.",
+            "interpretation": "The main curriculum question becomes whether the structure catches uncertainty before it hardens into creative paralysis.",
+            "pressure": 0.755125,
+            "autonomy": 0.72,
+            "recovery": 0.711,
+            "courses": [],
+            "source_status": "generated_from_existing_model"
+          },
+          {
+            "id": "professional_teaching_exit",
+            "phase": "Professional / Teaching Exit",
+            "rhythm": "The final arc converts the MFA into a future practice: teaching, distribution, ethics, career habits, and post-program survivability.",
+            "interpretation": "This phase matters because a good curriculum should not only produce a thesis; it should leave behind a workable documentary life.",
+            "pressure": 0.7092499999999999,
+            "autonomy": 0.86,
+            "recovery": 0.586,
+            "courses": [],
+            "source_status": "generated_from_existing_model"
+          }
+        ]
+      }
     },
     {
       "name": "Syracuse",
@@ -10193,7 +10458,56 @@
         "Westcott",
         "University Hill"
       ],
-      "_searchIndex": 4
+      "_searchIndex": 4,
+      "curriculum": {
+        "source_status": "generated_from_existing_model",
+        "phases": [
+          {
+            "id": "entry_foundation",
+            "phase": "Entry / Foundation",
+            "rhythm": "Orientation, technical grounding, cohort calibration, and first institutional pressure read.",
+            "interpretation": "Syracuse begins as a calibration problem: how quickly the program asks the filmmaker to stabilize craft, language, expectations, and feedback rhythm.",
+            "pressure": 0.69925,
+            "autonomy": 0.35,
+            "recovery": 0.709,
+            "courses": [],
+            "source_status": "generated_from_existing_model"
+          },
+          {
+            "id": "first_production_arc",
+            "phase": "First Production Arc",
+            "rhythm": "Production/editing cycles begin to reveal the hidden curriculum: critique style, feedback speed, collaboration norms, and faculty availability.",
+            "interpretation": "This is where course requirements stop being catalog entries and become a lived weekly metabolism.",
+            "pressure": 0.7095,
+            "autonomy": 0.52,
+            "recovery": 0.7041666666666666,
+            "courses": [],
+            "source_status": "generated_from_existing_model"
+          },
+          {
+            "id": "thesis_formation",
+            "phase": "Thesis Formation",
+            "rhythm": "The project begins to separate from assignments. Risk shifts from workload volume to conceptual endurance and advisor fit.",
+            "interpretation": "The main curriculum question becomes whether the structure catches uncertainty before it hardens into creative paralysis.",
+            "pressure": 0.6992499999999999,
+            "autonomy": 0.72,
+            "recovery": 0.709,
+            "courses": [],
+            "source_status": "generated_from_existing_model"
+          },
+          {
+            "id": "professional_teaching_exit",
+            "phase": "Professional / Teaching Exit",
+            "rhythm": "The final arc converts the MFA into a future practice: teaching, distribution, ethics, career habits, and post-program survivability.",
+            "interpretation": "This phase matters because a good curriculum should not only produce a thesis; it should leave behind a workable documentary life.",
+            "pressure": 0.7545,
+            "autonomy": 0.86,
+            "recovery": 0.7041666666666666,
+            "courses": [],
+            "source_status": "generated_from_existing_model"
+          }
+        ]
+      }
     },
     {
       "name": "Temple",
@@ -12132,7 +12446,56 @@
         "Gayborhood",
         "Philly DSA"
       ],
-      "_searchIndex": 5
+      "_searchIndex": 5,
+      "curriculum": {
+        "source_status": "generated_from_existing_model",
+        "phases": [
+          {
+            "id": "entry_foundation",
+            "phase": "Entry / Foundation",
+            "rhythm": "Orientation, technical grounding, cohort calibration, and first institutional pressure read.",
+            "interpretation": "Temple begins as a calibration problem: how quickly the program asks the filmmaker to stabilize craft, language, expectations, and feedback rhythm.",
+            "pressure": 0.741125,
+            "autonomy": 0.35,
+            "recovery": 0.711,
+            "courses": [],
+            "source_status": "generated_from_existing_model"
+          },
+          {
+            "id": "first_production_arc",
+            "phase": "First Production Arc",
+            "rhythm": "Production/editing cycles begin to reveal the hidden curriculum: critique style, feedback speed, collaboration norms, and faculty availability.",
+            "interpretation": "This is where course requirements stop being catalog entries and become a lived weekly metabolism.",
+            "pressure": 0.7105,
+            "autonomy": 0.52,
+            "recovery": 0.6785,
+            "courses": [],
+            "source_status": "generated_from_existing_model"
+          },
+          {
+            "id": "thesis_formation",
+            "phase": "Thesis Formation",
+            "rhythm": "The project begins to separate from assignments. Risk shifts from workload volume to conceptual endurance and advisor fit.",
+            "interpretation": "The main curriculum question becomes whether the structure catches uncertainty before it hardens into creative paralysis.",
+            "pressure": 0.738875,
+            "autonomy": 0.72,
+            "recovery": 0.711,
+            "courses": [],
+            "source_status": "generated_from_existing_model"
+          },
+          {
+            "id": "professional_teaching_exit",
+            "phase": "Professional / Teaching Exit",
+            "rhythm": "The final arc converts the MFA into a future practice: teaching, distribution, ethics, career habits, and post-program survivability.",
+            "interpretation": "This phase matters because a good curriculum should not only produce a thesis; it should leave behind a workable documentary life.",
+            "pressure": 0.738,
+            "autonomy": 0.86,
+            "recovery": 0.6785,
+            "courses": [],
+            "source_status": "generated_from_existing_model"
+          }
+        ]
+      }
     },
     {
       "name": "Ohio",
@@ -14057,7 +14420,56 @@
         "Hocking Hills",
         "Ohio University arts ecosystem"
       ],
-      "_searchIndex": 6
+      "_searchIndex": 6,
+      "curriculum": {
+        "source_status": "generated_from_existing_model",
+        "phases": [
+          {
+            "id": "entry_foundation",
+            "phase": "Entry / Foundation",
+            "rhythm": "Orientation, technical grounding, cohort calibration, and first institutional pressure read.",
+            "interpretation": "Ohio begins as a calibration problem: how quickly the program asks the filmmaker to stabilize craft, language, expectations, and feedback rhythm.",
+            "pressure": 0.67025,
+            "autonomy": 0.35,
+            "recovery": 0.725,
+            "courses": [],
+            "source_status": "generated_from_existing_model"
+          },
+          {
+            "id": "first_production_arc",
+            "phase": "First Production Arc",
+            "rhythm": "Production/editing cycles begin to reveal the hidden curriculum: critique style, feedback speed, collaboration norms, and faculty availability.",
+            "interpretation": "This is where course requirements stop being catalog entries and become a lived weekly metabolism.",
+            "pressure": 0.70375,
+            "autonomy": 0.52,
+            "recovery": 0.7786666666666666,
+            "courses": [],
+            "source_status": "generated_from_existing_model"
+          },
+          {
+            "id": "thesis_formation",
+            "phase": "Thesis Formation",
+            "rhythm": "The project begins to separate from assignments. Risk shifts from workload volume to conceptual endurance and advisor fit.",
+            "interpretation": "The main curriculum question becomes whether the structure catches uncertainty before it hardens into creative paralysis.",
+            "pressure": 0.7,
+            "autonomy": 0.72,
+            "recovery": 0.725,
+            "courses": [],
+            "source_status": "generated_from_existing_model"
+          },
+          {
+            "id": "professional_teaching_exit",
+            "phase": "Professional / Teaching Exit",
+            "rhythm": "The final arc converts the MFA into a future practice: teaching, distribution, ethics, career habits, and post-program survivability.",
+            "interpretation": "This phase matters because a good curriculum should not only produce a thesis; it should leave behind a workable documentary life.",
+            "pressure": 0.7137499999999999,
+            "autonomy": 0.86,
+            "recovery": 0.7786666666666666,
+            "courses": [],
+            "source_status": "generated_from_existing_model"
+          }
+        ]
+      }
     },
     {
       "name": "UCSC",
@@ -15979,7 +16391,56 @@
         "Santa Cruz Film Festival",
         "Bay Area radius"
       ],
-      "_searchIndex": 7
+      "_searchIndex": 7,
+      "curriculum": {
+        "source_status": "generated_from_existing_model",
+        "phases": [
+          {
+            "id": "entry_foundation",
+            "phase": "Entry / Foundation",
+            "rhythm": "Orientation, technical grounding, cohort calibration, and first institutional pressure read.",
+            "interpretation": "UCSC begins as a calibration problem: how quickly the program asks the filmmaker to stabilize craft, language, expectations, and feedback rhythm.",
+            "pressure": 0.751375,
+            "autonomy": 0.35,
+            "recovery": 0.712,
+            "courses": [],
+            "source_status": "generated_from_existing_model"
+          },
+          {
+            "id": "first_production_arc",
+            "phase": "First Production Arc",
+            "rhythm": "Production/editing cycles begin to reveal the hidden curriculum: critique style, feedback speed, collaboration norms, and faculty availability.",
+            "interpretation": "This is where course requirements stop being catalog entries and become a lived weekly metabolism.",
+            "pressure": 0.74725,
+            "autonomy": 0.52,
+            "recovery": 0.6153333333333333,
+            "courses": [],
+            "source_status": "generated_from_existing_model"
+          },
+          {
+            "id": "thesis_formation",
+            "phase": "Thesis Formation",
+            "rhythm": "The project begins to separate from assignments. Risk shifts from workload volume to conceptual endurance and advisor fit.",
+            "interpretation": "The main curriculum question becomes whether the structure catches uncertainty before it hardens into creative paralysis.",
+            "pressure": 0.754625,
+            "autonomy": 0.72,
+            "recovery": 0.712,
+            "courses": [],
+            "source_status": "generated_from_existing_model"
+          },
+          {
+            "id": "professional_teaching_exit",
+            "phase": "Professional / Teaching Exit",
+            "rhythm": "The final arc converts the MFA into a future practice: teaching, distribution, ethics, career habits, and post-program survivability.",
+            "interpretation": "This phase matters because a good curriculum should not only produce a thesis; it should leave behind a workable documentary life.",
+            "pressure": 0.751,
+            "autonomy": 0.86,
+            "recovery": 0.6153333333333333,
+            "courses": [],
+            "source_status": "generated_from_existing_model"
+          }
+        ]
+      }
     },
     {
       "name": "Buffalo",
@@ -17897,7 +18358,56 @@
         "Allentown",
         "Buffalo arts scene"
       ],
-      "_searchIndex": 8
+      "_searchIndex": 8,
+      "curriculum": {
+        "source_status": "generated_from_existing_model",
+        "phases": [
+          {
+            "id": "entry_foundation",
+            "phase": "Entry / Foundation",
+            "rhythm": "Orientation, technical grounding, cohort calibration, and first institutional pressure read.",
+            "interpretation": "Buffalo begins as a calibration problem: how quickly the program asks the filmmaker to stabilize craft, language, expectations, and feedback rhythm.",
+            "pressure": 0.5665,
+            "autonomy": 0.35,
+            "recovery": 0.567,
+            "courses": [],
+            "source_status": "generated_from_existing_model"
+          },
+          {
+            "id": "first_production_arc",
+            "phase": "First Production Arc",
+            "rhythm": "Production/editing cycles begin to reveal the hidden curriculum: critique style, feedback speed, collaboration norms, and faculty availability.",
+            "interpretation": "This is where course requirements stop being catalog entries and become a lived weekly metabolism.",
+            "pressure": 0.531625,
+            "autonomy": 0.52,
+            "recovery": 0.6283333333333333,
+            "courses": [],
+            "source_status": "generated_from_existing_model"
+          },
+          {
+            "id": "thesis_formation",
+            "phase": "Thesis Formation",
+            "rhythm": "The project begins to separate from assignments. Risk shifts from workload volume to conceptual endurance and advisor fit.",
+            "interpretation": "The main curriculum question becomes whether the structure catches uncertainty before it hardens into creative paralysis.",
+            "pressure": 0.55775,
+            "autonomy": 0.72,
+            "recovery": 0.567,
+            "courses": [],
+            "source_status": "generated_from_existing_model"
+          },
+          {
+            "id": "professional_teaching_exit",
+            "phase": "Professional / Teaching Exit",
+            "rhythm": "The final arc converts the MFA into a future practice: teaching, distribution, ethics, career habits, and post-program survivability.",
+            "interpretation": "This phase matters because a good curriculum should not only produce a thesis; it should leave behind a workable documentary life.",
+            "pressure": 0.5885,
+            "autonomy": 0.86,
+            "recovery": 0.6283333333333333,
+            "courses": [],
+            "source_status": "generated_from_existing_model"
+          }
+        ]
+      }
     }
   ],
   "priority_evolution": [
