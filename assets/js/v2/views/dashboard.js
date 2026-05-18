@@ -84,15 +84,16 @@ export function renderDashboardView(schools, options = {}) {
           const chips = collectDashboardAnchors(school)
             .map(anchor => `<span>${escapeHtml(anchor)}</span>`)
             .join('');
+          const ringDegrees = Math.round(score * 3.6);
 
           return `
-            <article class="v2-dashboard-card" data-school-index="${index}" style="--v2-school-accent:${escapeHtml(accent)}">
+            <article class="v2-dashboard-card" data-school-index="${index}" style="--v2-school-accent:${escapeHtml(accent)}; --v2-ring-deg:${ringDegrees}deg;">
               ${image ? `<img src="${escapeHtml(image)}" alt="" loading="lazy">` : ''}
 
               <div class="v2-dashboard-overlay"></div>
 
-              <div class="v2-dashboard-score">
-                <div class="v2-dashboard-ring" style="--v2-ring:${score}%">
+              <div class="v2-dashboard-score" aria-label="Fit score ${score} out of 100">
+                <div class="v2-dashboard-ring">
                   <span>${score}</span>
                 </div>
               </div>
