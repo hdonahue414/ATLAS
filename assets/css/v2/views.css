@@ -19,6 +19,310 @@
   padding: 28px;
 }
 
+.v2-research-view {
+  display: grid;
+  gap: 36px;
+}
+
+.v2-research-intel-summary {
+  position: relative;
+  overflow: hidden;
+  padding: 40px;
+  border-radius: 34px;
+  border: 1px solid rgba(255,255,255,0.07);
+  background:
+    radial-gradient(circle at top left, rgba(157,231,215,0.08), transparent 36%),
+    linear-gradient(180deg, rgba(14,20,34,0.97), rgba(7,10,18,0.99));
+  box-shadow:
+    0 30px 90px rgba(0,0,0,0.42),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+}
+
+.v2-research-intel-summary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, transparent, rgba(255,255,255,0.02), transparent);
+  pointer-events: none;
+}
+
+.v2-research-intel-summary h2 {
+  margin: 10px 0 18px;
+  max-width: 900px;
+  font-size: clamp(2.2rem, 4vw, 3.8rem);
+  line-height: 0.98;
+  letter-spacing: -0.07em;
+}
+
+.v2-research-intel-summary p:last-child {
+  max-width: 980px;
+  margin: 0;
+  color: rgba(237,244,255,0.72);
+  font-size: 1.06rem;
+  line-height: 1.8;
+}
+
+.v2-research-board-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.v2-research-source-board,
+.v2-research-tension-board,
+.v2-research-relationship-board,
+.v2-research-testimony-board {
+  display: grid;
+  gap: 24px;
+  padding: 30px;
+  border-radius: 30px;
+  border: 1px solid rgba(255,255,255,0.055);
+  background:
+    radial-gradient(circle at top left, rgba(157,231,215,0.04), transparent 34%),
+    linear-gradient(180deg, rgba(13,18,30,0.96), rgba(8,12,20,0.99));
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.34),
+    inset 0 1px 0 rgba(255,255,255,0.03);
+}
+
+.v2-research-board-head {
+  display: grid;
+  gap: 6px;
+}
+
+.v2-research-board-head h3 {
+  margin: 0;
+  font-size: 1.8rem;
+  letter-spacing: -0.05em;
+}
+
+.v2-research-board-head p:last-child {
+  margin: 0;
+  color: rgba(237,244,255,0.62);
+  line-height: 1.7;
+}
+
+.v2-research-trace-grid,
+.v2-research-tension-grid,
+.v2-research-relationship-grid,
+.v2-research-testimony-list {
+  display: grid;
+  gap: 16px;
+}
+
+.v2-research-trace-column,
+.v2-research-tension-grid article,
+.v2-research-relationship-grid article,
+.v2-research-testimony-list article {
+  display: grid;
+  gap: 12px;
+  padding: 18px;
+  border-radius: 22px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.025);
+}
+
+.v2-research-trace-column > span,
+.v2-research-tension-grid article > span,
+.v2-research-testimony-list article > span {
+  color: rgba(157,231,215,0.86);
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.v2-research-trace-column p,
+.v2-research-tension-grid p,
+.v2-research-relationship-grid p,
+.v2-research-testimony-list p {
+  margin: 0;
+  color: rgba(237,244,255,0.7);
+  line-height: 1.7;
+}
+
+.v2-research-relationship-grid article div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.v2-research-relationship-grid h4,
+.v2-research-tension-grid h4,
+.v2-research-testimony-list h4 {
+  margin: 0;
+  font-size: 1rem;
+  letter-spacing: -0.03em;
+}
+
+.v2-research-relationship-grid span {
+  color: rgba(157,231,215,0.82);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+
+.v2-research-dossier-stack {
+  display: grid;
+  gap: 30px;
+}
+
+.v2-research-dossier-section {
+  display: grid;
+  gap: 26px;
+  padding: 34px;
+  border-radius: 34px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background:
+    radial-gradient(circle at top left, rgba(157,231,215,0.05), transparent 32%),
+    linear-gradient(180deg, rgba(12,18,30,0.97), rgba(7,10,18,0.99));
+  box-shadow:
+    0 30px 80px rgba(0,0,0,0.38),
+    inset 0 1px 0 rgba(255,255,255,0.035);
+}
+
+.v2-research-section-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 28px;
+}
+
+.v2-research-section-head h3 {
+  margin: 8px 0 14px;
+  font-size: clamp(2rem, 3vw, 3rem);
+  letter-spacing: -0.06em;
+}
+
+.v2-research-section-head p:last-child {
+  max-width: 920px;
+  margin: 0;
+  color: rgba(237,244,255,0.64);
+  line-height: 1.8;
+}
+
+.v2-research-section-head strong {
+  font-size: clamp(2.4rem, 4vw, 4.2rem);
+  line-height: 1;
+  letter-spacing: -0.08em;
+  color: rgba(255,255,255,0.94);
+}
+
+.v2-research-signal-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.v2-research-signal-card {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  gap: 18px;
+  padding: 24px;
+  border-radius: 26px;
+  border: 1px solid rgba(255,255,255,0.065);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+}
+
+.v2-research-signal-card::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 2px;
+  background: rgba(157,231,215,0.65);
+  opacity: 0.45;
+}
+
+.v2-research-signal-card[data-status='corroborated']::before {
+  opacity: 1;
+}
+
+.v2-research-signal-card[data-status='working read']::before {
+  opacity: 0.32;
+}
+
+.v2-research-signal-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.v2-research-status {
+  color: rgba(157,231,215,0.85);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.v2-research-signal-head h4 {
+  margin: 8px 0 0;
+  font-size: 1.3rem;
+  letter-spacing: -0.05em;
+}
+
+.v2-research-score {
+  font-size: 2.5rem;
+  line-height: 0.9;
+  letter-spacing: -0.08em;
+}
+
+.v2-research-signal-card p {
+  margin: 0;
+  color: rgba(237,244,255,0.72);
+  line-height: 1.8;
+}
+
+.v2-research-card-footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.v2-research-confidence,
+.v2-research-pending {
+  padding: 7px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.07);
+  background: rgba(255,255,255,0.03);
+  color: rgba(237,244,255,0.62);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.v2-research-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.v2-research-chip {
+  padding: 9px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.07);
+  background: rgba(255,255,255,0.03);
+  color: rgba(237,244,255,0.76);
+  font-size: 0.8rem;
+  line-height: 1.2;
+}
+
+.v2-research-chip--empty {
+  opacity: 0.55;
+}
+
+.v2-empty-note {
+  margin: 0;
+  color: rgba(237,244,255,0.45);
+  line-height: 1.6;
+}
+
 .v2-dashboard-ring {
   width: 92px;
   height: 92px;
@@ -38,272 +342,28 @@
   letter-spacing: -0.04em;
 }
 
-.v2-curriculum-thesis {
-  display: grid;
-  gap: 28px;
-}
-
-.v2-curriculum-thesis-copy {
-  max-width: 1100px;
-}
-
-.v2-curriculum-profile {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 18px;
-}
-
-.v2-curriculum-meter {
-  display: grid;
-  gap: 12px;
-  padding: 20px;
-  border-radius: 22px;
-  background: rgba(10,16,28,0.82);
-  border: 1px solid rgba(255,255,255,0.06);
-}
-
-.v2-curriculum-meter span {
-  color: rgba(237,244,255,0.62);
-  font-size: 0.76rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.v2-curriculum-meter div {
-  overflow: hidden;
-  height: 8px;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.06);
-}
-
-.v2-curriculum-meter i {
-  display: block;
-  height: 100%;
-  border-radius: inherit;
-  background: linear-gradient(90deg, rgba(157,231,215,0.95), rgba(157,231,215,0.4));
-}
-
-.v2-curriculum-meter strong {
-  font-size: 2rem;
-  letter-spacing: -0.06em;
-}
-
-.v2-curriculum-timeline {
-  display: grid;
-  gap: 28px;
-  margin-top: 12px;
-}
-
-.v2-curriculum-phase {
-  display: grid;
-  grid-template-columns: 56px minmax(0, 1fr);
-  gap: 22px;
-}
-
-.v2-curriculum-index {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding-top: 18px;
-  color: rgba(157,231,215,0.68);
-  font-size: 0.78rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
-.v2-curriculum-phase-main {
-  display: grid;
-  gap: 22px;
-  padding: 26px;
-  border-radius: 28px;
-  border: 1px solid rgba(255,255,255,0.055);
-  background:
-    radial-gradient(circle at top left, rgba(157,231,215,0.045), transparent 34%),
-    linear-gradient(180deg, rgba(12,18,31,0.96), rgba(8,12,21,0.98));
-}
-
-.v2-curriculum-phase-header {
-  display: flex;
-  justify-content: space-between;
-  gap: 28px;
-  align-items: flex-start;
-}
-
-.v2-curriculum-phase-header h3 {
-  margin: 6px 0 0;
-  font-size: clamp(1.7rem, 2.5vw, 2.4rem);
-  letter-spacing: -0.05em;
-}
-
-.v2-curriculum-phase-copy {
-  display: grid;
-  gap: 14px;
-  max-width: 980px;
-}
-
-.v2-curriculum-rhythm {
-  margin: 0;
-  color: rgba(237,244,255,0.92);
-  font-size: 1.08rem;
-  line-height: 1.6;
-}
-
-.v2-curriculum-interpretation {
-  margin: 0;
-  color: rgba(237,244,255,0.64);
-  line-height: 1.7;
-}
-
-.v2-curriculum-phase-metrics {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  justify-content: flex-end;
-}
-
-.v2-curriculum-metric-chip {
-  position: relative;
-  overflow: hidden;
-  display: grid;
-  gap: 4px;
-  min-width: 112px;
-  padding: 12px 14px;
-  border-radius: 18px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(255,255,255,0.03);
-}
-
-.v2-curriculum-metric-chip em {
-  position: relative;
-  z-index: 1;
-  color: rgba(237,244,255,0.62);
-  font-size: 0.68rem;
-  font-style: normal;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.v2-curriculum-metric-chip strong {
-  position: relative;
-  z-index: 1;
-  font-size: 1.15rem;
-  letter-spacing: -0.05em;
-}
-
-.v2-curriculum-metric-chip i {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  height: 3px;
-  width: var(--v2-chip-meter);
-  background: rgba(157,231,215,0.92);
-}
-
-.v2-course-drawer {
-  margin-top: 2px;
-  border-top: 1px solid rgba(255,255,255,0.06);
-  padding-top: 18px;
-}
-
-.v2-course-drawer summary {
-  cursor: pointer;
-  color: rgba(157,231,215,0.82);
-  margin-bottom: 16px;
-}
-
-.v2-course-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.v2-course-list span {
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(255,255,255,0.04);
-  padding: 10px 14px;
-  color: rgba(237,244,255,0.82);
-  line-height: 1.35;
-}
-
-.v2-curriculum-hidden {
-  display: grid;
-  gap: 22px;
-  margin-top: 10px;
-  padding: 28px;
-  border-radius: 28px;
-  border: 1px solid rgba(255,255,255,0.055);
-  background:
-    radial-gradient(circle at top left, rgba(157,231,215,0.04), transparent 34%),
-    linear-gradient(180deg, rgba(12,18,31,0.96), rgba(8,12,21,0.98));
-}
-
-.v2-curriculum-hidden-header h3 {
-  margin: 8px 0 0;
-  font-size: clamp(1.7rem, 2.2vw, 2.3rem);
-  letter-spacing: -0.05em;
-}
-
-.v2-curriculum-hidden-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 18px;
-}
-
-.v2-curriculum-hidden-grid article {
-  display: grid;
-  gap: 12px;
-  padding: 18px;
-  border-radius: 22px;
-  border: 1px solid rgba(255,255,255,0.06);
-  background: rgba(255,255,255,0.03);
-}
-
-.v2-curriculum-hidden-grid article div {
-  display: flex;
-  justify-content: space-between;
-  gap: 16px;
-  align-items: center;
-}
-
-.v2-curriculum-hidden-grid strong {
-  font-size: 1rem;
-}
-
-.v2-curriculum-hidden-grid span {
-  color: rgba(157,231,215,0.92);
-  font-size: 1.05rem;
-  font-weight: 700;
-}
-
-.v2-curriculum-hidden-grid p {
-  margin: 0;
-  color: rgba(237,244,255,0.68);
-  line-height: 1.6;
-}
-
-@media (max-width: 900px) {
-  .v2-curriculum-phase {
+@media (max-width: 1100px) {
+  .v2-research-board-grid,
+  .v2-research-signal-grid {
     grid-template-columns: 1fr;
   }
 
-  .v2-curriculum-index {
-    justify-content: flex-start;
-    padding-top: 0;
-  }
-
-  .v2-curriculum-phase-header {
+  .v2-research-section-head {
     flex-direction: column;
-  }
-
-  .v2-curriculum-phase-metrics {
-    justify-content: flex-start;
   }
 }
 
 @media (max-width: 700px) {
-  .v2-curriculum-profile,
-  .v2-curriculum-hidden-grid {
-    grid-template-columns: 1fr;
+  .v2-research-intel-summary,
+  .v2-research-source-board,
+  .v2-research-tension-board,
+  .v2-research-relationship-board,
+  .v2-research-testimony-board,
+  .v2-research-dossier-section {
+    padding: 22px;
+  }
+
+  .v2-research-intel-summary h2 {
+    font-size: 2.2rem;
   }
 }
