@@ -3,7 +3,8 @@
 .v2-programs-view,
 .v2-curriculum-view,
 .v2-practice-view,
-.v2-environment-view {
+.v2-environment-view,
+.v2-compare-view {
   display: grid;
   gap: 32px;
 }
@@ -32,7 +33,10 @@
 .v2-curriculum-hidden,
 .v2-practice-lede,
 .v2-practice-trajectory,
-.v2-environment-lede {
+.v2-environment-lede,
+.v2-compare-lede,
+.v2-compare-table-card,
+.v2-compare-signal-card {
   border: 1px solid rgba(255,255,255,0.06);
   border-radius: 30px;
   background:
@@ -50,6 +54,199 @@
   font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
+}
+
+/* Compare */
+.v2-compare-lede {
+  display: grid;
+  gap: 8px;
+}
+
+.v2-compare-lede h2 {
+  margin: 8px 0 14px;
+  max-width: 980px;
+  font-size: clamp(2.2rem, 4vw, 3.8rem);
+  line-height: 0.98;
+  letter-spacing: -0.07em;
+}
+
+.v2-compare-lede p:last-child {
+  max-width: 980px;
+  margin: 0;
+  color: rgba(237,244,255,0.68);
+  line-height: 1.8;
+}
+
+.v2-compare-school-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.v2-compare-school-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 280px;
+  border-radius: 28px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(7,11,20,0.96);
+  box-shadow: 0 26px 70px rgba(0,0,0,0.34);
+}
+
+.v2-compare-school-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.88) brightness(0.72);
+}
+
+.v2-compare-school-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.82)),
+    radial-gradient(circle at top left, color-mix(in srgb, var(--v2-school-accent) 20%, transparent), transparent 38%);
+}
+
+.v2-compare-school-body {
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: 1;
+  display: grid;
+  gap: 8px;
+  padding: 24px;
+}
+
+.v2-compare-school-body span {
+  color: rgba(237,244,255,0.72);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.v2-compare-school-body h3 {
+  margin: 0;
+  color: var(--v2-school-accent, rgba(255,255,255,0.94));
+  font-size: clamp(1.7rem, 2vw, 2.45rem);
+  line-height: 0.98;
+  letter-spacing: -0.055em;
+}
+
+.v2-compare-school-body strong {
+  color: rgba(255,255,255,0.95);
+  font-size: 3rem;
+  line-height: 0.9;
+  letter-spacing: -0.08em;
+}
+
+.v2-compare-section-head h3 {
+  margin: 8px 0 0;
+  font-size: clamp(1.7rem, 3vw, 2.6rem);
+  letter-spacing: -0.055em;
+}
+
+.v2-compare-table {
+  display: grid;
+  gap: 12px;
+  margin-top: 24px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+}
+
+.v2-compare-row {
+  display: grid;
+  grid-template-columns: minmax(220px, 1.2fr) repeat(var(--v2-compare-columns), minmax(120px, 1fr));
+  gap: 12px;
+  min-width: min(980px, max-content);
+}
+
+.v2-compare-header-row div {
+  color: rgba(157,231,215,0.8);
+  font-size: 0.76rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.v2-compare-row-label,
+.v2-compare-cell {
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  border-radius: 18px;
+  border: 1px solid rgba(255,255,255,0.055);
+  background: rgba(255,255,255,0.024);
+}
+
+.v2-compare-row-label {
+  padding: 0 18px;
+  color: rgba(237,244,255,0.76);
+  line-height: 1.35;
+}
+
+.v2-compare-cell {
+  position: relative;
+  overflow: hidden;
+  justify-content: center;
+}
+
+.v2-compare-cell strong {
+  position: relative;
+  z-index: 1;
+  font-size: 1.28rem;
+  letter-spacing: -0.04em;
+}
+
+.v2-compare-cell span {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: var(--v2-compare-meter);
+  height: 4px;
+  background: rgba(157,231,215,0.9);
+}
+
+.v2-compare-cell.is-strongest {
+  border-color: rgba(157,231,215,0.24);
+  background: rgba(157,231,215,0.045);
+}
+
+.v2-compare-signal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.v2-compare-signal-card {
+  display: grid;
+  gap: 22px;
+}
+
+.v2-compare-signal-list {
+  display: grid;
+  gap: 10px;
+}
+
+.v2-compare-signal-list > span {
+  color: rgba(157,231,215,0.78);
+  font-size: 0.74rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.v2-compare-signal-list p {
+  margin: 0;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: rgba(237,244,255,0.72);
+  line-height: 1.45;
+}
+
+.v2-compare-signal-list strong {
+  min-width: 36px;
+  color: rgba(255,255,255,0.92);
 }
 
 /* Programs / score architecture */
@@ -728,8 +925,17 @@
   .v2-curriculum-profile,
   .v2-curriculum-hidden-grid,
   .v2-practice-grid,
-  .v2-practice-trajectory > div {
+  .v2-practice-trajectory > div,
+  .v2-compare-school-grid,
+  .v2-compare-signal-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .v2-compare-row {
+    grid-template-columns: 1fr;
+    min-width: 0;
   }
 }
 
@@ -753,7 +959,9 @@
   .v2-curriculum-profile,
   .v2-curriculum-hidden-grid,
   .v2-practice-grid,
-  .v2-practice-trajectory > div {
+  .v2-practice-trajectory > div,
+  .v2-compare-school-grid,
+  .v2-compare-signal-grid {
     grid-template-columns: 1fr;
   }
 
@@ -764,7 +972,10 @@
   .v2-curriculum-hidden,
   .v2-practice-lede,
   .v2-practice-trajectory,
-  .v2-environment-lede {
+  .v2-environment-lede,
+  .v2-compare-lede,
+  .v2-compare-table-card,
+  .v2-compare-signal-card {
     padding: 22px;
   }
 }
