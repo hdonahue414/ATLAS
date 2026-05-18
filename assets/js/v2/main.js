@@ -21,13 +21,34 @@ const VIEW_TITLES = {
   environment: 'Environment',
   practice: 'Practice',
   curriculum: 'Curriculum',
-  compare: 'Compare'
+  compare: ''
 };
 
 function renderInlineSchoolPicker() {
   return `
     <div class="v2-inline-school-picker">
       ${renderSchoolPicker(state.schools, state.selectedIndex, { escapeHtml })}
+    </div>
+  `;
+}
+
+function renderCompareSelectors() {
+  const selectors = state.compareIndices.map((selectedIndex, slotIndex) => `
+    <label class="v2-compare-selector">
+      <span>${slotIndex === 0 ? 'School A' : 'School B'}</span>
+      <select data-compare-slot="${slotIndex}">
+        ${state.schools.map((school, schoolIndex) => `
+          <option value="${schoolIndex}" ${schoolIndex === selectedIndex ? 'selected' : ''}>
+            ${escapeHtml(school.name)}
+          </option>
+        `).join('')}
+      </select>
+    </label>
+  `).join('');
+
+  return `
+    <div class="v2-compare-selector-row">
+      ${selectors}
     </div>
   `;
 }
@@ -79,14 +100,21 @@ function renderActiveView(selectedSchool) {
         </section>
       `;
 
-    case 'compare':
+    case 'compare': {
+      const compareSchools = state.compareIndices
+        .map(index => state.schools[index])
+        .filter(Boolean);
+
       return `
         <section class="v2-view-shell v2-view-shell--compare">
-          ${renderCompareView(state.schools, {
-            escapeHtml
+          ${renderCompareSelectors()}
+          ${renderCompareView(compareSchools, {
+            escapeHtml,
+            allSchools: state.schools
           })}
         </section>
       `;
+    }
 
     case 'programs':
     default:
@@ -128,22 +156,36 @@ function bindViewTriggers(scope) {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   });
+
+  scope.querySelectorAll('[data-compare-slot]').forEach(select => {
+    select.addEventListener('change', (event) => {
+      const slot = Number.parseInt(event.target.dataset.compareSlot || '', 10);
+      const nextIndex = Number.parseInt(event.target.value || '', 10);
+
+      if (!Number.isInteger(slot) || !Number.isInteger(nextIndex)) return;
+
+      state.compareIndices[slot] = nextIndex;
+      render();
+    });
+  });
 }
 
 function render() {
   const selectedSchool = state.schools[state.selectedIndex];
-  const title = VIEW_TITLES[state.activeView] || 'ATLAS';
+  const title = VIEW_TITLES[state.activeView] || '';
 
   root.innerHTML = `
     <div class="v2-app-shell">
       ${renderSidebar()}
 
       <main class="v2-main-stage">
-        <header class="v2-page-header">
-          <div>
-            <h1>${escapeHtml(title)}</h1>
-          </div>
-        </header>
+        ${title ? `
+          <header class="v2-page-header">
+            <div>
+              <h1>${escapeHtml(title)}</h1>
+            </div>
+          </header>
+        ` : ''}
 
         ${renderActiveView(selectedSchool)}
       </main>
@@ -167,6 +209,11 @@ async function boot() {
   try {
     const data = await loadAtlasData();
     state.schools = data.schools || [];
+
+    if (state.schools.length < 2) {
+      state.compareIndices = [0, 0];
+    }
+
     render();
   } catch (error) {
     root.innerHTML = `
