@@ -88,6 +88,26 @@ function renderSidebar() {
   `;
 }
 
+function bindViewTriggers(scope) {
+  scope.querySelectorAll('[data-view-trigger]').forEach(button => {
+    button.addEventListener('click', () => {
+      const nextView = button.dataset.viewTrigger;
+      const schoolIndex = Number.parseInt(button.dataset.schoolIndex || '', 10);
+
+      if (Number.isInteger(schoolIndex) && state.schools[schoolIndex]) {
+        setSelectedSchool(state, schoolIndex);
+      }
+
+      if (nextView) {
+        setView(state, nextView);
+      }
+
+      render();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  });
+}
+
 function render() {
   const selectedSchool = state.schools[state.selectedIndex];
   const title = VIEW_TITLES[state.activeView] || 'ATLAS';
@@ -117,6 +137,8 @@ function render() {
     setView(state, viewName);
     render();
   });
+
+  bindViewTriggers(root);
 }
 
 async function boot() {
