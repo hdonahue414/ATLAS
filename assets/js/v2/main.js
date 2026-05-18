@@ -9,6 +9,7 @@ import { renderResearchView } from './views/research.js';
 import { renderEnvironmentView } from './views/environment.js';
 import { renderDashboardView } from './views/dashboard.js';
 import { renderCurriculumView } from './views/curriculum.js';
+import { renderPracticeView } from './views/practice.js';
 
 const root = document.getElementById('atlas-v2-root');
 
@@ -60,6 +61,16 @@ function renderActiveView(selectedSchool) {
       return `
         <section class="v2-view-shell v2-view-shell--curriculum">
           ${renderCurriculumView(selectedSchool, {
+            escapeHtml,
+            schoolPicker: picker
+          })}
+        </section>
+      `;
+
+    case 'practice':
+      return `
+        <section class="v2-view-shell v2-view-shell--practice">
+          ${renderPracticeView(selectedSchool, {
             escapeHtml,
             schoolPicker: picker
           })}
