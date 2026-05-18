@@ -10,6 +10,7 @@ import { renderEnvironmentView } from './views/environment.js';
 import { renderDashboardView } from './views/dashboard.js';
 import { renderCurriculumView } from './views/curriculum.js';
 import { renderPracticeView } from './views/practice.js';
+import { renderCompareView } from './views/compare.js';
 
 const root = document.getElementById('atlas-v2-root');
 
@@ -19,7 +20,8 @@ const VIEW_TITLES = {
   research: 'Research',
   environment: 'Environment',
   practice: 'Practice',
-  curriculum: 'Curriculum'
+  curriculum: 'Curriculum',
+  compare: 'Compare'
 };
 
 function renderInlineSchoolPicker() {
@@ -73,6 +75,15 @@ function renderActiveView(selectedSchool) {
           ${renderPracticeView(selectedSchool, {
             escapeHtml,
             schoolPicker: picker
+          })}
+        </section>
+      `;
+
+    case 'compare':
+      return `
+        <section class="v2-view-shell v2-view-shell--compare">
+          ${renderCompareView(state.schools, {
+            escapeHtml
           })}
         </section>
       `;
