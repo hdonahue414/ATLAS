@@ -1,0 +1,44 @@
+name: Persist curriculum model
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - rebuild
+    paths:
+      - tools/persist-curriculum-model.mjs
+      - assets/js/v2/core/curriculum-model.js
+      - .github/workflows/persist-curriculum.yml
+
+permissions:
+  contents: write
+
+jobs:
+  persist-curriculum:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: rebuild
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Persist curriculum phases into data.json
+        run: node tools/persist-curriculum-model.mjs
+
+      - name: Commit persisted data
+        run: |
+          if git diff --quiet -- data.json; then
+            echo "No curriculum persistence changes needed."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data.json
+          git commit -m "Persist curriculum phases into data.json"
+          git push origin HEAD:rebuild
