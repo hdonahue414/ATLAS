@@ -1,5 +1,3 @@
-import { renderHeroCard } from '../components/hero-card.js';
-
 function asArray(value) {
   if (!value) return [];
   return Array.isArray(value) ? value.filter(Boolean) : [value];
@@ -83,14 +81,13 @@ export function renderPracticeView(school, options = {}) {
 
   return `
     <div class="v2-practice-view">
-      ${renderHeroCard(school, { escapeHtml, schoolPicker })}
-
-      <section class="v2-practice-lede">
-        <p class="v2-section-kicker">Practice ecology</p>
-        <h2>What kind of filmmaker this place trains into being</h2>
-        <p>
-          This view separates practice formation from institutional overview. It reads the program as a pressure environment for documentary method, thesis survival, teaching identity, critique metabolism, and long-term creative continuity.
-        </p>
+      <section class="v2-compact-context">
+        <div>
+          <p class="v2-section-kicker">Practice ecology</p>
+          <h2>${escapeHtml(school.name)}</h2>
+          <p>Documentary method, thesis survival, teaching identity, critique metabolism, and long-term creative continuity.</p>
+        </div>
+        ${schoolPicker}
       </section>
 
       <section class="v2-practice-grid">
