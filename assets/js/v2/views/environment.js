@@ -1,4 +1,3 @@
-import { renderHeroCard } from '../components/hero-card.js';
 import { renderPlaceCardGroup } from '../components/place-card.js';
 import { renderSectionGroup, renderTextNotes } from '../components/section-group.js';
 
@@ -212,12 +211,13 @@ export function renderEnvironmentView(school, options = {}) {
 
   return `
     <div class="v2-environment-view v2-production-view">
-      ${renderHeroCard(school, { escapeHtml, schoolPicker })}
-
-      <section class="v2-environment-lede">
-        <p class="v2-section-kicker">Lived geography</p>
-        <h2>Can ordinary life hold the work?</h2>
-        <p>Environment is treated as a working ecology: repeatable routines, queer/community infrastructure, third places, transit friction, and documentary-world access.</p>
+      <section class="v2-compact-context">
+        <div>
+          <p class="v2-section-kicker">Lived geography</p>
+          <h2>${escapeHtml(school.name)}</h2>
+          <p>Repeatable routines, queer/community infrastructure, third places, transit friction, and documentary-world access.</p>
+        </div>
+        ${schoolPicker}
       </section>
 
       <div class="v2-production-stack">
