@@ -83,15 +83,33 @@ function titleCase(text) {
     .replace(/\b\w/g, letter => letter.toUpperCase());
 }
 
+const RESEARCH_CLUSTERS = {
+  formation_support: {
+    title: 'Formation Support',
+    keys: ['mentorship', 'teaching'],
+    frame: 'Advising, pedagogy, cohort structure, and the degree to which the program appears to hold a filmmaker through uncertainty rather than simply evaluate output.'
+  },
+  documentary_method: {
+    title: 'Documentary Method',
+    keys: ['documentary', 'philosophy'],
+    frame: 'Evidence about the program’s nonfiction grammar: observational compatibility, ethical practice, methodology, theory pressure, and risk of aesthetic drift.'
+  },
+  material_conditions: {
+    title: 'Material Conditions',
+    keys: ['funding', 'livability', 'politics'],
+    frame: 'The practical ecology around the work: money, housing, local infrastructure, legal climate, daily recovery, and background stress.'
+  }
+};
+
 function categoryLabel(key, category) {
   const labels = {
-    mentorship: 'Mentorship & Structure',
+    mentorship: 'Mentorship Structure',
     documentary: 'Documentary Practice',
-    teaching: 'Teaching & Academic Formation',
+    teaching: 'Teaching Formation',
     funding: 'Financial Sustainability',
-    livability: 'Environmental Fit',
-    politics: 'Political / Legal Context',
-    philosophy: 'Philosophical Alignment'
+    livability: 'Daily-Life Sustainability',
+    politics: 'Legal / Political Climate',
+    philosophy: 'Methodological Alignment'
   };
 
   return category?.label || labels[key] || titleCase(key);
@@ -99,16 +117,21 @@ function categoryLabel(key, category) {
 
 function categoryFrame(key) {
   const frames = {
-    mentorship: 'How reliably the program appears to hold students through uncertainty, thesis pressure, feedback cycles, and relational development.',
-    documentary: 'How strongly the program infrastructure supports the user’s documentary practice rather than pulling it into adjacent but less compatible forms.',
-    teaching: 'How clearly the program helps translate the MFA into future academic, classroom, and mentoring practice.',
-    funding: 'How much material risk remains after tuition, stipend, cost of living, and debt exposure are considered together.',
-    livability: 'How the local environment may support routine, recovery, community access, and ordinary-week sustainability.',
-    politics: 'How legal, institutional, and local conditions shape risk, protection, and background stress.',
-    philosophy: 'How well the program’s implied values align with relational, ethical, human-centered nonfiction practice.'
+    mentorship: 'Relational support, accountability, feedback rhythm, and faculty visibility under pressure.',
+    documentary: 'Compatibility with the filmmaker’s nonfiction practice rather than broad media drift.',
+    teaching: 'Whether the curriculum plausibly converts documentary practice into future classroom and mentorship capacity.',
+    funding: 'How much practical exposure remains after tuition, stipend, cost of living, and debt risk are combined.',
+    livability: 'Whether the city can sustain repeatable daily rhythms, recovery, community access, and production life.',
+    politics: 'How local/state conditions affect safety, stress, institutional friction, and long-term life fit.',
+    philosophy: 'The program’s implied values: ethics, relation, theory, authorship, community, and artistic pressure.'
   };
 
   return frames[key] || 'Interpretive evidence grouped from the scoring model.';
+}
+
+function categoryClusterKey(categoryKey) {
+  const found = Object.entries(RESEARCH_CLUSTERS).find(([, cluster]) => cluster.keys.includes(categoryKey));
+  return found ? found[0] : 'additional_signals';
 }
 
 function synthesizeSubvariable(item, categoryKey, school) {
@@ -120,24 +143,24 @@ function synthesizeSubvariable(item, categoryKey, school) {
   const categoryNoun = categoryLabel(categoryKey, school?.scores?.[categoryKey]).toLowerCase();
 
   const scorePhrase = score === null
-    ? 'is currently unresolved'
+    ? 'remains unresolved'
     : score >= 90
-      ? 'is one of the strongest signals in this dossier'
+      ? 'forms a high-weight support signal'
       : score >= 78
-        ? 'reads as a strong but still contextual signal'
+        ? 'reads as a durable but contextual signal'
         : score >= 62
-          ? 'reads as a mixed or conditional signal'
-          : 'marks a vulnerability or unresolved pressure point';
+          ? 'is mixed and should be read conditionally'
+          : 'functions as a pressure point rather than a strength';
 
   const confidencePhrase = status === 'corroborated'
-    ? 'The evidence is relatively stable across the current record.'
+    ? 'The current record gives this read relatively stable footing.'
     : status === 'supported inference'
-      ? 'The reading is supported, but still partly inferential.'
+      ? 'The read is supported, but still depends partly on interpretation rather than direct confirmation.'
       : status === 'pending'
-        ? 'The score should remain provisional until more direct evidence is added.'
+        ? 'This should stay provisional until direct evidence is added.'
         : 'This remains a working interpretation rather than a settled finding.';
 
-  return `${titleCase(name)} ${scorePhrase} for ${categoryNoun}. The current basis is ${evidencePhrase}. ${confidencePhrase}`;
+  return `${titleCase(name)} ${scorePhrase} inside ${categoryNoun}. The active evidence base points to ${evidencePhrase}. ${confidencePhrase}`;
 }
 
 function collectCategoryDossiers(school) {
@@ -157,6 +180,7 @@ function collectCategoryDossiers(school) {
 
     return {
       key,
+      clusterKey: categoryClusterKey(key),
       title: categoryLabel(key, category),
       score: categoryAverage(category),
       notes: category?.notes || categoryFrame(key),
@@ -166,26 +190,53 @@ function collectCategoryDossiers(school) {
   });
 }
 
-function topSummary(school, dossiers) {
-  const top = dossiers
+function collectResearchClusters(dossiers) {
+  const clusters = Object.entries(RESEARCH_CLUSTERS).map(([key, config]) => {
+    const children = dossiers.filter(dossier => dossier.clusterKey === key);
+    const scores = children.map(child => child.score).filter(score => typeof score === 'number');
+    return {
+      key,
+      title: config.title,
+      frame: config.frame,
+      score: scores.length ? Math.round(scores.reduce((sum, score) => sum + score, 0) / scores.length) : null,
+      dossiers: children
+    };
+  }).filter(cluster => cluster.dossiers.length);
+
+  const additional = dossiers.filter(dossier => dossier.clusterKey === 'additional_signals');
+  if (additional.length) {
+    clusters.push({
+      key: 'additional_signals',
+      title: 'Additional Signals',
+      frame: 'Secondary or uncategorized evidence that still affects the research read.',
+      score: null,
+      dossiers: additional
+    });
+  }
+
+  return clusters;
+}
+
+function topSummary(school, clusters) {
+  const ranked = clusters
     .filter(item => typeof item.score === 'number')
     .sort((a, b) => b.score - a.score);
-  const strongest = top.slice(0, 2).map(item => item.title.toLowerCase()).join(' and ');
-  const weakest = top.slice(-1)[0]?.title?.toLowerCase();
+  const strongest = ranked.slice(0, 2).map(item => item.title.toLowerCase()).join(' and ');
+  const weakest = ranked.slice(-1)[0]?.title?.toLowerCase();
   const contradictions = asArray(school?.contradictions).length;
   const unresolved = asArray(school?.source_trace?.unresolved).length;
 
   const firstSentence = strongest
-    ? `${school.name} currently presents its strongest research signals around ${strongest}.`
+    ? `${school.name} currently reads strongest through ${strongest}.`
     : `${school.name} has enough structured evidence to support an interpretive dossier, but the signal hierarchy remains incomplete.`;
 
   const secondSentence = weakest
-    ? `The most fragile or conditional layer is ${weakest}, where evidence should be treated as context-dependent rather than settled.`
+    ? `The most conditional layer is ${weakest}, where the evidence should stay open to revision.`
     : 'The weakest layer is not yet clearly separated from the rest of the evidence base.';
 
   const thirdSentence = contradictions || unresolved
-    ? `The page preserves ${contradictions + unresolved} open tension${contradictions + unresolved === 1 ? '' : 's'} rather than flattening them into the score.`
-    : 'No major unresolved contradiction is currently recorded, though absence of contradiction should not be treated as proof of completeness.';
+    ? `The dossier preserves ${contradictions + unresolved} open tension${contradictions + unresolved === 1 ? '' : 's'} rather than converting uncertainty into false precision.`
+    : 'No major unresolved contradiction is currently recorded, though absence of contradiction is not the same as completeness.';
 
   return `${firstSentence} ${secondSentence} ${thirdSentence}`;
 }
@@ -211,7 +262,7 @@ function renderSignalCard(signal, escapeHtml) {
           <span class="v2-research-status">${escapeHtml(signal.status)}</span>
           <h4>${escapeHtml(titleCase(signal.label))}</h4>
         </div>
-        <strong class="v2-research-score">${escapeHtml(score)}</strong>
+        <span class="v2-research-score-pill">${escapeHtml(score)}</span>
       </div>
 
       <p>${escapeHtml(signal.synthesis)}</p>
@@ -230,29 +281,53 @@ function renderSignalCard(signal, escapeHtml) {
 
 function renderCategoryDossier(dossier, escapeHtml) {
   return `
-    <section class="v2-research-dossier-section">
-      <div class="v2-research-section-head">
+    <article class="v2-research-category-card">
+      <div class="v2-research-category-head">
         <div>
-          <p class="v2-section-kicker">Research cluster</p>
-          <h3>${escapeHtml(dossier.title)}</h3>
+          <span>${escapeHtml(dossier.title)}</span>
           <p>${escapeHtml(dossier.notes || dossier.frame)}</p>
         </div>
         <strong>${typeof dossier.score === 'number' ? escapeHtml(dossier.score) : '—'}</strong>
       </div>
-
       <div class="v2-research-signal-grid">
         ${dossier.signals.map(signal => renderSignalCard(signal, escapeHtml)).join('')}
+      </div>
+    </article>
+  `;
+}
+
+function renderResearchCluster(cluster, escapeHtml) {
+  return `
+    <section class="v2-research-dossier-section">
+      <div class="v2-research-section-head">
+        <div>
+          <p class="v2-section-kicker">Behavioral research cluster</p>
+          <h3>${escapeHtml(cluster.title)}</h3>
+          <p>${escapeHtml(cluster.frame)}</p>
+        </div>
+        <span class="v2-research-cluster-score">${typeof cluster.score === 'number' ? escapeHtml(cluster.score) : '—'}</span>
+      </div>
+      <div class="v2-research-category-stack">
+        ${cluster.dossiers.map(dossier => renderCategoryDossier(dossier, escapeHtml)).join('')}
       </div>
     </section>
   `;
 }
 
+const TRACE_LABELS = {
+  verified: 'Hard evidence',
+  inferred: 'Interpretive read',
+  speculative: 'Future-facing forecast',
+  unresolved: 'Open file'
+};
+
 function renderTraceColumn(title, items, escapeHtml) {
   const normalized = asArray(items).map(readableResearchText).map(cleanEvidenceText).filter(Boolean);
+  const label = TRACE_LABELS[title] || title;
 
   return `
-    <article class="v2-research-trace-column">
-      <span>${escapeHtml(title)}</span>
+    <article class="v2-research-trace-column" data-trace="${escapeHtml(title)}">
+      <span>${escapeHtml(label)}</span>
       <div>
         ${normalized.length ? normalized.map(item => `<p>${escapeHtml(item)}</p>`).join('') : '<p class="v2-empty-note">No entries recorded.</p>'}
       </div>
@@ -264,8 +339,9 @@ function renderSourceTrace(sourceTrace, escapeHtml) {
   return `
     <section class="v2-research-source-board">
       <div class="v2-research-board-head">
-        <p class="v2-section-kicker">Evidence state</p>
-        <h3>Source trace</h3>
+        <p class="v2-section-kicker">Archive state</p>
+        <h3>Evidence file</h3>
+        <p>What is confirmed, what is interpretive, what is forecast, and what still needs direct sourcing.</p>
       </div>
       <div class="v2-research-trace-grid">
         ${renderTraceColumn('verified', sourceTrace.verified, escapeHtml)}
@@ -350,6 +426,14 @@ function renderRelationshipSignals(school, escapeHtml) {
   `;
 }
 
+function testimonyType(item) {
+  const text = `${item?.source_type || ''} ${item?.source || ''} ${item?.summary || ''}`.toLowerCase();
+  if (text.includes('student') || text.includes('alum') || text.includes('alumni')) return 'student / alumni testimony';
+  if (text.includes('press') || text.includes('article') || text.includes('news')) return 'external press';
+  if (text.includes('institution') || text.includes('program') || text.includes('department')) return 'institutional claim';
+  return item?.source_type || 'public signal';
+}
+
 function renderPublicTestimony(school, escapeHtml) {
   const testimony = asArray(school?.public_testimony);
 
@@ -358,11 +442,12 @@ function renderPublicTestimony(school, escapeHtml) {
       <div class="v2-research-board-head">
         <p class="v2-section-kicker">Public testimony</p>
         <h3>External signal layer</h3>
+        <p>Separated by source type so student testimony, institutional language, and external press do not collapse into the same evidentiary weight.</p>
       </div>
       <div class="v2-research-testimony-list">
         ${testimony.length ? testimony.map(item => `
-          <article>
-            <span>${escapeHtml(item.source_type || 'source')}</span>
+          <article data-testimony-type="${escapeHtml(testimonyType(item))}">
+            <span>${escapeHtml(testimonyType(item))}</span>
             <p>${escapeHtml(item.summary || readableResearchText(item))}</p>
             <div class="v2-research-chip-row">
               ${renderEvidenceChips(item.implications || [], escapeHtml)}
@@ -381,6 +466,7 @@ export function renderResearchView(school, options = {}) {
   if (!school) return '<p>No school loaded.</p>';
 
   const dossiers = collectCategoryDossiers(school);
+  const clusters = collectResearchClusters(dossiers);
   const sourceTrace = school.source_trace || {};
 
   return `
@@ -391,7 +477,7 @@ export function renderResearchView(school, options = {}) {
         <div>
           <p class="v2-section-kicker">Research dossier</p>
           <h2>Evidence interpreted as institutional behavior</h2>
-          <p>${escapeHtml(topSummary(school, dossiers))}</p>
+          <p>${escapeHtml(topSummary(school, clusters))}</p>
         </div>
       </section>
 
@@ -403,7 +489,7 @@ export function renderResearchView(school, options = {}) {
       </div>
 
       <div class="v2-research-dossier-stack">
-        ${dossiers.map(dossier => renderCategoryDossier(dossier, escapeHtml)).join('')}
+        ${clusters.map(cluster => renderResearchCluster(cluster, escapeHtml)).join('')}
       </div>
     </div>
   `;
