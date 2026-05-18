@@ -105,7 +105,7 @@ function courseFallback(school, phase) {
       foundation: ['DOC 728 — Documentary History', 'DOC 717 — Fundamentals of Editing', 'DOC 713 — Documentary Storytelling I'],
       production: ['DOC 715 — Cinematography and Sound', 'DOC 724 — Advanced Story Editing', 'DOC 722 — Documentary Storytelling II'],
       thesis: ['DOC 735 — Law and Ethics', 'DOC 734 — Advanced Cinematography and Sound', 'DOC 737 — Documentary Storytelling III', 'DOC 748 — Creative Thesis'],
-      exit: ['DOC 718 — Social Media & Marketing in the Creative Arts', 'DOC 755 — Entrepreneurial Filmmaking', 'DOC 751 — Teaching in Higher Education']
+      exit: ['DOC 718 — Social Media & Marketing in the Creative Arts', 'DOC 755 — Professional Seminar: Entrepreneurial Filmmaking', 'DOC 751 — Professional Seminar: Teaching in Higher Education']
     };
     return wakeCourses[phase] || [];
   }
@@ -138,6 +138,16 @@ function renderMeter(label, value, escapeHtml) {
   `;
 }
 
+function renderMetricChip(label, value, escapeHtml) {
+  return `
+    <span class="v2-curriculum-metric-chip">
+      <em>${escapeHtml(label)}</em>
+      <strong>${pct(value)}</strong>
+      <i style="--v2-chip-meter:${pct(value)}%"></i>
+    </span>
+  `;
+}
+
 function renderCourseList(courses, escapeHtml) {
   if (!courses.length) {
     return `
@@ -159,15 +169,21 @@ function renderPhase(phase, index, escapeHtml) {
     <article class="v2-curriculum-phase">
       <div class="v2-curriculum-index">${String(index + 1).padStart(2, '0')}</div>
       <div class="v2-curriculum-phase-main">
-        <p class="v2-section-kicker">Formation phase</p>
-        <h3>${escapeHtml(phase.phase)}</h3>
-        <p class="v2-curriculum-rhythm">${escapeHtml(phase.rhythm)}</p>
-        <p class="v2-curriculum-interpretation">${escapeHtml(phase.interpretation)}</p>
+        <div class="v2-curriculum-phase-header">
+          <div>
+            <p class="v2-section-kicker">Formation phase</p>
+            <h3>${escapeHtml(phase.phase)}</h3>
+          </div>
+          <div class="v2-curriculum-phase-metrics">
+            ${renderMetricChip('Pressure', phase.pressure, escapeHtml)}
+            ${renderMetricChip('Autonomy', phase.autonomy, escapeHtml)}
+            ${renderMetricChip('Recovery', phase.recovery, escapeHtml)}
+          </div>
+        </div>
 
-        <div class="v2-curriculum-meters">
-          ${renderMeter('Pressure', phase.pressure, escapeHtml)}
-          ${renderMeter('Autonomy', phase.autonomy, escapeHtml)}
-          ${renderMeter('Recovery', phase.recovery, escapeHtml)}
+        <div class="v2-curriculum-phase-copy">
+          <p class="v2-curriculum-rhythm">${escapeHtml(phase.rhythm)}</p>
+          <p class="v2-curriculum-interpretation">${escapeHtml(phase.interpretation)}</p>
         </div>
 
         <details class="v2-course-drawer" open>
@@ -190,15 +206,17 @@ function renderHiddenCurriculum(school, escapeHtml) {
 
   return `
     <section class="v2-curriculum-hidden">
-      <div>
+      <div class="v2-curriculum-hidden-header">
         <p class="v2-section-kicker">Hidden curriculum</p>
         <h3>What the catalog does not say</h3>
       </div>
       <div class="v2-curriculum-hidden-grid">
         ${cards.map(([title, value, note]) => `
           <article>
-            <strong>${escapeHtml(title)}</strong>
-            <span>${pct(value)}</span>
+            <div>
+              <strong>${escapeHtml(title)}</strong>
+              <span>${pct(value)}</span>
+            </div>
             <p>${escapeHtml(note)}</p>
           </article>
         `).join('')}
@@ -225,7 +243,7 @@ export function renderCurriculumView(school, options = {}) {
       })}
 
       <section class="v2-curriculum-thesis">
-        <div>
+        <div class="v2-curriculum-thesis-copy">
           <p class="v2-section-kicker">Curriculum metabolism</p>
           <h2>How the program unfolds over time</h2>
           <p>
