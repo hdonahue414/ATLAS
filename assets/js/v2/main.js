@@ -21,7 +21,7 @@ const VIEW_TITLES = {
   environment: 'Environment',
   practice: 'Practice',
   curriculum: 'Curriculum',
-  compare: ''
+  compare: 'Compare'
 };
 
 function renderInlineSchoolPicker() {
