@@ -1,5 +1,3 @@
-import { renderHeroCard } from '../components/hero-card.js';
-
 function asArray(value) {
   if (!value) return [];
   return Array.isArray(value) ? value.filter(Boolean) : [value];
@@ -69,7 +67,7 @@ function defaultFormationArc(school) {
     {
       phase: 'First Production Arc',
       rhythm: 'Production/editing cycles begin to reveal the hidden curriculum: critique style, feedback speed, collaboration norms, and faculty availability.',
-      interpretation: 'This is where course requirements stop being catalog entries and become a lived weekly metabolism.',
+      interpretation: 'Course requirements become lived weekly metabolism rather than catalog entries.',
       pressure: avg([profile.production, profile.structure], 0.65),
       autonomy: 0.52,
       recovery: profile.sustainability,
@@ -77,8 +75,8 @@ function defaultFormationArc(school) {
     },
     {
       phase: 'Thesis Formation',
-      rhythm: 'The project begins to separate from assignments. Risk shifts from workload volume to conceptual endurance and advisor fit.',
-      interpretation: 'The main curriculum question becomes whether the structure catches uncertainty before it hardens into creative paralysis.',
+      rhythm: 'The project separates from assignments. Risk shifts from workload volume to conceptual endurance and advisor fit.',
+      interpretation: 'The curriculum question becomes whether structure catches uncertainty before it hardens into creative paralysis.',
       pressure: avg([profile.thesis, profile.production], 0.72),
       autonomy: 0.72,
       recovery: profile.recovery,
@@ -86,8 +84,8 @@ function defaultFormationArc(school) {
     },
     {
       phase: 'Professional / Teaching Exit',
-      rhythm: 'The final arc converts the MFA into a future practice: teaching, distribution, ethics, career habits, and post-program survivability.',
-      interpretation: 'This phase matters because a good curriculum should not only produce a thesis; it should leave behind a workable documentary life.',
+      rhythm: 'The final arc converts the MFA into future practice: teaching, distribution, ethics, career habits, and post-program survivability.',
+      interpretation: 'A good curriculum should not only produce a thesis; it should leave behind a workable documentary life.',
       pressure: avg([profile.teaching, profile.thesis], 0.62),
       autonomy: 0.86,
       recovery: profile.sustainability,
@@ -208,7 +206,7 @@ function renderHiddenCurriculum(school, escapeHtml) {
     <section class="v2-curriculum-hidden">
       <div class="v2-curriculum-hidden-header">
         <p class="v2-section-kicker">Hidden curriculum</p>
-        <h3>What the catalog does not say</h3>
+        <h3>Catalog pressure read</h3>
       </div>
       <div class="v2-curriculum-hidden-grid">
         ${cards.map(([title, value, note]) => `
@@ -237,25 +235,20 @@ export function renderCurriculumView(school, options = {}) {
 
   return `
     <div class="v2-curriculum-view">
-      ${renderHeroCard(school, {
-        escapeHtml,
-        schoolPicker
-      })}
-
-      <section class="v2-curriculum-thesis">
-        <div class="v2-curriculum-thesis-copy">
+      <section class="v2-compact-context">
+        <div>
           <p class="v2-section-kicker">Curriculum metabolism</p>
-          <h2>How the program unfolds over time</h2>
-          <p>
-            This view keeps the course list, but treats it as evidence inside a formation model: workload rhythm, autonomy, recovery, thesis pressure, and professional exit path.
-          </p>
+          <h2>${escapeHtml(school.name)}</h2>
+          <p>Course sequence as formation evidence: workload rhythm, autonomy, recovery, thesis pressure, and exit path.</p>
         </div>
-        <div class="v2-curriculum-profile">
-          ${renderMeter('Production load', profile.production, escapeHtml)}
-          ${renderMeter('Structure', profile.structure, escapeHtml)}
-          ${renderMeter('Teaching path', profile.teaching, escapeHtml)}
-          ${renderMeter('Theory / discourse load', profile.theory, escapeHtml)}
-        </div>
+        ${schoolPicker}
+      </section>
+
+      <section class="v2-curriculum-profile v2-curriculum-profile--standalone">
+        ${renderMeter('Production load', profile.production, escapeHtml)}
+        ${renderMeter('Structure', profile.structure, escapeHtml)}
+        ${renderMeter('Teaching path', profile.teaching, escapeHtml)}
+        ${renderMeter('Theory / discourse load', profile.theory, escapeHtml)}
       </section>
 
       <section class="v2-curriculum-timeline">
