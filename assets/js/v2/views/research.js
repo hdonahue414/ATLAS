@@ -1,5 +1,3 @@
-import { renderHeroCard } from '../components/hero-card.js';
-
 function asArray(value) {
   if (!value) return [];
   if (Array.isArray(value)) return value.filter(Boolean);
@@ -227,16 +225,16 @@ function topSummary(school, clusters) {
   const unresolved = asArray(school?.source_trace?.unresolved).length;
 
   const firstSentence = strongest
-    ? `${school.name} currently reads strongest through ${strongest}.`
-    : `${school.name} has enough structured evidence to support an interpretive dossier, but the signal hierarchy remains incomplete.`;
+    ? `${school.name} reads strongest through ${strongest}.`
+    : `${school.name} has enough structured evidence for an interpretive dossier, but the signal hierarchy remains incomplete.`;
 
   const secondSentence = weakest
-    ? `The most conditional layer is ${weakest}, where the evidence should stay open to revision.`
-    : 'The weakest layer is not yet clearly separated from the rest of the evidence base.';
+    ? `The conditional layer is ${weakest}; keep it open to revision.`
+    : 'The weakest layer is not yet clearly separated from the evidence base.';
 
   const thirdSentence = contradictions || unresolved
-    ? `The dossier preserves ${contradictions + unresolved} open tension${contradictions + unresolved === 1 ? '' : 's'} rather than converting uncertainty into false precision.`
-    : 'No major unresolved contradiction is currently recorded, though absence of contradiction is not the same as completeness.';
+    ? `${contradictions + unresolved} open tension${contradictions + unresolved === 1 ? '' : 's'} preserved.`
+    : 'No major unresolved contradiction recorded.';
 
   return `${firstSentence} ${secondSentence} ${thirdSentence}`;
 }
@@ -341,7 +339,6 @@ function renderSourceTrace(sourceTrace, escapeHtml) {
       <div class="v2-research-board-head">
         <p class="v2-section-kicker">Archive state</p>
         <h3>Evidence file</h3>
-        <p>What is confirmed, what is interpretive, what is forecast, and what still needs direct sourcing.</p>
       </div>
       <div class="v2-research-trace-grid">
         ${renderTraceColumn('verified', sourceTrace.verified, escapeHtml)}
@@ -442,7 +439,6 @@ function renderPublicTestimony(school, escapeHtml) {
       <div class="v2-research-board-head">
         <p class="v2-section-kicker">Public testimony</p>
         <h3>External signal layer</h3>
-        <p>Separated by source type so student testimony, institutional language, and external press do not collapse into the same evidentiary weight.</p>
       </div>
       <div class="v2-research-testimony-list">
         ${testimony.length ? testimony.map(item => `
@@ -471,14 +467,13 @@ export function renderResearchView(school, options = {}) {
 
   return `
     <div class="v2-research-view v2-production-view">
-      ${renderHeroCard(school, { escapeHtml, schoolPicker })}
-
-      <section class="v2-research-intel-summary">
+      <section class="v2-compact-context">
         <div>
           <p class="v2-section-kicker">Research dossier</p>
-          <h2>Evidence interpreted as institutional behavior</h2>
+          <h2>${escapeHtml(school.name)}</h2>
           <p>${escapeHtml(topSummary(school, clusters))}</p>
         </div>
+        ${schoolPicker}
       </section>
 
       <div class="v2-research-board-grid">
