@@ -1,6 +1,9 @@
+import { imageForPage } from '../core/image-resolver.js';
+
 export function renderHeroCard(school, options = {}) {
   const escapeHtml = options.escapeHtml;
   const schoolPicker = options.schoolPicker || '';
+  const page = options.page || 'programs';
 
   if (!school) {
     return '<p>No school selected.</p>';
@@ -10,7 +13,7 @@ export function renderHeroCard(school, options = {}) {
   const state = school.location?.state || '';
   const location = [city, state].filter(Boolean).join(', ');
   const energyProfile = school.location?.energy_profile || 'No energy profile available.';
-  const image = school.visual_identity?.photo_local || '';
+  const image = imageForPage(school, page);
   const accent = school.brand_colors?.accent || 'var(--atlas-accent)';
 
   return `
