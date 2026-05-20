@@ -37,6 +37,7 @@ export function renderProgramsView(school, options = {}) {
     <div class="v2-programs-view">
       ${renderHeroCard(school, {
         escapeHtml,
+        page: 'programs',
         schoolPicker: renderSchoolPicker(schools, selectedIndex, {
           escapeHtml
         })
