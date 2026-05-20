@@ -1,0 +1,257 @@
+/* ATLAS V2 analytical page fixes: remove landing-card feel and stabilize Compare layout. */
+
+.v2-compact-context,
+.v2-compare-tool-intro {
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+  padding: 0;
+  display: grid;
+  gap: 16px;
+}
+
+.v2-compact-context {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: end;
+  border-bottom: 1px solid rgba(255,255,255,0.075);
+  padding-bottom: 22px;
+}
+
+.v2-compact-context h2 {
+  margin: 6px 0 8px;
+  font-size: clamp(2rem, 3.2vw, 3.4rem);
+  line-height: 0.98;
+  letter-spacing: -0.065em;
+}
+
+.v2-compact-context p:last-child,
+.v2-compare-tool-intro p:last-child {
+  max-width: 860px;
+  margin: 0;
+  color: rgba(237,244,255,0.62);
+  line-height: 1.6;
+}
+
+.v2-inline-school-picker {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.v2-inline-school-picker button {
+  min-height: 36px;
+}
+
+.v2-practice-view,
+.v2-environment-view,
+.v2-research-view,
+.v2-curriculum-view,
+.v2-compare-view {
+  gap: 24px;
+}
+
+.v2-practice-lede,
+.v2-environment-lede,
+.v2-curriculum-thesis,
+.v2-compare-lede,
+.v2-research-intel-summary {
+  display: none !important;
+}
+
+/* Compare controls */
+.v2-compare-selector-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: end;
+  margin: -8px 0 8px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid rgba(255,255,255,0.075);
+}
+
+.v2-compare-selector {
+  display: grid;
+  gap: 7px;
+  min-width: min(280px, 100%);
+}
+
+.v2-compare-selector span {
+  color: rgba(157,231,215,0.75);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.v2-compare-selector select {
+  appearance: none;
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid rgba(157,231,215,0.22);
+  border-radius: 999px;
+  background:
+    linear-gradient(180deg, rgba(16,24,39,0.96), rgba(8,12,21,0.98));
+  color: rgba(237,244,255,0.9);
+  padding: 0 42px 0 16px;
+  font: inherit;
+  outline: none;
+}
+
+.v2-compare-selector::after {
+  content: '⌄';
+  justify-self: end;
+  margin-top: -38px;
+  margin-right: 16px;
+  pointer-events: none;
+  color: rgba(157,231,215,0.75);
+}
+
+.v2-compare-tool-intro {
+  margin-top: -4px;
+}
+
+.v2-compare-focused {
+  display: grid;
+  gap: 16px;
+}
+
+.v2-compare-focused-head,
+.v2-compare-section-head {
+  display: grid;
+  gap: 6px;
+}
+
+.v2-compare-focused-head h2,
+.v2-compare-section-head h3 {
+  margin: 0;
+  font-size: clamp(1.45rem, 2.3vw, 2.35rem);
+  line-height: 1;
+  letter-spacing: -0.055em;
+}
+
+.v2-compare-overview {
+  display: grid;
+  gap: 18px;
+}
+
+.v2-compare-school-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  gap: 14px;
+  min-width: 0;
+}
+
+.v2-compare-school-grid--focused {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.v2-compare-school-card {
+  min-height: 188px;
+  border-radius: 22px;
+}
+
+.v2-compare-school-grid--focused .v2-compare-school-card {
+  min-height: 230px;
+}
+
+.v2-compare-school-body {
+  padding: 18px;
+}
+
+.v2-compare-school-body h3 {
+  font-size: clamp(1.35rem, 2vw, 2rem);
+}
+
+.v2-compare-school-body strong {
+  font-size: clamp(2.2rem, 3vw, 3rem);
+}
+
+.v2-compare-table-card,
+.v2-compare-signal-card {
+  padding: 22px;
+  border-radius: 24px;
+}
+
+.v2-compare-table {
+  width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.v2-compare-row {
+  width: 100%;
+  min-width: 0;
+  grid-template-columns: minmax(170px, 0.9fr) repeat(var(--v2-compare-columns), minmax(110px, 1fr));
+  gap: 8px;
+}
+
+.v2-compare-header-row {
+  align-items: end;
+}
+
+.v2-compare-header-row div {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.v2-compare-row-label,
+.v2-compare-cell {
+  min-height: 54px;
+  border-radius: 14px;
+}
+
+.v2-compare-row-label {
+  padding: 0 14px;
+  font-size: 0.92rem;
+}
+
+.v2-compare-cell strong {
+  font-size: 1.05rem;
+}
+
+.v2-compare-cell span {
+  height: 3px;
+}
+
+.v2-compare-signal-grid {
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  gap: 14px;
+}
+
+@media (max-width: 900px) {
+  .v2-compact-context {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .v2-inline-school-picker {
+    justify-content: flex-start;
+  }
+
+  .v2-compare-school-grid--focused {
+    grid-template-columns: 1fr;
+  }
+
+  .v2-compare-row {
+    grid-template-columns: 150px repeat(var(--v2-compare-columns), minmax(96px, 1fr));
+    overflow-x: visible;
+  }
+}
+
+@media (max-width: 640px) {
+  .v2-compare-table {
+    overflow-x: auto;
+  }
+
+  .v2-compare-row {
+    min-width: 560px;
+  }
+
+  .v2-compare-selector {
+    min-width: 100%;
+  }
+}
